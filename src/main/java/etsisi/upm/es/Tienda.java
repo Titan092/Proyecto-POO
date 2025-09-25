@@ -3,7 +3,7 @@ package etsisi.upm.es;
 /**
  * Hello world!
  */
-public class App {
+public class Tienda {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
