@@ -1,5 +1,8 @@
 package etsisi.upm.es;
 
+import model.Ticket;
+import model.Product;
+
 import java.util.Scanner;
 
 public class CommandHandler {
@@ -12,6 +15,9 @@ public class CommandHandler {
 
     protected void start() {
         Scanner sc=new Scanner(System.in);
+
+        Ticket ticket = new Ticket();
+
 
         int numElements=0;
         boolean continuar=true;
