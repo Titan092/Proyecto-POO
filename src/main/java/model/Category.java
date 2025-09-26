@@ -1,4 +1,9 @@
 package model;
 
-public class Category {
+public enum Category {
+    MERCH,
+    PAPELERIA,
+    ROPA,
+    LIBRO,
+    ELECTRONICA,
 }
