@@ -16,6 +16,7 @@ public class ProductService {
         System.out.println("Catalog:");
         for (int i=0; i<products.length; i++){
             int productId = products[i].getId();
+            String
             {"class:Product, "+}
         }
     }

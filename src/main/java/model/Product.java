@@ -19,6 +19,15 @@ public class Product {
         return id;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+
+    public float getPrice() {
+        return price;
+    }
+
     public void prodAdd (int id, String name, Category category, float price){
 
     }
