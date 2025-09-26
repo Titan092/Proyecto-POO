@@ -16,8 +16,9 @@ public class ProductService {
         System.out.println("Catalog:");
         for (int i=0; i<products.length; i++){
             int productId = products[i].getId();
-            String name = products[i].get
-            {"class:Product, "+}
+            String name = products[i].getName(), category = products[i].getCategory().name();
+            float price = products[i].getPrice();
+            System.out.println("{class:Product, id:"+productId+", name:'"+name+"', category:"+category+", price:"+price+"}");
         }
     }
 }
