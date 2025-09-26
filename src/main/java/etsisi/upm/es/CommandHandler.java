@@ -15,11 +15,7 @@ public class CommandHandler {
 
     protected void start() {
         Scanner sc=new Scanner(System.in);
-
         Ticket ticket = new Ticket();
-
-
-        int numElements=0;
         boolean continuar=true;
         while(continuar){
             System.out.print("tUPM> ");
@@ -29,29 +25,37 @@ public class CommandHandler {
                 case "help":
                     printHelp();
                     break;
-                case "prod add":
-                    //Code1
+                case "prod":
+                    switch (comandoUni[1]){
+                        case "add":
+                            //Code
+                            break;
+                        case "list":
+                            //Code5
+                            break;
+                        case "update":
+                            //Code5
+                            break;
+                        case "remove":
+                            //Code5
+                            break;
+                    }
                     break;
-                case "prod list":
-                    //Code2
-                    break;
-                case "prod update":
-                    //Code3
-                    break;
-                case "prod remove":
-                    //Code4
-                    break;
-                case "ticket new":
-                    //Code5
-                    break;
-                case "ticket add":
-                    //Code6
-                    break;
-                case "ticket remove":
-                    //Code7
-                    break;
-                case "ticket print":
-                    //Code8
+                case "ticket":
+                    switch (comandoUni[1]){
+                        case "new":
+                            //Code
+                            break;
+                        case "add":
+                            //Code5
+                            break;
+                        case "remove":
+                            //Code5
+                            break;
+                        case "print":
+                            //Code5
+                            break;
+                    }
                     break;
                 case "echo":
                     //Code9
