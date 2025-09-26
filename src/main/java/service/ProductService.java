@@ -12,4 +12,11 @@ public class ProductService {
         this.numProductos = 0;
     }
 
+    public void ProductList(){
+        System.out.println("Catalog:");
+        for (int i=0; i<products.length; i++){
+            int productId = products[i].getId();
+            {"class:Product, "+}
+        }
+    }
 }
