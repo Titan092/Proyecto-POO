@@ -15,7 +15,7 @@ public class ProductService {
     public void ProductList(){
         System.out.println("Catalog:");
         for (int i=0; i<products.length; i++){
-            products[i].toString();
+            System.out.println(products[i].toString());
         }
     }
 }
