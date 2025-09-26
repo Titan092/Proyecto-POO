@@ -3,12 +3,12 @@ package model;
 public class Ticket {
 
     private Product[] ticketItems;
-    private final int MAXCANT=100;
+    private final int MAXAMOUNT =100;
     private int numProd;
 
 
     public Ticket(){
-        ticketItems=new Product[MAXCANT];
+        ticketItems=new Product[MAXAMOUNT];
         numProd=0;
     }
 
