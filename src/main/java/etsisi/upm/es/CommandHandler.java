@@ -15,6 +15,7 @@ public class CommandHandler {
 
     protected void start() {
         Scanner sc=new Scanner(System.in);
+        String errorMessage="There has been a typo error, please, try again";
         Ticket ticket = new Ticket();
         boolean continuar=true;
         while(continuar){
@@ -28,13 +29,19 @@ public class CommandHandler {
                 case "prod":
                     switch (comandoUni[1]){
                         case "add":
-                            //Code
+                            if(comandoUni.length==6){
+                                //Code
+                            } else System.out.println(errorMessage);
                             break;
                         case "list":
-                            //Code5
+                            if(comandoUni.length==2){
+                                //Code
+                            } else System.out.println(errorMessage);
                             break;
                         case "update":
-                            //Code5
+                            if(comandoUni.length==5){
+                                //Code
+                            } else System.out.println(errorMessage);
                             break;
                         case "remove":
                             //Code5
@@ -103,6 +110,8 @@ public class CommandHandler {
         System.out.println("Closing application.");
         System.out.println("Goodbye!");
     }
+
+
 
 
 
