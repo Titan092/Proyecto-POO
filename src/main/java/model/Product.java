@@ -15,6 +15,23 @@ public class Product {
         this.price = price;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public void prodAdd (int id, String name, Category category, float price){
 
     }
