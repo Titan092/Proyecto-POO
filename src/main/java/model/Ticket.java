@@ -2,10 +2,17 @@ package model;
 
 public class Ticket {
 
-    private int prodId;
-    private int cantidad;
+    private Product[] ticketItems;
+    private final int MAXCANT=100;
+    private int numProd;
 
-    public Ticket(int prodId, int cantidad){
+
+    public Ticket(){
+        ticketItems=new Product[MAXCANT];
+        numProd=0;
+    }
+
+    public void addProduct(Product prod, int cant){
 
     }
 }
