@@ -3,9 +3,9 @@ package model;
 public class Ticket {
 
     private int prodId;
-    private int cantidad;
+    private int amount;
 
-    public Ticket(int prodId, int cantidad){
+    public Ticket(int prodId, int amount){
 
     }
 }
