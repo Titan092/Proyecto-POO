@@ -7,6 +7,7 @@ public class Product {
     private Category category;
     private float price;
 
+
     Product (int id, String name, Category category, float price){
         this.id = id;
         this.name = name;

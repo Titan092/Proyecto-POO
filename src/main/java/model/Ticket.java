@@ -12,7 +12,7 @@ public class Ticket {
         numProd=0;
     }
 
-    public void addProduct(Product prod, int cant) {
+    public void addProduct(Product product, int amount) {
 
     }
 }
