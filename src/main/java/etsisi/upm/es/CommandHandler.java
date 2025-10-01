@@ -47,7 +47,7 @@ public class CommandHandler {
                     printHelp();
                     break;
                 case "prod":
-                    if(comandoUni.length>2){ //Si le has pasado argumentos
+                    if(comandoUni.length>=2){ //Si le has pasado argumentos
                         switch (comandoUni[1]){
                             case "add":
                                 // prod add <id> "<nombre>" <categoria> <precio>
