@@ -11,6 +11,14 @@ import java.util.regex.Pattern;
 
 public class CommandHandler {
 
+    //Explicación de las expresiones regulares usadas:
+    // ^ indica el inicio de la cadena
+    // $ indica el final de la cadena
+    // String: ".+" (uno o más caracteres), "[a-zA-Z]+" (solo letras)
+    //int: "\d+" (uno o más dígitos)
+    //float: "\d+\.\d+" (número con decimales, ej: 12.34)
+    //boolean: "true|false"
+
     private ProductService productService;
     private Ticket ticket;
     //Error message constant
