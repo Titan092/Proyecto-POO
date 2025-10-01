@@ -47,14 +47,20 @@ public class ProductService {
         if (products[id] == null || id<0 || id>=products.length) {
             System.out.println("Error, la id introducida no es válida");
         }else{
-            switch (field.toLowerCase()){
-                case "name":
+            switch (field.toUpperCase()){
+                case "NAME":
                     products[id].setName(value);
                     break;
-                case "category":
-                    //products[id].setCategory();
+                case "CATEGORY":
+                    try {
+                        Category categoryNew = Category.valueOf(value.toUpperCase());
+                        products[id].setCategory(categoryNew);
+                        System.out.println("Categoría actualizada correctamente.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Categoría no válida. Valores permitidos: "+Category.values());
+                    }
                     break;
-                case "price":
+                case "PRICE":
                     float PriceValue = Float.parseFloat(value);
                     products[id].setPrice(PriceValue);
                     break;
