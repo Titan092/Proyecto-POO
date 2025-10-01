@@ -1,5 +1,6 @@
 package etsisi.upm.es;
 
+import model.Category;
 import model.Ticket;
 import model.Product;
 
@@ -29,8 +30,12 @@ public class CommandHandler {
                 case "prod":
                     switch (comandoUni[1]){
                         case "add":
-                            if(comandoUni.length==6){
-                                //Code
+                            if(comandoUni.length>=6){
+                                String[] parts=comando.split("\"");
+                                String[] extra=parts[2].split(" ");
+                                Category category=Category.valueOf(extra[0]);
+                                Product product=new Product(Integer.parseInt(comandoUni[2]), parts[1], category, Float.parseFloat(extra[1]));
+                                //Add to the ProductService object
                             } else System.out.println(errorMessage);
                             break;
                         case "list":
@@ -102,6 +107,10 @@ public class CommandHandler {
     private void unknownCommand() {
         System.out.println("Your command is not contemplated.");
         System.out.println("Type \"help\" for the command guide");
+    }
+
+    private void echo(Scanner sc){
+
     }
 
 

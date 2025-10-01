@@ -8,7 +8,7 @@ public class Product {
     private float price;
 
 
-    Product (int id, String name, Category category, float price){
+    public Product (int id, String name, Category category, float price){
         this.id = id;
         this.name = name;
         this.category = category;
