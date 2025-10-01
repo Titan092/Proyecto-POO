@@ -70,7 +70,7 @@ public class CommandHandler {
                     }
                     break;
                 case "echo":
-                    //Code9
+                    echo(comandoUni[1]);
                     break;
                 case "exit":
                     continuar = false;
@@ -109,8 +109,8 @@ public class CommandHandler {
         System.out.println("Type \"help\" for the command guide");
     }
 
-    private void echo(Scanner sc){
-
+    private void echo(String message){
+        System.out.println(message);
     }
 
 
