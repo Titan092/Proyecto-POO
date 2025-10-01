@@ -10,9 +10,11 @@ public class CommandHandler {
 
     private  final String ERRORMESSAGE="There has been a typo error, please, try again";
     private Ticket ticket;
+
+
     protected void init() {
         System.out.println("Ticket module. Type 'help' to see commands.");
-        ticket=new Ticket();
+        ticket=new Ticket();//Initialize the Ticket object
     }
 
 
