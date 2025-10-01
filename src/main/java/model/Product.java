@@ -37,9 +37,9 @@ public class Product {
         return "{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+price+"}";
     }
 
-    public void prodAdd (int id, String name, Category category, float price){
 
-    }
+
+
 
 
 }

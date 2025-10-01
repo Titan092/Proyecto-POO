@@ -36,6 +36,7 @@ public class CommandHandler {
                                 Category category=Category.valueOf(extra[0]);
                                 Product product=new Product(Integer.parseInt(comandoUni[2]), parts[1], category, Float.parseFloat(extra[1]));
                                 //Add to the ProductService object
+
                             } else System.out.println(errorMessage);
                             break;
                         case "list":
@@ -119,9 +120,5 @@ public class CommandHandler {
         System.out.println("Closing application.");
         System.out.println("Goodbye!");
     }
-
-
-
-
 
 }
