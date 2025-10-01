@@ -43,6 +43,28 @@ public class ProductService {
         }
     }
 
+    public void productUpdate (int id, String field, String value){
+        if (products[id] == null || id<0 || id>=products.length) {
+            System.out.println("Error, la id introducida no es válida");
+        }else{
+            switch (field.toLowerCase()){
+                case "name":
+                    products[id].setName(value);
+                    break;
+                case "category":
+                    //products[id].setCategory();
+                    break;
+                case "price":
+                    float PriceValue = Float.parseFloat(value);
+                    products[id].setPrice(PriceValue);
+                    break;
+                default:
+                    System.out.println("Error al introducir el campo a actualizar");
+                    break;
+            }
+        }
+    }
+
     public Product[] getProducts() {
         return products;
     }

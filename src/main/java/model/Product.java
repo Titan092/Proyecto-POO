@@ -32,6 +32,22 @@ public class Product {
         return name;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+price+"}";
