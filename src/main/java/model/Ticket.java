@@ -1,5 +1,7 @@
 package model;
 
+import service.ProductService;
+
 public class Ticket {
 
     private Product[] ticketItems;
@@ -12,7 +14,13 @@ public class Ticket {
         numProd=0;
     }
 
-    public void addProduct(Product product, int amount) {
+    public void addProductToTicket(int id, int amount) {
 
+    }
+
+    public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
+        for (int i=0; i<ticketItems.length; i++){
+            System.out.println(ticketItems[i].toString()+"**discount -"+discount);
+        }
     }
 }
