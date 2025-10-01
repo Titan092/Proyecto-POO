@@ -52,7 +52,7 @@ public class CommandHandler {
                             case "add":
                                 // prod add <id> "<nombre>" <categoria> <precio>
                                 try{
-                                    Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (\\w+) ([\\d.]+)$");
+                                    Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
                                     Matcher matcher = pattern.matcher(comando);
                                     if (matcher.matches()) {
                                         int id = Integer.parseInt(matcher.group(1));
