@@ -114,7 +114,7 @@ public class CommandHandler {
     }
 
     private void echo(String message){
-        System.out.println(message);
+        System.out.println("echo "+message);
     }
 
 
