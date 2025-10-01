@@ -35,29 +35,41 @@ public class Ticket {
 
     /*
     public void ticketRemoveTest(int id){
+        boolean found = false;
         for (int i=0; i<ticketItems.length;i++){
             if (ticketItems[i].getId() == id){
                 ticketItems[i] = null; //Los coincidentes se ponen a null
+                found = true; //ID valida
             }
         }
-        Product [] ticketItemsAux = new Product[MAXAMOUNT];
-        int j = 0; //Contador de posicion para el array auxiliar
-        for (int i=0; i<ticketItemsAux.length;i++){
-            if (ticketItems[i] != null){ //Solo se guardarán los productos que no sea null, es decir reinicia el array quitando los productos borrados (null)
-                ticketItemsAux[j] = ticketItems[i];
-                j++;
+        if (!found){
+            System.out.println("La id del producto no es válida, ya que no existe en el ticket");
+        }else{
+            Product [] ticketItemsAux = new Product[MAXAMOUNT];
+            int j = 0; //Contador de posicion para el array auxiliar
+            for (int i=0; i<ticketItemsAux.length;i++){
+                if (ticketItems[i] != null){ //Solo se guardarán los productos que no sea null, es decir reinicia el array quitando los productos borrados (null)
+                    ticketItemsAux[j] = ticketItems[i];
+                    j++;
+                }
             }
+            ticketItems = ticketItemsAux; //Copia el array auxiliar donde esta ya todo ordenado, al array original donde queda todo ordenado habiendo eliminado el producto indicado
         }
-        ticketItems = ticketItemsAux; //Copia el array auxiliar donde esta ya todo ordenado, al array original donde queda todo ordenado habiendo eliminado el producto indicado
-    }
 
-     */
+    }
+    */
+
 
     public void ticketRemove(int id){
+        boolean found = false;
         for (int i=0; i<ticketItems.length;i++){
             if (ticketItems[i].getId() == id){
                 ticketItems[i] = null; //De momento lo dejamos a null, tendriamos que ver como hacerlo, si desplazarlo o con una lista, hashmap,etc
+                found = true;
             }
+        }
+        if (!found){
+            System.out.println("La id del producto no es válida, ya que no existe en el ticket");
         }
     }
 }
