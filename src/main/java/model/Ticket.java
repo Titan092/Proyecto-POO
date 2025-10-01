@@ -33,6 +33,26 @@ public class Ticket {
         System.out.println("ticket new: ok");
     }
 
+    /*
+    public void ticketRemoveTest(int id){
+        for (int i=0; i<ticketItems.length;i++){
+            if (ticketItems[i].getId() == id){
+                ticketItems[i] = null; //Los coincidentes se ponen a null
+            }
+        }
+        Product [] ticketItemsAux = new Product[MAXAMOUNT];
+        int j = 0; //Contador de posicion para el array auxiliar
+        for (int i=0; i<ticketItemsAux.length;i++){
+            if (ticketItems[i] != null){ //Solo se guardarán los productos que no sea null, es decir reinicia el array quitando los productos borrados (null)
+                ticketItemsAux[j] = ticketItems[i];
+                j++;
+            }
+        }
+        ticketItems = ticketItemsAux; //Copia el array auxiliar donde esta ya todo ordenado, al array original donde queda todo ordenado habiendo eliminado el producto indicado
+    }
+
+     */
+
     public void ticketRemove(int id){
         for (int i=0; i<ticketItems.length;i++){
             if (ticketItems[i].getId() == id){
