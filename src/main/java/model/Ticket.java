@@ -26,4 +26,10 @@ public class Ticket {
             System.out.println(ticketItems[i].toString()+"**discount -"+discount);
         }
     }
+
+    public void ticketNew(){
+        this.ticketItems = new Product[MAXAMOUNT];//Elimina el objeto y crea uno nuevo
+        this.numProd = 0; //Reinicia el numero de productos
+        System.out.println("ticket new: ok");
+    }
 }
