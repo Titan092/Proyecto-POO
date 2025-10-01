@@ -3,19 +3,20 @@ package etsisi.upm.es;
 import model.Category;
 import model.Ticket;
 import model.Product;
+import service.ProductService;
 
 import java.util.Scanner;
 
 public class CommandHandler {
 
-    //private ProductService productService;
+    private ProductService productService;
     private Ticket ticket;
     private final String ERRORMESSAGE="There has been a typo error, please, try again";
 
     protected void init() {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
-        //productService=new ProductService();
+        productService=new ProductService();
         ticket=new Ticket();
     }
 
@@ -38,13 +39,12 @@ public class CommandHandler {
                                 String[] parts=comando.split("\"");
                                 String[] extra=parts[2].split(" ");
                                 Category category=Category.valueOf(extra[0]);
-                                Product product=new Product(Integer.parseInt(comandoUni[2]), parts[1], category, Float.parseFloat(extra[1]));
-                                //Add to the ProductService object
+                                productService.prodAdd(Integer.parseInt(comandoUni[2]),parts[1], category, Float.parseFloat(extra[1]));
                             } else System.out.println(ERRORMESSAGE);
                             break;
                         case "list":
                             if(comandoUni.length==2){
-                                //Call to the ProductService object to list products
+                                productService.ProductList();
                             } else System.out.println(ERRORMESSAGE);
                             break;
                         case "update":
