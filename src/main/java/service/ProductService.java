@@ -29,6 +29,20 @@ public class ProductService {
         }
     }
 
+    public void productRemove (int id){
+        if (products[id] == null){
+            System.out.println("Error, la id introducida no es válida, ya que no existe un producto con esa id");
+        }else{
+            System.out.println(products[id].toString());
+            products[id] = null;
+            for (int i=id+1;i<products.length;i++){
+                products[i] = products[i-1];
+            }
+            products[products.length-1] = null; //El ultimo lo habiamos desplazado a la izquierda por lo que queda duplicado, por lo que hay que borrar este ultimo
+            System.out.println("prod remove: ok");
+        }
+    }
+
     public Product[] getProducts() {
         return products;
     }
