@@ -68,6 +68,8 @@ public class ProductService {
                     System.out.println("Error al introducir el campo a actualizar");
                     break;
             }
+            System.out.println(products[id].toString());
+            System.out.println("prod update: ok");
         }
     }
 
