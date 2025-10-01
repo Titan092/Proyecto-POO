@@ -19,7 +19,6 @@ public class CommandHandler {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
         productService=new ProductService();
-        ticket=new Ticket();
     }
 
 
@@ -51,38 +50,72 @@ public class CommandHandler {
                             }
                             break;
                         case "list":
+                            //prod list
                             if(comandoUni.length==2){
                                 productService.ProductList();
                             } else System.out.println(ERRORMESSAGE);
                             break;
                         case "update":
-                            if(comandoUni.length==5){
-                                //Call to the ProductService object to update a product
-                            } else System.out.println(ERRORMESSAGE);
+                            // prod update <id> NAME|CATEGORY|PRICE <value>
+                            Pattern patternUpdate = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
+                            Matcher matcherUpdate = patternUpdate.matcher(comando);
+                            if (matcherUpdate.matches()) {
+                                int id = Integer.parseInt(matcherUpdate.group(1));
+                                String field = matcherUpdate.group(2);
+                                String value = matcherUpdate.group(3);
+                                productService.productUpdate(id, field, value);
+                            } else {
+                                System.out.println(ERRORMESSAGE);
+                            }
+
                             break;
                         case "remove":
-                            //Call to the ProductService object to remove a product
+                            // prod remove <id>
+                            if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
+                                int id = Integer.parseInt(comandoUni[2]);
+                                productService.productRemove(id);
+                            } else System.out.println(ERRORMESSAGE);
                             break;
                     }
                     break;
                 case "ticket":
                     switch (comandoUni[1]){
                         case "new":
-                            //Create new ticket
+                            //ticket new
+                            ticket=new Ticket();
                             break;
                         case "add":
-                            //Add product to the ticket
+                            //ticket add <prodId> <quantity>
+                            Pattern patternAdd = Pattern.compile("^ticket add (\\d+) (\\d+)$");
+                            Matcher matcherAdd = patternAdd.matcher(comando);
+                            if (matcherAdd.matches()) {
+                                int prodId = Integer.parseInt(matcherAdd.group(1));
+                                int quantity = Integer.parseInt(matcherAdd.group(2));
+                                ticket.addProductToTicket(prodId, quantity, productService);
+                            } else {
+                                System.out.println(ERRORMESSAGE);
+                            }
                             break;
                         case "remove":
-                            //Remove product from the ticket
+                            //ticket remove <prodId>
+                            if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
+                                int prodId = Integer.parseInt(comandoUni[2]);
+                                ticket.ticketRemove(prodId);
+                            } else System.out.println(ERRORMESSAGE);
                             break;
                         case "print":
-                            //Print the ticket
+                            //ticket print
+                            //discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
+                            if(comandoUni.length==2){
+                                //Función para calcular el descuento
+                                float discount = 0.0f;
+                                ticket.printTicket(discount);
+                            } else System.out.println(ERRORMESSAGE);
                             break;
                     }
                     break;
                 case "echo":
-                    echo(comandoUni[1]);
+                    echo(comando);
                     break;
                 case "exit":
                     continuar = false;
@@ -122,7 +155,7 @@ public class CommandHandler {
     }
 
     private void echo(String message){
-        System.out.println("echo "+message);
+        System.out.println(message);
     }
 
 

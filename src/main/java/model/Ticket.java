@@ -11,7 +11,8 @@ public class Ticket {
 
     public Ticket(){
         ticketItems=new Product[MAXAMOUNT];
-        numProd=0;
+        this.numProd=0;
+        System.out.println("ticket new: ok");
     }
 
     public void addProductToTicket(int id, int amount, ProductService productService) {
@@ -27,11 +28,7 @@ public class Ticket {
         }
     }
 
-    public void ticketNew(){
-        this.ticketItems = new Product[MAXAMOUNT];//Elimina el objeto y crea uno nuevo
-        this.numProd = 0; //Reinicia el numero de productos
-        System.out.println("ticket new: ok");
-    }
+    //He borrado ticket new ya que lo hace el constructor
 
     /*
     public void ticketRemoveTest(int id){
