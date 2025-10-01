@@ -8,16 +8,20 @@ import java.util.Scanner;
 
 public class CommandHandler {
 
+    //private ProductService productService;
+    private Ticket ticket;
+    private final String ERRORMESSAGE="There has been a typo error, please, try again";
+
     protected void init() {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
+        //productService=new ProductService();
+        ticket=new Ticket();
     }
 
 
     protected void start() {
         Scanner sc=new Scanner(System.in);
-        String errorMessage="There has been a typo error, please, try again";
-        Ticket ticket = new Ticket();
         boolean continuar=true;
         while(continuar){
             System.out.print("tUPM> ");
@@ -36,36 +40,36 @@ public class CommandHandler {
                                 Category category=Category.valueOf(extra[0]);
                                 Product product=new Product(Integer.parseInt(comandoUni[2]), parts[1], category, Float.parseFloat(extra[1]));
                                 //Add to the ProductService object
-                            } else System.out.println(errorMessage);
+                            } else System.out.println(ERRORMESSAGE);
                             break;
                         case "list":
                             if(comandoUni.length==2){
-                                //Code
-                            } else System.out.println(errorMessage);
+                                //Call to the ProductService object to list products
+                            } else System.out.println(ERRORMESSAGE);
                             break;
                         case "update":
                             if(comandoUni.length==5){
-                                //Code
-                            } else System.out.println(errorMessage);
+                                //Call to the ProductService object to update a product
+                            } else System.out.println(ERRORMESSAGE);
                             break;
                         case "remove":
-                            //Code5
+                            //Call to the ProductService object to remove a product
                             break;
                     }
                     break;
                 case "ticket":
                     switch (comandoUni[1]){
                         case "new":
-                            //Code
+                            //Create new ticket
                             break;
                         case "add":
-                            //Code5
+                            //Add product to the ticket
                             break;
                         case "remove":
-                            //Code5
+                            //Remove product from the ticket
                             break;
                         case "print":
-                            //Code5
+                            //Print the ticket
                             break;
                     }
                     break;
