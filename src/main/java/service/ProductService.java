@@ -1,5 +1,6 @@
 package service;
 
+import model.Category;
 import model.Product;
 
 public class ProductService {
@@ -17,5 +18,18 @@ public class ProductService {
         for (int i=0; i<products.length; i++){
             System.out.println(products[i].toString());
         }
+    }
+
+    public void prodAdd (int id, String name, Category category, float price){ //Hay que ver como cuadrarlo con el COmmadnHandler
+        if (products[id] != null){
+            System.out.println("Error, la id introducida ya existe para otro objeto");
+        }else{
+            Product product = new Product(id,name,category,price);
+            products[id] = product;
+        }
+    }
+
+    public Product[] getProducts() {
+        return products;
     }
 }

@@ -8,18 +8,16 @@ import java.util.Scanner;
 
 public class CommandHandler {
 
-    private  final String ERRORMESSAGE="There has been a typo error, please, try again";
-    private Ticket ticket;
-
-
     protected void init() {
+        System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
-        ticket=new Ticket();//Initialize the Ticket object
     }
 
 
     protected void start() {
         Scanner sc=new Scanner(System.in);
+        String errorMessage="There has been a typo error, please, try again";
+        Ticket ticket = new Ticket();
         boolean continuar=true;
         while(continuar){
             System.out.print("tUPM> ");
@@ -38,17 +36,17 @@ public class CommandHandler {
                                 Category category=Category.valueOf(extra[0]);
                                 Product product=new Product(Integer.parseInt(comandoUni[2]), parts[1], category, Float.parseFloat(extra[1]));
                                 //Add to the ProductService object
-                            } else System.out.println(ERRORMESSAGE);
+                            } else System.out.println(errorMessage);
                             break;
                         case "list":
                             if(comandoUni.length==2){
-                                //Call the ProductService object
-                            } else System.out.println(ERRORMESSAGE);
+                                //Code
+                            } else System.out.println(errorMessage);
                             break;
                         case "update":
                             if(comandoUni.length==5){
                                 //Code
-                            } else System.out.println(ERRORMESSAGE);
+                            } else System.out.println(errorMessage);
                             break;
                         case "remove":
                             //Code5
