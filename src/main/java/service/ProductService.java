@@ -13,7 +13,7 @@ public class ProductService {
         this.numProductos = 0;
     }
 
-    public void ProductList(){
+    public void productList(){
         System.out.println("Catalog:");
         for (int i=0; i<products.length; i++){
             System.out.println(products[i].toString());
@@ -24,7 +24,7 @@ public class ProductService {
         if (products[id] != null){
             System.out.println("Error, la id introducida ya existe para otro objeto");
         }else{
-            Product product = new Product(id,name,category,price);
+            Product product = new Product(id,name,category,price);// Aquí se debería comprobar que el id y el precio son válidos (id positivo y dentro de rango, y precio positivo)
             products[id] = product;
         }
     }
