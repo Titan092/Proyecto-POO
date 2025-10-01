@@ -32,4 +32,12 @@ public class Ticket {
         this.numProd = 0; //Reinicia el numero de productos
         System.out.println("ticket new: ok");
     }
+
+    public void ticketRemove(int id){
+        for (int i=0; i<ticketItems.length;i++){
+            if (ticketItems[i].getId() == id){
+                ticketItems[i] = null; //De momento lo dejamos a null, tendriamos que ver como hacerlo, si desplazarlo o con una lista, hashmap,etc
+            }
+        }
+    }
 }
