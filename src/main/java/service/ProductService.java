@@ -30,8 +30,8 @@ public class ProductService {
     }
 
     public void productRemove (int id){
-        if (products[id] == null){
-            System.out.println("Error, la id introducida no es válida, ya que no existe un producto con esa id");
+        if (products[id] == null || id<0 || id>=products.length){
+            System.out.println("Error, la id introducida no es válida");
         }else{
             System.out.println(products[id].toString());
             products[id] = null;
