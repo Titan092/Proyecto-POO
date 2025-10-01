@@ -52,7 +52,6 @@ public class Ticket {
             }
             ticketItems = ticketItemsAux; //Copia el array auxiliar donde esta ya todo ordenado, al array original donde queda todo ordenado habiendo eliminado el producto indicado
         }
-
     }
     */
 
