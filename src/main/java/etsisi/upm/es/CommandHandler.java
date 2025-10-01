@@ -6,6 +6,8 @@ import model.Product;
 import service.ProductService;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommandHandler {
 
@@ -35,12 +37,18 @@ public class CommandHandler {
                 case "prod":
                     switch (comandoUni[1]){
                         case "add":
-                            if(comandoUni.length>=6){
-                                String[] parts=comando.split("\"");
-                                String[] extra=parts[2].split(" ");
-                                Category category=Category.valueOf(extra[0]);
-                                productService.prodAdd(Integer.parseInt(comandoUni[2]),parts[1], category, Float.parseFloat(extra[1]));
-                            } else System.out.println(ERRORMESSAGE);
+                            // prod add <id> "<nombre>" <categoria> <precio>
+                            Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (\\w+) ([\\d.]+)$");
+                            Matcher matcher = pattern.matcher(comando);
+                            if (matcher.matches()) {
+                                int id = Integer.parseInt(matcher.group(1));
+                                String nombre = matcher.group(2);
+                                Category categoria = Category.valueOf(matcher.group(3));
+                                float precio = Float.parseFloat(matcher.group(4));
+                                productService.prodAdd(id, nombre, categoria, precio);
+                            } else {
+                                System.out.println(ERRORMESSAGE);
+                            }
                             break;
                         case "list":
                             if(comandoUni.length==2){
@@ -90,7 +98,7 @@ public class CommandHandler {
     private void printHelp() {
         String SPACE="  ";
         System.out.println("Commands: ");
-        System.out.println(SPACE+"prod add <id>\"<name>\" <category> <price> ");
+        System.out.println(SPACE+"prod add <id> \"<name>\" <category> <price> ");
         System.out.println(SPACE+"prod list");
         System.out.println(SPACE+"prod update <id> NAME|CATEGORY|PRICE <value>");
         System.out.println(SPACE+"prod remove <id>");
