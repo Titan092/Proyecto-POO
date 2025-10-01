@@ -36,7 +36,7 @@ public class ProductService {
             System.out.println(products[id].toString());
             products[id] = null;
             for (int i=id+1;i<products.length;i++){
-                products[i] = products[i-1];
+                products[i-1] = products[i];
             }
             products[products.length-1] = null; //El ultimo lo habiamos desplazado a la izquierda por lo que queda duplicado, por lo que hay que borrar este ultimo
             System.out.println("prod remove: ok");
