@@ -13,6 +13,7 @@ public class ProductService {
         this.numProductos = 0;
     }
 
+    //Funciona, pero si queremos dejarlo mas bonito y que no recorra 200 veces el array todo el rato, pues tocara cambiarlo
     public void productList(){
         System.out.println("Catalog:");
         for (int i=0; i<products.length; i++){

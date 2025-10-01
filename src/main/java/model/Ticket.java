@@ -30,8 +30,8 @@ public class Ticket {
 
     //He borrado ticket new ya que lo hace el constructor
 
-    /*
-    public void ticketRemoveTest(int id){
+
+    public void ticketRemove(int id){
         boolean found = false;
         for (int i=0; i<ticketItems.length;i++){
             if (ticketItems[i].getId() == id){
@@ -43,7 +43,7 @@ public class Ticket {
             System.out.println("La id del producto no es válida, ya que no existe en el ticket");
         }else{
             Product [] ticketItemsAux = new Product[MAXAMOUNT];
-            int j = 0; //Contador de posicion para el array auxiliar
+            int j = 0; //Indicador de posicion para el array auxiliar
             for (int i=0; i<ticketItemsAux.length;i++){
                 if (ticketItems[i] != null){ //Solo se guardarán los productos que no sea null, es decir reinicia el array quitando los productos borrados (null)
                     ticketItemsAux[j] = ticketItems[i];
@@ -51,21 +51,11 @@ public class Ticket {
                 }
             }
             ticketItems = ticketItemsAux; //Copia el array auxiliar donde esta ya todo ordenado, al array original donde queda todo ordenado habiendo eliminado el producto indicado
+            ticketItemsAux = null; //Liberamos espacio de memoria conviritendo el auxiliar en null
         }
     }
-    */
 
-
-    public void ticketRemove(int id){
-        boolean found = false;
-        for (int i=0; i<ticketItems.length;i++){
-            if (ticketItems[i].getId() == id){
-                ticketItems[i] = null; //De momento lo dejamos a null, tendriamos que ver como hacerlo, si desplazarlo o con una lista, hashmap,etc
-                found = true;
-            }
-        }
-        if (!found){
-            System.out.println("La id del producto no es válida, ya que no existe en el ticket");
-        }
+    private int discount(Product [] ticketItems){
+        return 0;
     }
 }
