@@ -14,8 +14,11 @@ public class Ticket {
         numProd=0;
     }
 
-    public void addProductToTicket(int id, int amount) {
-
+    public void addProductToTicket(int id, int amount, ProductService productService) {
+        Product[] products = productService.getProducts();
+        for (int i=products.length; i<amount; i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
+            ticketItems[i] = products[id];
+        }
     }
 
     public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
