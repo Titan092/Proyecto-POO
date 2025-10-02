@@ -22,8 +22,9 @@ public class Ticket {
 
     public void addProductToTicket(int id, int amount, ProductService productService) {
         Product[] products = productService.getProducts();
-        for (int i=products.length; i<amount; i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
+        for (int i=numProd; i<numProd+amount; i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
             ticketItems[i] = products[id];
+            numProd++;
         }
     }
 
