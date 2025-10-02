@@ -42,9 +42,11 @@ public class Ticket {
     public void ticketRemove(int id){
         boolean found = false;
         for (int i=0; i<ticketItems.length;i++){
-            if (ticketItems[i].getId() == id){
-                ticketItems[i] = null; //Los coincidentes se ponen a null
-                found = true; //ID valida
+            if (ticketItems[i] != null) {
+                if (ticketItems[i].getId() == id) {
+                    ticketItems[i] = null; //Los coincidentes se ponen a null
+                    found = true; //ID valida
+                }
             }
         }
         if (!found){
