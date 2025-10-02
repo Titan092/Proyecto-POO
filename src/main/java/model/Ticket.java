@@ -65,7 +65,7 @@ public class Ticket {
 
     public float discount(Product [] ticketItems){
         float discount = 0, totalDiscount=0;
-        for (int i = 0; i<ticketItems.length; i++){
+        for (int i = 0; i<ticketItems.length; i++){ //Creo que dara IndexOutOfBound pero si pongo length -1 no se si suma el ultimo descuento del ultimo producto
             if (ticketItems[i] == ticketItems[i+1]){
                 discount = discountAux(ticketItems[i]);
                 totalDiscount+=discount;
