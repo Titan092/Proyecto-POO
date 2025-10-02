@@ -32,6 +32,7 @@ public class CommandHandler {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
         productService=new ProductService();
+        ticket=new Ticket();
     }
 
 
@@ -106,8 +107,8 @@ public class CommandHandler {
                     if(comandoUni.length>=2){
                         switch (comandoUni[1]){
                             case "new":
-                                //ticket new da error al ejecutarse
-                                ticket=new Ticket();
+                                //ticket new
+                                ticket.newTicket();
                                 break;
                             case "add":
                                 //ticket add <prodId> <quantity>

@@ -12,6 +12,11 @@ public class Ticket {
     public Ticket(){
         ticketItems=new Product[MAXAMOUNT];
         this.numProd=0;
+    }
+
+    public void newTicket(){
+        ticketItems=new Product[MAXAMOUNT];
+        this.numProd=0;
         System.out.println("ticket new: ok");
     }
 
