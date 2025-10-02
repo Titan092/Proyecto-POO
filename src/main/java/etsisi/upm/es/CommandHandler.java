@@ -103,7 +103,7 @@ public class CommandHandler {
                     }
                     break;
                 case "ticket":
-                    if(comandoUni.length>2){
+                    if(comandoUni.length>=2){
                         switch (comandoUni[1]){
                             case "new":
                                 //ticket new
