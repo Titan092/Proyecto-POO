@@ -25,6 +25,10 @@ public class AppTest {
         productService.prodAdd(1,"Libro POO",BOOK, 25);
         //Producto 2
         productService.prodAdd(2,"Camiseta talla:M UPM",CLOTHES,15);
+
+        //Producto 3
+        productService.prodAdd(3,"Libro POO repetido Error", BOOK, 25); //No hago test de este ya que se usara luego
+
         Product [] products = productService.getProducts();
 
         //Test producto 1
@@ -55,6 +59,15 @@ public class AppTest {
         assertEquals(product1ExpectedChange.getName(), products[1].getName());
         assertEquals(product1ExpectedChange.getCategory(), products[1].getCategory());
         assertEquals(product1ExpectedChange.getPrice(), products[1].getPrice(), 2);
+
+
+        assertTrue(products[3] != null); //comprobamos que existe el objeto error que vamos a eliminar
+        productService.productRemove(3);
+        assertTrue(products[3] == null); //ya no existe el objeto porque lo hemos borrado
+
+
+
+
     }
 
 
