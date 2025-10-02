@@ -106,7 +106,7 @@ public class CommandHandler {
                     if(comandoUni.length>=2){
                         switch (comandoUni[1]){
                             case "new":
-                                //ticket new
+                                //ticket new da error al ejecutarse
                                 ticket=new Ticket();
                                 break;
                             case "add":

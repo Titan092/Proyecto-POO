@@ -23,9 +23,17 @@ public class Ticket {
     }
 
     public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
+        float totalPrice=0, totalDiscount, finalPrice;
         for (int i=0; i<ticketItems.length; i++){
             System.out.println(ticketItems[i].toString()+"**discount -"+discount);
+            totalPrice+=ticketItems[i].getPrice();
         }
+        totalDiscount = discount(ticketItems);
+        finalPrice = totalPrice-totalDiscount;
+        System.out.println("Total price: "+totalPrice);
+        System.out.println("Total discount: "+totalDiscount);
+        System.out.println("Final Price: "+finalPrice);
+        System.out.println("ticket print: ok");
     }
 
     //He borrado ticket new ya que lo hace el constructor
@@ -55,7 +63,32 @@ public class Ticket {
         }
     }
 
-    private int discount(Product [] ticketItems){
-        return 0;
+    public float discount(Product [] ticketItems){
+        float discount = 0, totalDiscount=0;
+        for (int i = 0; i<ticketItems.length; i++){
+            if (ticketItems[i] == ticketItems[i+1]){
+                discount = discountAux(ticketItems[i]);
+                totalDiscount+=discount;
+            }
+        }
+        return totalDiscount;
+    }
+
+    private float discountAux(Product product){
+        float descuento=0, precio=product.getPrice();
+        if (product.getCategory() == Category.STATIONERY){
+            descuento = (float) (precio*(0.05));
+            return descuento;
+        } else if (product.getCategory() == Category.CLOTHES) {
+            descuento = (float) (precio*(0*07));
+            return descuento;
+        } else if (product.getCategory() == Category.BOOK) {
+            descuento = (float) (precio*(0*1));
+            return descuento;
+        } else if (product.getCategory() == Category.ELECTRONICS) {
+            descuento = (float) (precio*(0.03));
+            return descuento;
+        }else
+            return descuento; //devolvera 0 en el caso de MERCH
     }
 }
