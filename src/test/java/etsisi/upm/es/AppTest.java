@@ -83,6 +83,7 @@ public class AppTest {
         }
     }
 
+    @Test
     public void Test2(){
         try{
             FileInputStream file=new FileInputStream("input.txt");
@@ -100,6 +101,8 @@ public class AppTest {
             System.out.println("Error: "+e.getMessage());
         }
     }
+
+
 
 
 
