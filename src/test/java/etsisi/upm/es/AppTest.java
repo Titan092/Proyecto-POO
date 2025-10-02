@@ -4,6 +4,7 @@ import static model.Category.BOOK;
 import static model.Category.CLOTHES;
 import static org.junit.Assert.*;
 
+import model.Ticket;
 import org.junit.Test;
 import model.Product;
 import service.ProductService;
@@ -69,9 +70,17 @@ public class AppTest {
         productService.productRemove(3);
         assertTrue(products[3] == null); //ya no existe el objeto porque lo hemos borrado
 
-
-
-
+        Product[] ticketItems = new Product[100]; //100 es el max permitido
+        Product[] productItems = productService.getProducts();
+        for (int i = 0; i<2;i++){
+            ticketItems[i] = productItems[1];
+        }
+        for (int i=0; i<2;i++){
+            assertEquals(ticketItems[0].getId(),ticketItems[0].getId());
+            assertEquals(ticketItems[0].getPrice(),productItems[1].getPrice(),2);
+            assertEquals(ticketItems[0].getCategory(),productItems[1].getCategory());
+            assertEquals(ticketItems[0].getName(), productItems[1].getName());
+        }
     }
 
     public void Test2(){
