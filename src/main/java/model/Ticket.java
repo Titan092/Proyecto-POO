@@ -14,7 +14,6 @@ public class Ticket {
         this.numProd=0;
     }
 
-
     public void newTicket(){
         ticketItems=new Product[MAXAMOUNT];
         this.numProd=0;
@@ -22,9 +21,14 @@ public class Ticket {
     }
 
     public void addProductToTicket(int id, int amount, ProductService productService) {
-        Product[] products = productService.getProducts();//Falta hacer que no pueda añadir mas de 100 porque ahora mismo da error de IndexOutOfBounds
-        for (int i=numProd; i<numProd+amount; i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
-            ticketItems[i] = products[id];
+        //Añadir métodos de excepción
+        Product[] products = productService.getProducts(); //Falta hacer que no pueda añadir mas de 100 porque ahora mismo da error de IndexOutOfBounds
+        int availableCapacity = ticketItems.length - numProd;
+        if (availableCapacity <= 0) {
+            System.out.println("No hay espacio disponible en el ticket");
+        }
+        for (int i = 0; i < Math.min(amount, availableCapacity); i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
+            ticketItems[numProd] = products[id];
             numProd++;
         }
     }

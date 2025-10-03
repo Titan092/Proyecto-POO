@@ -199,6 +199,7 @@ public class CommandHandler {
         System.out.println("Type \"help\" for the command guide");
     }
 
+
     private void echo(String message){
         System.out.println(message);
     }
