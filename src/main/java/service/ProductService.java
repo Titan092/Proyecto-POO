@@ -16,10 +16,15 @@ public class ProductService {
     //Funciona, pero si queremos dejarlo mas bonito y que no recorra 200 veces el array todo el rato, pues tocara cambiarlo
     public void productList(){
         System.out.println("Catalog:");
-        for (int i=0; i<products.length; i++){
-            if (products[i] != null){
-                System.out.println(products[i].toString());
+        boolean foundNull = false;
+        int i = 0;
+        while (!foundNull && i < MAX_CANTIDAD) {
+            if (products[i] == null) {
+                foundNull = true;
+            } else {
+                System.out.println(products[i]);
             }
+            i++;
         }
     }
 
@@ -66,32 +71,39 @@ public class ProductService {
     }
 
     public void productUpdate (int id, String field, String value){
-        if (products[id] == null || id<0 || id>=products.length) {
-            System.out.println("Error, la id introducida no es válida");
-        }else{
-            switch (field.toUpperCase()){
-                case "NAME":
-                    products[id].setName(value);
-                    break;
-                case "CATEGORY":
-                    try {
-                        Category categoryNew = Category.valueOf(value.toUpperCase());
-                        products[id].setCategory(categoryNew);
-                        System.out.println("Categoría actualizada correctamente.");
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Categoría no válida. Valores permitidos: "+Category.values());
-                    }
-                    break;
-                case "PRICE":
-                    float PriceValue = Float.parseFloat(value);
-                    products[id].setPrice(PriceValue);
-                    break;
-                default:
-                    System.out.println("Error al introducir el campo a actualizar");
-                    break;
+        boolean encontrado = false;
+        int i = 0;
+        while (!encontrado && i < MAX_CANTIDAD) {
+            if (products[i] != null && products[i].getId() == id) {
+                switch (field.toUpperCase()) {
+                    case "NAME":
+                        products[i].setName(value);
+                        break;
+                    case "CATEGORY":
+                        try {
+                            Category categoryNew = Category.valueOf(value.toUpperCase());
+                            products[i].setCategory(categoryNew);
+                            System.out.println("Categoría actualizada correctamente.");
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Categoría no válida. Valores permitidos: "+Category.values());
+                        }
+                        break;
+                    case "PRICE":
+                        float priceValue = Float.parseFloat(value);
+                        products[i].setPrice(priceValue);
+                        break;
+                    default:
+                        System.out.println("Error al introducir el campo a actualizar");
+                        break;
+                }
+                System.out.println(products[id].toString());
+                System.out.println("prod update: ok");
+                encontrado = true;
             }
-            System.out.println(products[id].toString());
-            System.out.println("prod update: ok");
+            i++;
+        }
+        if (!encontrado) {
+            System.out.println("Error, la id introducida no es válida");
         }
     }
 
