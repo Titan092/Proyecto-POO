@@ -63,22 +63,6 @@ public class Ticket {
 
     }
 
-
-    public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
-        float totalPrice=0, totalDiscount, finalPrice;
-        for (int i=0; i<numProd; i++){
-            System.out.println(ticketItems[i].toString()+"**discount -"+discount);
-            totalPrice+=ticketItems[i].getPrice();
-        }
-        totalDiscount = discount(ticketItems);
-        finalPrice = totalPrice-totalDiscount;
-        System.out.println("Total price: "+totalPrice);
-        System.out.println("Total discount: "+totalDiscount);
-        System.out.println("Final Price: "+finalPrice);
-        System.out.println("ticket print: ok");
-    }
-
-
     public void ticketRemove(int id){
         boolean found = false;
         for (int i=0; i<ticketItems.length;i++){
@@ -105,13 +89,71 @@ public class Ticket {
         }
     }
 
+    public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
+        float totalPrice=0, totalDiscount, finalPrice;
+        totalDiscount = discount(ticketItems);
+        for (int i=0; i<numProd; i++){
+            totalPrice+=ticketItems[i].getPrice();
+        }
+        finalPrice = totalPrice-totalDiscount;
+        System.out.println("Total price: "+totalPrice);
+        System.out.println("Total discount: "+totalDiscount);
+        System.out.println("Final Price: "+finalPrice);
+        System.out.println("ticket print: ok");
+    }
+
     public float discount(Product [] ticketItems){
         float discount = 0f, totalDiscount=0f;
+        int contadorStationery = 0, contadorClothes = 0, contadorBook = 0, contadorElectronics = 0;
         for (int i = 0; i<numProd; i++){ //Creo que dara IndexOutOfBound pero si pongo length -1 no se si suma el ultimo descuento del ultimo producto
-            if (ticketItems[i] == ticketItems[i+1]){
-                discount = discountAux(ticketItems[i]);
-                totalDiscount+=discount;
+            switch (ticketItems[i].getCategory()){
+                case BOOK:
+                    contadorBook++;
+                    break;
+                case CLOTHES:
+                    contadorClothes++;
+                    break;
+                case STATIONERY:
+                    contadorStationery++;
+                    break;
+                case ELECTRONICS:
+                    contadorElectronics++;
+                    break;
             }
+        }
+        for (int j = 0; j<numProd; j++){
+
+            switch (ticketItems[j].getCategory()){
+                case BOOK:
+                    if (contadorBook>=2){
+                        discount = discountAux(ticketItems[j]);
+                        System.out.println(ticketItems[j].toString()+"**discount -"+discount);
+                    }else
+                        System.out.println(ticketItems[j].toString());
+                    break;
+                case CLOTHES:
+                    if (contadorClothes>=2){
+                        discount = discountAux(ticketItems[j]);
+                        System.out.println(ticketItems[j].toString()+"**discount -"+discount);
+                    }else
+                        System.out.println(ticketItems[j].toString());
+                    break;
+                case STATIONERY:
+                    if (contadorStationery>=2){
+                        discount = discountAux(ticketItems[j]);
+                        System.out.println(ticketItems[j].toString()+"**discount -"+discount);
+                    }else
+                        System.out.println(ticketItems[j].toString());
+                    break;
+                case ELECTRONICS:
+                    if (contadorElectronics>=2){
+                        discount = discountAux(ticketItems[j]);
+                        System.out.println(ticketItems[j].toString()+"**discount -"+discount);
+                    }else
+                        System.out.println(ticketItems[j].toString());
+                    break;
+            }
+            totalDiscount+=discount;
         }
         return totalDiscount;
     }
