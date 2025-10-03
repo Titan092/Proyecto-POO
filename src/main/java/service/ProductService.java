@@ -29,19 +29,21 @@ public class ProductService {
     }
 
     public void prodAdd (int id, String name, Category category, float price){ //Hay que ver como cuadrarlo con el COmmadnHandler
-        boolean introducido = false;
+        boolean terminar = false;
         int i = 0;
-        while (!introducido && i < MAX_CANTIDAD) {
+        while (!terminar && i < MAX_CANTIDAD) {
             if (products[i] != null && products[i].getId() == id) {
                 System.out.println("Error, la id introducida ya existe para otro objeto");
-                introducido = true;
-            }
-            if (products[i] == null) {
+                terminar = true;
+            } else if (products[i] == null) {
                 Product product = new Product(id, name, category, price);
                 products[i] = product;
-                introducido = true;
+                terminar = true;
             }
             i++;
+        }
+        if (!terminar) {
+            System.out.println("Error, excede el numero de productos permitidos");
         }
     }
 
