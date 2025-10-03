@@ -53,6 +53,7 @@ public class ProductService {
             int i = 0;
             while (!removed && i < MAX_CANTIDAD) {
                 if (products[i] != null && products[i].getId() == id) {
+                    System.out.println(products[i].toString());
                     products[i] = null;
                     removed = true;
                 }
