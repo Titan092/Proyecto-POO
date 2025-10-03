@@ -121,7 +121,7 @@ public class CommandHandler {
                 String nombre = matcher.group(2);
                 Category categoria = Category.valueOf(matcher.group(3).toUpperCase());
                 float precio = Float.parseFloat(matcher.group(4));
-                if(id>0)
+                if(id>=0)
                     productService.prodAdd(id, nombre, categoria, precio);
             } else {
                 System.out.println(ErrorMessageHandler.getERRORMESSAGE());
