@@ -89,7 +89,7 @@ public class Ticket {
         }
     }
 
-    public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
+    public void printTicket(){
         float totalPrice=0, totalDiscount, finalPrice;
         totalDiscount = discount(ticketItems);
         for (int i=0; i<numProd; i++){
