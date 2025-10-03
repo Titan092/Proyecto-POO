@@ -141,7 +141,7 @@ public class CommandHandler {
 
     private void prodUpdate(String comando){
         // prod update <id> NAME|CATEGORY|PRICE <value>
-        Pattern pattern = Pattern.compile("^prod update (\\d+) NAME|CATEGORY|PRICE|name|category|price (.+)$");
+        Pattern pattern = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
         Matcher matcher = pattern.matcher(comando);
         if(matcher.matches()){
             int id = Integer.parseInt(matcher.group(1));
