@@ -70,6 +70,7 @@ public class Ticket {
                 if (ticketItems[i].getId() == id) {
                     ticketItems[i] = null; //Los coincidentes se ponen a null
                     found = true; //ID valida
+                    numProd--;
                 }
             }
         }
@@ -122,7 +123,7 @@ public class Ticket {
             }
         }
         for (int j = 0; j<numProd; j++){
-
+            discount = 0f;
             switch (ticketItems[j].getCategory()){
                 case BOOK:
                     if (contadorBook>=2){

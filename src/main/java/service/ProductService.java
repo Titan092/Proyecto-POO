@@ -6,9 +6,11 @@ import model.Product;
 public class ProductService {
     private Product[] products;
     private final int MAX_CANTIDAD = 200;
+    private int numProducts;
 
     public ProductService() {
         this.products = new Product[MAX_CANTIDAD];
+        this.numProducts = 0;
     }
 
     //Funciona, pero si queremos dejarlo mas bonito y que no recorra 200 veces el array todo el rato, pues tocara cambiarlo
@@ -20,7 +22,7 @@ public class ProductService {
             if (products[i] == null) {
                 foundNull = true;
             } else {
-                System.out.println(products[i]);
+                System.out.println(products[i].toString());
             }
             i++;
         }
@@ -36,6 +38,7 @@ public class ProductService {
             } else if (products[i] == null) {
                 Product product = new Product(id, name, category, price);
                 products[i] = product;
+                numProducts++;
                 terminar = true;
             }
             i++;
@@ -51,7 +54,7 @@ public class ProductService {
         } else {
             boolean removed = false;
             int i = 0;
-            while (!removed && i < MAX_CANTIDAD) {
+            while (!removed && i <numProducts){
                 if (products[i] != null && products[i].getId() == id) {
                     System.out.println(products[i].toString());
                     products[i] = null;
@@ -59,15 +62,15 @@ public class ProductService {
                 }
                 i++;
             }
-            if (removed) {
-                for (int j = 1; j < MAX_CANTIDAD; j++) {
-                    products[j - 1] = products[j];
+            if (removed){
+                for (int j = i; j<numProducts; j++){
+                    products[j] = products[j+1];
                 }
-                products[MAX_CANTIDAD - 1] = null;
-
+                products[numProducts] = null; //Eliminamos el final ya que esta duplicado porque hemos desplazado todos uno a la izquierda a partir del elemento borrado
+                numProducts--;
                 System.out.println("prod remove: ok");
-            } else {
-                System.out.println("Error, la id introducida no es válida");
+            }else{
+                System.out.println("No se ha encontrado el producto con esa id, por ende, no ha sido borrado");
             }
         }
     }
