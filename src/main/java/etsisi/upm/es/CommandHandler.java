@@ -50,10 +50,10 @@ public class CommandHandler {
                     printHelp();
                     break;
                 case "prod":
-                    if(comandoUni.length>=2){ //Si le has pasado argumentos
+                    if(comandoUni.length>=2){ //If you have at least 2 words
                         switch (comandoUni[1]){
                             case "add":
-                                // prod add <id> "<nombre>" <categoria> <precio>
+                                // prod add <id> "<name>" <category> <price>
                                 prodAdd(comando);
                                 break;
                             case "list":
