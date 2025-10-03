@@ -31,6 +31,7 @@ public class Ticket {
             ticketItems[numProd] = products[id];
             numProd++;
         }
+
     }
 
     public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
