@@ -1,5 +1,6 @@
 package etsisi.upm.es;
 
+import exceptionHandler.ErrorMessageHandler;
 import model.Category;
 import model.Ticket;
 import service.ProductService;
@@ -17,13 +18,6 @@ public class CommandHandler {
     //int: "\d+" (uno o más dígitos)
     //float: "\d+\.\d+" (número con decimales, ej: 12.34)
     //boolean: "true|false"
-
-    //Error message constant
-    private final String ERRORMESSAGE = "There has been a typo error, please, try again";
-    private final String VALIDNUMBER = "The price must be a valid number.";
-    private final String VALIDCATEGORY = "Invalid category. Allowed values: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS";
-    private final String NOTENOUGHTCHARACTERS = "Not enough characters for the command.";
-    private final String WRONGID="The ID must be a non-negative integer.";
 
     //Command prompt constant
     private final String PROMPT = "tUPM> ";
@@ -72,7 +66,7 @@ public class CommandHandler {
                                 break;
                         }
                     } else {
-                        System.out.println(NOTENOUGHTCHARACTERS);
+                        System.out.println(ErrorMessageHandler.getNOTENOUGHTCHARACTERS());
                     }
                     break;
                 case "ticket":
@@ -97,7 +91,7 @@ public class CommandHandler {
                                 break;
                         }
                     } else {
-                        System.out.println(NOTENOUGHTCHARACTERS);
+                        System.out.println(ErrorMessageHandler.getNOTENOUGHTCHARACTERS());
                     }
                     break;
                 case "echo":
@@ -126,21 +120,21 @@ public class CommandHandler {
                 float precio = Float.parseFloat(matcher.group(4));
                 if (id >= 0)
                     productService.prodAdd(id, nombre, categoria, precio);
-                else System.out.println(WRONGID);
+                else System.out.println(ErrorMessageHandler.getWRONGID());
             } else {
-                System.out.println(ERRORMESSAGE);
+                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
             }
         } catch (NumberFormatException e) {
-            System.out.println(VALIDNUMBER);
+            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
         } catch (IllegalArgumentException e) {
-            System.out.println(VALIDCATEGORY);
+            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
         }
     }
 
     private void prodList(String[] comandoUni) {
         if (comandoUni.length == 2) {
             productService.productList();
-        } else System.out.println(ERRORMESSAGE);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
     private void prodUpdate(String comando) {
@@ -153,7 +147,7 @@ public class CommandHandler {
             String value = matcher.group(3);
             productService.productUpdate(id, field, value);
         } else {
-            System.out.println(ERRORMESSAGE);
+            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
         }
     }
 
@@ -161,7 +155,7 @@ public class CommandHandler {
         if (comandoUni.length == 3 && comandoUni[2].matches("\\d+")) {
             int id = Integer.parseInt(comandoUni[2]);
             productService.productRemove(id);
-        } else System.out.println(ERRORMESSAGE);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
     private void ticketAdd(String comando) {
@@ -174,12 +168,12 @@ public class CommandHandler {
                 int quantity = Integer.parseInt(matcher.group(2));
                 ticket.addProductToTicket(prodId, quantity, productService);
             } else {
-                System.out.println(ERRORMESSAGE);
+                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
             }
         } catch (NumberFormatException e) {
-            System.out.println(VALIDNUMBER);
+            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
         } catch (IllegalArgumentException e) {
-            System.out.println(VALIDCATEGORY);
+            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
         }
     }
 
@@ -187,7 +181,7 @@ public class CommandHandler {
         if (comandoUni.length == 3 && comandoUni[2].matches("\\d+")) {
             int prodId = Integer.parseInt(comandoUni[2]);
             ticket.ticketRemove(prodId);
-        } else System.out.println(ERRORMESSAGE);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
     private void ticketPrint(String[] comandoUni) {
@@ -195,7 +189,7 @@ public class CommandHandler {
             //Función para calcular el descuento
             float discount = 0.0f;
             ticket.printTicket(discount);
-        } else System.out.println(ERRORMESSAGE);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
 
