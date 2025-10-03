@@ -14,6 +14,7 @@ public class Ticket {
         this.numProd=0;
     }
 
+
     public void newTicket(){
         ticketItems=new Product[MAXAMOUNT];
         this.numProd=0;
@@ -28,15 +29,20 @@ public class Ticket {
             System.out.println("No hay espacio disponible en el ticket");
         }
         for (int i = 0; i < Math.min(amount, availableCapacity); i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
-            ticketItems[numProd] = products[id];
-            numProd++;
+            if (products[i] != null){
+                if (products[i].getId() == id){
+                    ticketItems[numProd] = products[id];
+                    numProd++;
+                }
+            }
         }
 
     }
 
+
     public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
         float totalPrice=0, totalDiscount, finalPrice;
-        for (int i=0; i<ticketItems.length; i++){
+        for (int i=0; i<numProd; i++){
             System.out.println(ticketItems[i].toString()+"**discount -"+discount);
             totalPrice+=ticketItems[i].getPrice();
         }
