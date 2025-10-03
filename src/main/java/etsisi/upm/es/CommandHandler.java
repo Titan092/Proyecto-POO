@@ -62,11 +62,11 @@ public class CommandHandler {
                                 break;
                             case "update":
                                 // prod update <id> NAME|CATEGORY|PRICE <value>
-                                prodUpdate(comandoUni);
+                                prodUpdate(comando);
                                 break;
                             case "remove":
                                 // prod remove <id>
-                                prodRemove(comandoUni);
+                                prodRemove(comando);
                                 break;
                         }
                     } else {
@@ -82,16 +82,16 @@ public class CommandHandler {
                                 break;
                             case "add":
                                 //ticket add <prodId> <quantity>
-                                ticketAdd(comandoUni);
+                                ticketAdd(comando);
                                 break;
                             case "remove":
                                 //ticket remove <prodId>
-                                ticketRemove(comandoUni);
+                                ticketRemove(comando);
                                 break;
                             case "print":
                                 //ticket print
                                 //discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
-                                ticketPrint(comandoUni);
+                                ticket.printTicket();
                                 break;
                         }
                     } else{
@@ -139,43 +139,57 @@ public class CommandHandler {
         } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
-    private void prodUpdate(String[] comandoUni){
-        if(comandoUni.length==5 && comandoUni[2].matches("\\d+") && (comandoUni[3].equalsIgnoreCase("NAME") || comandoUni[3].equalsIgnoreCase("CATEGORY") || comandoUni[3].equalsIgnoreCase("PRICE"))){
-            int id = Integer.parseInt(comandoUni[2]);
-            String field = comandoUni[3];
-            String value = comandoUni[4];
+    private void prodUpdate(String comando){
+        // prod update <id> NAME|CATEGORY|PRICE <value>
+        Pattern pattern = Pattern.compile("^prod update (\\d+) NAME|CATEGORY|PRICE|name|category|price (.+)$");
+        Matcher matcher = pattern.matcher(comando);
+        if(matcher.matches()){
+            int id = Integer.parseInt(matcher.group(1));
+            String field = matcher.group(2);
+            String value = matcher.group(3);
             productService.productUpdate(id, field, value);
-        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        } else {
+            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        }
     }
 
-    private void prodRemove(String[] comandoUni){
-        if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
-            int id = Integer.parseInt(comandoUni[2]);
+    private void prodRemove(String comando){
+        // prod remove <id>
+        Pattern pattern = Pattern.compile("^prod remove (\\d+)$");
+        Matcher matcher = pattern.matcher(comando);
+        if(matcher.matches()){
+            int id = Integer.parseInt(matcher.group(1));
             productService.productRemove(id);
-        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        } else {
+            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        }
     }
 
-    private void ticketAdd(String[] comandoUni){
-        if(comandoUni.length==4 && comandoUni[2].matches("\\d+") && comandoUni[3].matches("\\d+")){
-            int prodId = Integer.parseInt(comandoUni[2]);
-            int quantity = Integer.parseInt(comandoUni[3]);
-            ticket.addProductToTicket(prodId, quantity, productService);
-        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    private void ticketAdd(String comando){
+        //ticket add <prodId> <quantity>
+        Pattern pattern = Pattern.compile("^ticket add (\\d+) (\\d+)$");
+        Matcher matcher = pattern.matcher( comando);
+        if(matcher.matches()){
+            int prodId = Integer.parseInt(matcher.group(1));
+            int amount = Integer.parseInt(matcher.group(2));
+            ticket.addProductToTicket(prodId,amount, productService);
+        } else {
+            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        }
     }
 
-    private void ticketRemove(String[] comandoUni){
-        if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
-            int prodId = Integer.parseInt(comandoUni[2]);
+    private void ticketRemove(String comando){
+        //ticket remove <prodId>
+        Pattern pattern = Pattern.compile("^ticket remove (\\d+)$");
+        Matcher matcher = pattern.matcher(comando);
+        if(matcher.matches()){
+            int prodId = Integer.parseInt(matcher.group(1));
             ticket.ticketRemove(prodId);
-        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        } else {
+            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+        }
     }
 
-    private void ticketPrint(String[] comandoUni){
-        if(comandoUni.length==2){
-            //Función para calcular el descuento
-            ticket.printTicket();
-        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-    }
 
     private void printHelp() {
         String SPACE="  ";
