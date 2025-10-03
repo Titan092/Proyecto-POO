@@ -6,11 +6,9 @@ import model.Product;
 public class ProductService {
     private Product[] products;
     private final int MAX_CANTIDAD = 200;
-    private int numProductos;
 
     public ProductService() {
         this.products = new Product[MAX_CANTIDAD];
-        this.numProductos = 0;
     }
 
     //Funciona, pero si queremos dejarlo mas bonito y que no recorra 200 veces el array todo el rato, pues tocara cambiarlo
