@@ -14,6 +14,7 @@ public class Ticket {
         this.numProd=0;
     }
 
+
     public void newTicket(){
         ticketItems=new Product[MAXAMOUNT];
         this.numProd=0;

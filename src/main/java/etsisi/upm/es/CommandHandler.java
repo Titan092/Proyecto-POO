@@ -100,7 +100,6 @@ public class CommandHandler {
                         }
                     } else {
                         System.out.println(ERRORMESSAGE);
-                        break;
                     }
                     break;
                 case "ticket":
@@ -114,31 +113,29 @@ public class CommandHandler {
                                 //ticket add <prodId> <quantity>
                                 if(ticket==null){
                                     System.out.println(TICKETNULL);
-                                    break;
-                                }
-                                try{
-                                    Pattern patternAdd = Pattern.compile("^ticket add (\\d+) (\\d+)$");
-                                    Matcher matcherAdd = patternAdd.matcher(comando);
-                                    if (matcherAdd.matches()) {
-                                        int prodId = Integer.parseInt(matcherAdd.group(1));
-                                        int quantity = Integer.parseInt(matcherAdd.group(2));
-                                        ticket.addProductToTicket(prodId, quantity, productService);
-                                    } else {
-                                        System.out.println(ERRORMESSAGE);
+                                }else{
+                                    try{
+                                        Pattern patternAdd = Pattern.compile("^ticket add (\\d+) (\\d+)$");
+                                        Matcher matcherAdd = patternAdd.matcher(comando);
+                                        if (matcherAdd.matches()) {
+                                            int prodId = Integer.parseInt(matcherAdd.group(1));
+                                            int quantity = Integer.parseInt(matcherAdd.group(2));
+                                            ticket.addProductToTicket(prodId, quantity, productService);
+                                        } else {
+                                            System.out.println(ERRORMESSAGE);
+                                        }
+                                    }catch (NumberFormatException e) {
+                                        System.out.println(VALIDNUMBER);
+                                    }catch (IllegalArgumentException e) {
+                                        System.out.println(VALIDCATEGORY);
                                     }
-                                }catch (NumberFormatException e) {
-                                    System.out.println(VALIDNUMBER);
-                                }catch (IllegalArgumentException e) {
-                                    System.out.println(VALIDCATEGORY);
                                 }
                                 break;
                             case "remove":
                                 //ticket remove <prodId>
                                 if(ticket==null){
                                     System.out.println(TICKETNULL);
-                                    break;
-                                }
-                                if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
+                                } else if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
                                     int prodId = Integer.parseInt(comandoUni[2]);
                                     ticket.ticketRemove(prodId);
                                 } else System.out.println(ERRORMESSAGE);
@@ -146,8 +143,8 @@ public class CommandHandler {
                             case "print":
                                 if(ticket==null){
                                     System.out.println(TICKETNULL);
-                                    break;
-                                }
+
+                                }else
                                 //ticket print
                                 //discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
                                 if(comandoUni.length==2){
@@ -159,9 +156,7 @@ public class CommandHandler {
                         }
                     } else{
                         System.out.println(ERRORMESSAGE);
-                        break;
                     }
-
                     break;
                 case "echo":
                     echo(comando);
