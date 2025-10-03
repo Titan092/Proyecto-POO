@@ -22,8 +22,11 @@ public class Ticket {
     }
 
     public void addProductToTicket(int id, int amount, ProductService productService) {
+        if (id<0){
+            System.out.println("ID no valida");
+        }
         //Añadir métodos de excepción
-        Product[] products = productService.getProducts(); //Falta hacer que no pueda añadir mas de 100 porque ahora mismo da error de IndexOutOfBounds
+        Product[] products = productService.getProducts();
         int availableCapacity = ticketItems.length - numProd;
         if (availableCapacity <= 0) {
             System.out.println("No hay espacio disponible en el ticket");
@@ -36,6 +39,24 @@ public class Ticket {
                 }
             }
         }
+
+
+
+        /*Yo dejaria asi la funcion:
+
+        if (amount > availableCapacity){
+            System.out.println("No hay espacio disponible en el ticket para la cantidad de productos que desea añadir");
+        }else{
+            for (int i =0; i<amount;i++){
+                if (products[i] != null){
+                    if (products[i].getId() == id){
+                        ticketItems[numProd] = products[id];
+                        numProd++;
+                    }
+            }
+        }
+         */
+
 
     }
 
@@ -53,8 +74,6 @@ public class Ticket {
         System.out.println("Final Price: "+finalPrice);
         System.out.println("ticket print: ok");
     }
-
-    //He borrado ticket new ya que lo hace el constructor
 
 
     public void ticketRemove(int id){
@@ -95,20 +114,18 @@ public class Ticket {
     }
 
     private float discountAux(Product product){
-        float descuento=0, precio=product.getPrice();
-        if (product.getCategory() == Category.STATIONERY){
-            descuento = (float) (precio*(0.05));
-            return descuento;
-        } else if (product.getCategory() == Category.CLOTHES) {
-            descuento = (float) (precio*(0*07));
-            return descuento;
-        } else if (product.getCategory() == Category.BOOK) {
-            descuento = (float) (precio*(0*1));
-            return descuento;
-        } else if (product.getCategory() == Category.ELECTRONICS) {
-            descuento = (float) (precio*(0.03));
-            return descuento;
-        }else
-            return descuento; //devolvera 0 en el caso de MERCH
+        float precio = product.getPrice();
+        switch (product.getCategory()){
+            case STATIONERY:
+                return precio * 0.05f;
+            case CLOTHES:
+                return precio * 0.07f;
+            case BOOK:
+                return precio * 0.10f;
+            case ELECTRONICS:
+                return precio * 0.03f;
+            default: // MERCH y otros
+                return 0f;
+        }
     }
 }
