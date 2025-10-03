@@ -1,5 +1,6 @@
 package etsisi.upm.es;
 
+import exceptionHandler.ErrorMessageHandler;
 import model.Category;
 import model.Ticket;
 import model.Product;
@@ -8,6 +9,8 @@ import service.ProductService;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 public class CommandHandler {
 
@@ -21,12 +24,10 @@ public class CommandHandler {
 
     private ProductService productService;
     private Ticket ticket;
-    //Error message constant
-    private final String ERRORMESSAGE="There has been a typo error, please, try again";
+
+    //Prompt message
     private final String PROMPT="tUPM> ";
-    private final String VALIDNUMBER="The price must be a valid number.";
-    private final String VALIDCATEGORY="Invalid category. Allowed values: " + Category.values();
-    private final String TICKETNULL="You must create a new ticket first using 'ticket new'";
+
 
     protected void init() {
         System.out.println("Welcome to the ticket module App.");
@@ -53,54 +54,23 @@ public class CommandHandler {
                         switch (comandoUni[1]){
                             case "add":
                                 // prod add <id> "<nombre>" <categoria> <precio>
-                                try{
-                                    Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
-                                    Matcher matcher = pattern.matcher(comando);
-                                    if (matcher.matches()) {
-                                        int id = Integer.parseInt(matcher.group(1));
-                                        String nombre = matcher.group(2);
-                                        Category categoria = Category.valueOf(matcher.group(3).toUpperCase());
-                                        float precio = Float.parseFloat(matcher.group(4));
-                                        if(id>0)
-                                        productService.prodAdd(id, nombre, categoria, precio);
-                                    } else {
-                                        System.out.println(ERRORMESSAGE);
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.out.println(VALIDNUMBER);
-                                }catch (IllegalArgumentException e) {
-                                    System.out.println(VALIDCATEGORY);
-                                }
+                                prodAdd(comando);
                                 break;
                             case "list":
                                 //prod list
-                                if(comandoUni.length==2){
-                                    productService.productList();
-                                } else System.out.println(ERRORMESSAGE);
+                                prodList(comandoUni);
                                 break;
                             case "update":
                                 // prod update <id> NAME|CATEGORY|PRICE <value>
-                                Pattern patternUpdate = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
-                                Matcher matcherUpdate = patternUpdate.matcher(comando);
-                                if (matcherUpdate.matches()) {
-                                    int id = Integer.parseInt(matcherUpdate.group(1));
-                                    String field = matcherUpdate.group(2);
-                                    String value = matcherUpdate.group(3);
-                                    productService.productUpdate(id, field, value);
-                                } else {
-                                    System.out.println(ERRORMESSAGE);
-                                }
+                                prodUpdate(comandoUni);
                                 break;
                             case "remove":
                                 // prod remove <id>
-                                if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
-                                    int id = Integer.parseInt(comandoUni[2]);
-                                    productService.productRemove(id);
-                                } else System.out.println(ERRORMESSAGE);
+                                prodRemove(comandoUni);
                                 break;
                         }
                     } else {
-                        System.out.println(ERRORMESSAGE);
+                        System.out.println(ErrorMessageHandler.getERRORMESSAGE());
                     }
                     break;
                 case "ticket":
@@ -112,51 +82,20 @@ public class CommandHandler {
                                 break;
                             case "add":
                                 //ticket add <prodId> <quantity>
-                                if(ticket==null){
-                                    System.out.println(TICKETNULL);
-                                }else{
-                                    try{
-                                        Pattern patternAdd = Pattern.compile("^ticket add (\\d+) (\\d+)$");
-                                        Matcher matcherAdd = patternAdd.matcher(comando);
-                                        if (matcherAdd.matches()) {
-                                            int prodId = Integer.parseInt(matcherAdd.group(1));
-                                            int quantity = Integer.parseInt(matcherAdd.group(2));
-                                            ticket.addProductToTicket(prodId, quantity, productService);
-                                        } else {
-                                            System.out.println(ERRORMESSAGE);
-                                        }
-                                    }catch (NumberFormatException e) {
-                                        System.out.println(VALIDNUMBER);
-                                    }catch (IllegalArgumentException e) {
-                                        System.out.println(VALIDCATEGORY);
-                                    }
-                                }
+                                ticketAdd(comandoUni);
                                 break;
                             case "remove":
                                 //ticket remove <prodId>
-                                if(ticket==null){
-                                    System.out.println(TICKETNULL);
-                                } else if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
-                                    int prodId = Integer.parseInt(comandoUni[2]);
-                                    ticket.ticketRemove(prodId);
-                                } else System.out.println(ERRORMESSAGE);
+                                ticketRemove(comandoUni);
                                 break;
                             case "print":
-                                if(ticket==null){
-                                    System.out.println(TICKETNULL);
-
-                                }else
                                 //ticket print
                                 //discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
-                                if(comandoUni.length==2){
-                                    //Función para calcular el descuento
-                                    float discount = 0.0f;
-                                    ticket.printTicket(discount);
-                                } else System.out.println(ERRORMESSAGE);
+                                ticketPrint(comandoUni);
                                 break;
                         }
                     } else{
-                        System.out.println(ERRORMESSAGE);
+                        System.out.println(ErrorMessageHandler.getERRORMESSAGE());
                     }
                     break;
                 case "echo":
@@ -173,6 +112,71 @@ public class CommandHandler {
         sc.close();
     }
 
+    private void prodAdd(String comando){
+        try{
+            Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
+            Matcher matcher = pattern.matcher(comando);
+            if (matcher.matches()) {
+                int id = Integer.parseInt(matcher.group(1));
+                String nombre = matcher.group(2);
+                Category categoria = Category.valueOf(matcher.group(3).toUpperCase());
+                float precio = Float.parseFloat(matcher.group(4));
+                if(id>0)
+                    productService.prodAdd(id, nombre, categoria, precio);
+            } else {
+                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
+        }catch (IllegalArgumentException e) {
+            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
+        }
+    }
+
+    private void prodList(String[] comandoUni){
+        if(comandoUni.length==2){
+            productService.productList();
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    }
+
+    private void prodUpdate(String[] comandoUni){
+        if(comandoUni.length==5 && comandoUni[2].matches("\\d+") && (comandoUni[3].equalsIgnoreCase("NAME") || comandoUni[3].equalsIgnoreCase("CATEGORY") || comandoUni[3].equalsIgnoreCase("PRICE"))){
+            int id = Integer.parseInt(comandoUni[2]);
+            String field = comandoUni[3];
+            String value = comandoUni[4];
+            productService.productUpdate(id, field, value);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    }
+
+    private void prodRemove(String[] comandoUni){
+        if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
+            int id = Integer.parseInt(comandoUni[2]);
+            productService.productRemove(id);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    }
+
+    private void ticketAdd(String[] comandoUni){
+        if(comandoUni.length==4 && comandoUni[2].matches("\\d+") && comandoUni[3].matches("\\d+")){
+            int prodId = Integer.parseInt(comandoUni[2]);
+            int quantity = Integer.parseInt(comandoUni[3]);
+            ticket.addProductToTicket(prodId, quantity, productService);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    }
+
+    private void ticketRemove(String[] comandoUni){
+        if(comandoUni.length==3 && comandoUni[2].matches("\\d+")){
+            int prodId = Integer.parseInt(comandoUni[2]);
+            ticket.ticketRemove(prodId);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    }
+
+    private void ticketPrint(String[] comandoUni){
+        if(comandoUni.length==2){
+            //Función para calcular el descuento
+            float discount = 0.0f;
+            ticket.printTicket(discount);
+        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+    }
 
     private void printHelp() {
         String SPACE="  ";
