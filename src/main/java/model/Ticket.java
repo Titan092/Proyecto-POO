@@ -1,5 +1,6 @@
 package model;
 
+import exceptionHandler.ErrorMessageHandler;
 import service.ProductService;
 
 public class Ticket {
@@ -23,7 +24,7 @@ public class Ticket {
 
     public void addProductToTicket(int id, int amount, ProductService productService) {
         if (id<0){
-            System.out.println("ID no valida");
+            System.out.println(ErrorMessageHandler.getWRONGID());
         }
         //Añadir métodos de excepción (añadir excepcion si no encuentra el producto que toca añadir al ticket)
         Product[] products = productService.getProducts();
@@ -105,8 +106,8 @@ public class Ticket {
     }
 
     public float discount(Product [] ticketItems){
-        float discount = 0, totalDiscount=0;
-        for (int i = 0; i<ticketItems.length; i++){ //Creo que dara IndexOutOfBound pero si pongo length -1 no se si suma el ultimo descuento del ultimo producto
+        float discount = 0f, totalDiscount=0f;
+        for (int i = 0; i<numProd; i++){ //Creo que dara IndexOutOfBound pero si pongo length -1 no se si suma el ultimo descuento del ultimo producto
             if (ticketItems[i] == ticketItems[i+1]){
                 discount = discountAux(ticketItems[i]);
                 totalDiscount+=discount;
