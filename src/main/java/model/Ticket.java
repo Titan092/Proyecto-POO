@@ -22,16 +22,50 @@ public class Ticket {
     }
 
     public void addProductToTicket(int id, int amount, ProductService productService) {
-        Product[] products = productService.getProducts();//Falta hacer que no pueda añadir mas de 100 porque ahora mismo da error de IndexOutOfBounds
-        for (int i=numProd; i<numProd+amount; i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
-            ticketItems[i] = products[id];
-            numProd++;
+        if (id<0){
+            System.out.println("ID no valida");
         }
+        //Añadir métodos de excepción (añadir excepcion si no encuentra el producto que toca añadir al ticket)
+        Product[] products = productService.getProducts();
+        int availableCapacity = ticketItems.length - numProd;
+
+        //Yo dejaria asi la funcion:
+
+        if (amount > availableCapacity){
+            System.out.println("No hay espacio disponible en el ticket para la cantidad de productos que desea añadir, la capacidad que queda disponible es de: "+availableCapacity+" productos");
+        }else{
+            for (int i =0; i<products.length;i++){
+                if (products[i] != null){
+                    if (products[i].getId() == id){
+                        for (int j=0;j<amount;j++){
+                            ticketItems[numProd] = products[i];
+                            numProd++;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+        if (availableCapacity <= 0) {
+            System.out.println("No hay espacio disponible en el ticket");
+        }
+        for (int i = 0; i < Math.min(amount, availableCapacity); i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
+            if (products[i] != null){
+                if (products[i].getId() == id){
+                    ticketItems[numProd] = products[id];
+                    numProd++;
+                }
+            }
+        }
+        */
+
     }
+
 
     public void printTicket(float discount){ //Hay que ver como hacer lo de los descuentos
         float totalPrice=0, totalDiscount, finalPrice;
-        for (int i=0; i<ticketItems.length; i++){
+        for (int i=0; i<numProd; i++){
             System.out.println(ticketItems[i].toString()+"**discount -"+discount);
             totalPrice+=ticketItems[i].getPrice();
         }
@@ -42,8 +76,6 @@ public class Ticket {
         System.out.println("Final Price: "+finalPrice);
         System.out.println("ticket print: ok");
     }
-
-    //He borrado ticket new ya que lo hace el constructor
 
 
     public void ticketRemove(int id){
@@ -84,20 +116,18 @@ public class Ticket {
     }
 
     private float discountAux(Product product){
-        float descuento=0, precio=product.getPrice();
-        if (product.getCategory() == Category.STATIONERY){
-            descuento = (float) (precio*(0.05));
-            return descuento;
-        } else if (product.getCategory() == Category.CLOTHES) {
-            descuento = (float) (precio*(0*07));
-            return descuento;
-        } else if (product.getCategory() == Category.BOOK) {
-            descuento = (float) (precio*(0*1));
-            return descuento;
-        } else if (product.getCategory() == Category.ELECTRONICS) {
-            descuento = (float) (precio*(0.03));
-            return descuento;
-        }else
-            return descuento; //devolvera 0 en el caso de MERCH
+        float precio = product.getPrice();
+        switch (product.getCategory()){
+            case STATIONERY:
+                return precio * 0.05f;
+            case CLOTHES:
+                return precio * 0.07f;
+            case BOOK:
+                return precio * 0.10f;
+            case ELECTRONICS:
+                return precio * 0.03f;
+            default: // MERCH y otros
+                return 0f;
+        }
     }
 }

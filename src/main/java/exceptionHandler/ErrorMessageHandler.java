@@ -1,6 +1,7 @@
 package exceptionHandler;
 
 public class ErrorMessageHandler {
+
     //Error messages
     private static final String ERRORMESSAGE = "There has been a typo error, please, try again";
     private static final String VALIDNUMBER = "The price must be a valid number.";
@@ -23,4 +24,5 @@ public class ErrorMessageHandler {
     public static String getWRONGID() {
         return WRONGID;
     }
+
 }

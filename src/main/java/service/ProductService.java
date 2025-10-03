@@ -64,6 +64,7 @@ public class ProductService {
                     products[j - 1] = products[j];
                 }
                 products[MAX_CANTIDAD - 1] = null;
+
                 System.out.println("prod remove: ok");
             } else {
                 System.out.println("Error, la id introducida no es válida");
