@@ -21,7 +21,7 @@ public class CommandHandler {
     //Error message constant
     private final String ERRORMESSAGE = "There has been a typo error, please, try again";
     private final String VALIDNUMBER = "The price must be a valid number.";
-    private final String VALIDCATEGORY = "Invalid category. Allowed values: " + Category.values();
+    private final String VALIDCATEGORY = "Invalid category. Allowed values: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS";
     private final String NOTENOUGHTCHARACTERS = "Not enough characters for the command.";
     private final String WRONGID="The ID must be a non-negative integer.";
 
