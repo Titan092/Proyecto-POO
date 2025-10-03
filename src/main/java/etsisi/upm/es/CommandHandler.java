@@ -173,8 +173,7 @@ public class CommandHandler {
     private void ticketPrint(String[] comandoUni){
         if(comandoUni.length==2){
             //Función para calcular el descuento
-            float discount = 0.0f;
-            ticket.printTicket(discount);
+            ticket.printTicket();
         } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
