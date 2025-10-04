@@ -95,7 +95,7 @@ public class Ticket {
     }
 
     /**
-     *
+     * Prints a ticket.
      */
     public void printTicket(){
         float totalPrice=0, totalDiscount, finalPrice;
@@ -111,7 +111,9 @@ public class Ticket {
     }
 
     /**
+     * Calculates discount of all the products given.
      *
+     * If there are 2 or more products with the same category, this function applies a discount only for said category.
      * @param ticketItems
      * @return
      */

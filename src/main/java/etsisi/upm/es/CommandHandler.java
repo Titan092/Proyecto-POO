@@ -27,7 +27,9 @@ public class CommandHandler {
     //Prompt message
     private final String PROMPT="tUPM> ";
 
-
+    /**
+     * Initializes all required components of the shop.
+     */
     protected void init() {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
@@ -36,7 +38,9 @@ public class CommandHandler {
     }
 
 
-
+    /**
+     * Starts execution of the shop.
+     */
     protected void start() {
         Scanner sc=new Scanner(System.in);
         boolean continuar=true;
@@ -111,6 +115,10 @@ public class CommandHandler {
         sc.close();
     }
 
+    /**
+     * Command that adds a product to the productService
+     * @param comando
+     */
     private void prodAdd(String comando){
         try{
             Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
@@ -132,12 +140,20 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Command that prints all the products in productService
+     * @param comandoUni
+     */
     private void prodList(String[] comandoUni){
         if(comandoUni.length==2){
             productService.productList();
         } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
+    /**
+     * Command that updates and existing product in productService
+     * @param comando
+     */
     private void prodUpdate(String comando){
         // prod update <id> NAME|CATEGORY|PRICE <value>
         Pattern pattern = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
@@ -152,6 +168,10 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Command that removes a product in productService
+     * @param comando
+     */
     private void prodRemove(String comando){
         // prod remove <id>
         Pattern pattern = Pattern.compile("^prod remove (\\d+)$");
@@ -164,6 +184,10 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Command that adds an existing product to the ticket
+     * @param comando
+     */
     private void ticketAdd(String comando){
         //ticket add <prodId> <quantity>
         Pattern pattern = Pattern.compile("^ticket add (\\d+) (\\d+)$");
@@ -177,6 +201,10 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Command that removes a product from the ticket
+     * @param comando
+     */
     private void ticketRemove(String comando){
         //ticket remove <prodId>
         Pattern pattern = Pattern.compile("^ticket remove (\\d+)$");
@@ -189,7 +217,9 @@ public class CommandHandler {
         }
     }
 
-
+    /**
+     * Prints all available commands.
+     */
     private void printHelp() {
         String SPACE="  ";
         System.out.println("Commands: ");
@@ -210,18 +240,26 @@ public class CommandHandler {
     }
 
 
-
+    /**
+     * In case the user enters an unknown commands, prints a helpful message.
+     */
     private void unknownCommand() {
         System.out.println("Your command is not contemplated.");
         System.out.println("Type \"help\" for the command guide");
     }
 
+    /**
+     * Prints whatever the user had entered before.
+     * @param message
+     */
     private void echo(String message){
         System.out.println(message);
     }
 
 
-
+    /**
+     * Bye!
+     */
     protected void end() {
         System.out.println("Closing application.");
         System.out.println("Goodbye!");

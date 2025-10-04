@@ -56,7 +56,7 @@ public class ProductService {
     }
 
     /**
-     *
+     * Removes a product with a certain ID.
      * @param id
      */
     public void productRemove (int id) {
@@ -87,7 +87,7 @@ public class ProductService {
     }
 
     /**
-     *
+     *  Updates a product's name, category or price given its ID.
      * @param id
      * @param field
      * @param value
@@ -129,6 +129,10 @@ public class ProductService {
         }
     }
 
+    /**
+     * Get the list of products.
+     * @return The list of products.
+     */
     public Product[] getProducts() {
         return products;
     }
