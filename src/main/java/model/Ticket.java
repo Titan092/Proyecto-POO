@@ -10,18 +10,30 @@ public class Ticket {
     private int numProd;
 
 
+    /**
+     *Ticket Constructor
+     */
     public Ticket(){
         ticketItems=new Product[MAXAMOUNT];
         this.numProd=0;
     }
 
 
+    /**
+     *This method resets the ticket status
+     */
     public void newTicket(){
         ticketItems=new Product[MAXAMOUNT];
         this.numProd=0;
         System.out.println("ticket new: ok");
     }
 
+    /**
+     * This method adds an amount of the indicated product with its id passed as a parameter
+     * @param id
+     * @param amount
+     * @param productService
+     */
     public void addProductToTicket(int id, int amount, ProductService productService) {
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
@@ -63,6 +75,9 @@ public class Ticket {
 
     }
 
+    /**
+     * @param id
+     */
     public void ticketRemove(int id){
         boolean found = false;
         for (int i=0; i<ticketItems.length;i++){
@@ -90,6 +105,9 @@ public class Ticket {
         }
     }
 
+    /**
+     *
+     */
     public void printTicket(){
         float totalPrice=0, totalDiscount, finalPrice;
         totalDiscount = discount(ticketItems);
@@ -103,6 +121,10 @@ public class Ticket {
         System.out.println("ticket print: ok");
     }
 
+    /**
+     * @param ticketItems
+     * @return
+     */
     public float discount(Product [] ticketItems){
         float discount = 0f, totalDiscount=0f;
         int contadorStationery = 0, contadorClothes = 0, contadorBook = 0, contadorElectronics = 0;
@@ -159,6 +181,10 @@ public class Ticket {
         return totalDiscount;
     }
 
+    /**
+     * @param product
+     * @return
+     */
     private float discountAux(Product product){
         float precio = product.getPrice();
         switch (product.getCategory()){
