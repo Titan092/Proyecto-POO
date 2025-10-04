@@ -35,15 +35,13 @@ public class Ticket {
      * @param productService
      */
     public void addProductToTicket(int id, int amount, ProductService productService) {
+        boolean productFound = false;
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
         }else {
             //Añadir métodos de excepción (añadir excepcion si no encuentra el producto que toca añadir al ticket)
             Product[] products = productService.getProducts();
             int availableCapacity = ticketItems.length - numProd;
-
-            //Yo dejaria asi la funcion:
-
             if (amount > availableCapacity) {
                 System.out.println("No hay espacio disponible en el ticket para la cantidad de productos que desea añadir, la capacidad que queda disponible es de: " + availableCapacity + " productos");
             } else {
@@ -54,8 +52,12 @@ public class Ticket {
                                 ticketItems[numProd] = products[i];
                                 numProd++;
                             }
+                            productFound = true;
                         }
                     }
+                }
+                if (!productFound){
+                    System.out.println("El producto que se quiere añadir al ticket, no existe");
                 }
             }
         }
@@ -109,6 +111,7 @@ public class Ticket {
     }
 
     /**
+     *
      * @param ticketItems
      * @return
      */
@@ -169,6 +172,7 @@ public class Ticket {
     }
 
     /**
+     *
      * @param product
      * @return
      */
