@@ -62,6 +62,7 @@ public class Ticket {
     }
 
     /**
+     * This method removes from the ticket indicated product with its id passed as a parameter
      * @param id
      */
     public void ticketRemove(int id){
