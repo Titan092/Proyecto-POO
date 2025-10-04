@@ -8,6 +8,13 @@ public class Product {
     private float price;
 
 
+    /**
+     * Product Constructor
+     * @param id
+     * @param name
+     * @param category
+     * @param price
+     */
     public Product (int id, String name, Category category, float price){
         this.id = id;
         this.name = name;
@@ -48,6 +55,10 @@ public class Product {
         this.id = id;
     }
 
+    /**
+     * This method returns the String with the requested format
+     * @return
+     */
     @Override
     public String toString() {
         return "{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+price+"}";

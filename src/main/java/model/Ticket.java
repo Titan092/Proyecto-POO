@@ -37,22 +37,23 @@ public class Ticket {
     public void addProductToTicket(int id, int amount, ProductService productService) {
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
-        }
-        //Añadir métodos de excepción (añadir excepcion si no encuentra el producto que toca añadir al ticket)
-        Product[] products = productService.getProducts();
-        int availableCapacity = ticketItems.length - numProd;
+        }else {
+            //Añadir métodos de excepción (añadir excepcion si no encuentra el producto que toca añadir al ticket)
+            Product[] products = productService.getProducts();
+            int availableCapacity = ticketItems.length - numProd;
 
-        //Yo dejaria asi la funcion:
+            //Yo dejaria asi la funcion:
 
-        if (amount > availableCapacity){
-            System.out.println("No hay espacio disponible en el ticket para la cantidad de productos que desea añadir, la capacidad que queda disponible es de: "+availableCapacity+" productos");
-        }else{
-            for (int i =0; i<products.length;i++){
-                if (products[i] != null){
-                    if (products[i].getId() == id){
-                        for (int j=0;j<amount;j++){
-                            ticketItems[numProd] = products[i];
-                            numProd++;
+            if (amount > availableCapacity) {
+                System.out.println("No hay espacio disponible en el ticket para la cantidad de productos que desea añadir, la capacidad que queda disponible es de: " + availableCapacity + " productos");
+            } else {
+                for (int i = 0; i < products.length; i++) {
+                    if (products[i] != null) {
+                        if (products[i].getId() == id) {
+                            for (int j = 0; j < amount; j++) {
+                                ticketItems[numProd] = products[i];
+                                numProd++;
+                            }
                         }
                     }
                 }

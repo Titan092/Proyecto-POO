@@ -18,7 +18,7 @@ public class ProductService {
         System.out.println("Catalog:");
         boolean foundNull = false;
         int i = 0;
-        while (!foundNull && i < MAX_CANTIDAD) {
+        while (!foundNull && i < numProducts) {
             if (products[i] == null) {
                 foundNull = true;
             } else {
