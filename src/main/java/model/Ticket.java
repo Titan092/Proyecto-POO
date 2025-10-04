@@ -64,7 +64,7 @@ public class Ticket {
     }
 
     /**
-     * This method removes from the ticket indicated product with its id passed as a parameter
+     * Removes from the ticket indicated product with its id passed as a parameter
      * @param id
      */
     public void ticketRemove(int id){
@@ -118,7 +118,7 @@ public class Ticket {
     public float discount(Product [] ticketItems){
         float discount = 0f, totalDiscount=0f;
         int contadorStationery = 0, contadorClothes = 0, contadorBook = 0, contadorElectronics = 0;
-        for (int i = 0; i<numProd; i++){ //Creo que dara IndexOutOfBound pero si pongo length -1 no se si suma el ultimo descuento del ultimo producto
+        for (int i = 0; i<numProd; i++){
             switch (ticketItems[i].getCategory()){
                 case BOOK:
                     contadorBook++;
@@ -172,7 +172,7 @@ public class Ticket {
     }
 
     /**
-     *
+     *Auxiliary method of the discount method that returns the discount of the product based on their category
      * @param product
      * @return
      */
