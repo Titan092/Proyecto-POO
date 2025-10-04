@@ -56,7 +56,7 @@ public class Product {
     }
 
     /**
-     * This method returns the String with the requested format
+     * Returns the String with the requested format
      * @return
      */
     @Override
