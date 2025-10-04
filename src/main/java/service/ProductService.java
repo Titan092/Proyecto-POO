@@ -8,26 +8,33 @@ public class ProductService {
     private final int MAX_CANTIDAD = 200;
     private int numProducts;
 
+    /**
+     *ProductService Constructor
+     */
     public ProductService() {
         this.products = new Product[MAX_CANTIDAD];
         this.numProducts = 0;
     }
 
-    //Funciona, pero si queremos dejarlo mas bonito y que no recorra 200 veces el array todo el rato, pues tocara cambiarlo
+    /**
+     * Prints the Catalog of the products added
+     */
     public void productList(){
         System.out.println("Catalog:");
-        boolean foundNull = false;
-        int i = 0;
-        while (!foundNull && i < numProducts) {
-            if (products[i] == null) {
-                foundNull = true;
-            } else {
+        for (int i = 0; i<numProducts; i++){
+            if (products[i] != null){
                 System.out.println(products[i].toString());
             }
-            i++;
         }
     }
 
+    /**
+     * Creates a product and adds it to the products array
+     * @param id
+     * @param name
+     * @param category
+     * @param price
+     */
     public void prodAdd (int id, String name, Category category, float price){ //Hay que ver como cuadrarlo con el COmmadnHandler
         boolean terminar = false;
         int i = 0;
@@ -48,6 +55,10 @@ public class ProductService {
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     public void productRemove (int id) {
         if (id < 0) {
             System.out.println("Error, la id introducida no es válida");
@@ -75,6 +86,12 @@ public class ProductService {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @param field
+     * @param value
+     */
     public void productUpdate (int id, String field, String value){
         boolean encontrado = false;
         int i = 0;
