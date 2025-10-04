@@ -58,21 +58,6 @@ public class Ticket {
                 }
             }
         }
-
-        /*
-        if (availableCapacity <= 0) {
-            System.out.println("No hay espacio disponible en el ticket");
-        }
-        for (int i = 0; i < Math.min(amount, availableCapacity); i++){ //Comienza desde la ultima posicion no ocupada y va rellenando el numero de posiciones indicados en la cantidad
-            if (products[i] != null){
-                if (products[i].getId() == id){
-                    ticketItems[numProd] = products[id];
-                    numProd++;
-                }
-            }
-        }
-        */
-
     }
 
     /**
