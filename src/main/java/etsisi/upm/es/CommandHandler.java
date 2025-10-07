@@ -35,43 +35,42 @@ public class CommandHandler {
     protected void init() {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
-        productService=new ProductService();
-        ticket=new Ticket();
+        productService = new ProductService();
+        ticket = new Ticket();
     }
-
 
     /**
      * Starts execution of the shop.
      */
     protected void start() {
-        Scanner sc=new Scanner(System.in);
-        boolean continuar=true;
-        while(continuar){
+        Scanner sc = new Scanner(System.in);
+        boolean continues = true;
+        while(continues){
             System.out.print(PROMPT);
-            String comando=sc.nextLine();
-            String[] comandoUni=comando.split(" ");
-            switch (comandoUni[0]) {
+            String command = sc.nextLine();
+            String[] commandUni = command.split(" ");
+            switch (commandUni[0]) {
                 case "help":
                     printHelp();
                     break;
                 case "prod":
-                    if(comandoUni.length>=2){ //If you have at least 2 words
-                        switch (comandoUni[1]){
+                    if (commandUni.length>=2) { //If you have at least 2 words
+                        switch (commandUni[1]) {
                             case "add":
                                 // prod add <id> "<name>" <category> <price>
-                                prodAdd(comando);
+                                prodAdd(command);
                                 break;
                             case "list":
                                 //prod list
-                                prodList(comandoUni);
+                                prodList(commandUni);
                                 break;
                             case "update":
                                 // prod update <id> NAME|CATEGORY|PRICE <value>
-                                prodUpdate(comando);
+                                prodUpdate(command);
                                 break;
                             case "remove":
                                 // prod remove <id>
-                                prodRemove(comando);
+                                prodRemove(command);
                                 break;
                         }
                     } else {
@@ -79,19 +78,19 @@ public class CommandHandler {
                     }
                     break;
                 case "ticket":
-                    if(comandoUni.length>=2){
-                        switch (comandoUni[1]){
+                    if (commandUni.length>=2){
+                        switch (commandUni[1]){
                             case "new":
                                 //ticket new
                                 ticket.newTicket();
                                 break;
                             case "add":
                                 //ticket add <prodId> <quantity>
-                                ticketAdd(comando);
+                                ticketAdd(command);
                                 break;
                             case "remove":
                                 //ticket remove <prodId>
-                                ticketRemove(comando);
+                                ticketRemove(command);
                                 break;
                             case "print":
                                 //ticket print
@@ -104,10 +103,10 @@ public class CommandHandler {
                     }
                     break;
                 case "echo":
-                    echo(comando);
+                    echo(command);
                     break;
                 case "exit":
-                    continuar = false;
+                    continues = false;
                     break;
                 default:
                     unknownCommand();
@@ -118,19 +117,19 @@ public class CommandHandler {
     }
 
     /**
-     * Command that adds a product to the productService
-     * @param comando
+     * Command that adds a product to the productService.
+     * @param command String with the command.
      */
-    private void prodAdd(String comando){
+    private void prodAdd(String command){
         try{
             Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
-            Matcher matcher = pattern.matcher(comando);
+            Matcher matcher = pattern.matcher(command);
             if (matcher.matches()) {
                 int id = Integer.parseInt(matcher.group(1));
                 String nombre = matcher.group(2);
                 Category categoria = Category.valueOf(matcher.group(3).toUpperCase());
                 float precio = Float.parseFloat(matcher.group(4));
-                if(id>=0)
+                if(id >= 0)
                     productService.prodAdd(id, nombre, categoria, precio);
             } else {
                 System.out.println(ErrorMessageHandler.getERRORMESSAGE());
@@ -143,24 +142,24 @@ public class CommandHandler {
     }
 
     /**
-     * Command that prints all the products in productService
-     * @param comandoUni
+     * Command that prints all the products in productService.
+     * @param commandUni String with the command.
      */
-    private void prodList(String[] comandoUni){
-        if(comandoUni.length==2){
+    private void prodList(String[] commandUni){
+        if (commandUni.length == 2){
             productService.productList();
         } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
     }
 
     /**
-     * Command that updates and existing product in productService
-     * @param comando
+     * Command that updates and existing product in productService.
+     * @param command String with the command.
      */
-    private void prodUpdate(String comando){
+    private void prodUpdate(String command){
         // prod update <id> NAME|CATEGORY|PRICE <value>
         Pattern pattern = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
-        Matcher matcher = pattern.matcher(comando);
-        if(matcher.matches()){
+        Matcher matcher = pattern.matcher(command);
+        if (matcher.matches()){
             int id = Integer.parseInt(matcher.group(1));
             String field = matcher.group(2);
             String value = matcher.group(3);
@@ -171,14 +170,14 @@ public class CommandHandler {
     }
 
     /**
-     * Command that removes a product in productService
-     * @param comando
+     * Command that removes a product in productService.
+     * @param command String with the command.
      */
-    private void prodRemove(String comando){
+    private void prodRemove(String command){
         // prod remove <id>
         Pattern pattern = Pattern.compile("^prod remove (\\d+)$");
-        Matcher matcher = pattern.matcher(comando);
-        if(matcher.matches()){
+        Matcher matcher = pattern.matcher(command);
+        if (matcher.matches()){
             int id = Integer.parseInt(matcher.group(1));
             productService.productRemove(id);
         } else {
