@@ -13,7 +13,7 @@ public class Ticket {
     /**
      * Ticket constructor.
      */
-    public Ticket(){
+    public Ticket() {
         ticketItems = new Product[MAX_AMOUNT];
         this.numProducts = 0;
     }
@@ -21,7 +21,7 @@ public class Ticket {
     /**
      * Resets the ticket.
      */
-    public void newTicket(){
+    public void newTicket() {
         ticketItems = new Product[MAX_AMOUNT];
         this.numProducts = 0;
         System.out.println("ticket new: ok");
@@ -52,7 +52,7 @@ public class Ticket {
                         productFound = true;
                     }
                 }
-                if (!productFound){
+                if (!productFound) {
                     System.out.println("The product you want to add to the ticket does not exist.");
                 }
             }
@@ -63,21 +63,21 @@ public class Ticket {
      * Removes from the ticket indicated product with its id passed as a parameter.
      * @param id Unique ID of the products.
      */
-    public void ticketRemove(int id){
+    public void ticketRemove(int id) {
         boolean found = false;
-        for (int i = 0; i < ticketItems.length; i++){
+        for (int i = 0; i < ticketItems.length; i++) {
             if (ticketItems[i] != null && ticketItems[i].getId() == id) {
                 ticketItems[i] = null; // Matches are set to null.
                 found = true; // Valid ID.
                 numProducts--;
             }
         }
-        if (!found){
+        if (!found) {
             System.out.println("The product ID is invalid because it does not exist on the ticket.");
-        }else{
+        } else {
             Product[] ticketItemsAux = new Product[MAX_AMOUNT];
             int j = 0; // Position indicator for the auxiliary array.
-            for (int i=0; i<ticketItemsAux.length;i++){
+            for (int i = 0; i < ticketItemsAux.length ; i++) {
                 if (ticketItems[i] != null){ // Only products that are not null will be saved, i.e., reset the array by removing deleted products (null).
                     ticketItemsAux[j] = ticketItems[i];
                     j++;
@@ -90,10 +90,10 @@ public class Ticket {
     /**
      * Prints a ticket.
      */
-    public void printTicket(){
+    public void printTicket() {
         float totalPrice=0;
         float totalDiscount = discount(ticketItems);
-        for (int i = 0; i < numProducts; i++){
+        for (int i = 0; i < numProducts; i++) {
             totalPrice += ticketItems[i].getPrice();
         }
         float finalPrice = totalPrice - totalDiscount;
@@ -110,14 +110,14 @@ public class Ticket {
      * @param ticketItems Products to check for discount.
      * @return Total discount.
      */
-    private float discount(Product[] ticketItems){
+    private float discount(Product[] ticketItems) {
         float totalDiscount = 0f;
         int counterStationery = 0;
         int counterClothes = 0;
         int counterBook = 0;
         int counterElectronics = 0;
-        for (int i = 0; i < numProducts; i++){
-            switch (ticketItems[i].getCategory()){
+        for (int i = 0; i < numProducts; i++) {
+            switch (ticketItems[i].getCategory()) {
                 case BOOK:
                     counterBook++;
                     break;
@@ -132,9 +132,9 @@ public class Ticket {
                     break;
             }
         }
-        for (int j = 0; j < numProducts; j++){
+        for (int j = 0; j < numProducts; j++) {
             float discount = 0f;
-            switch (ticketItems[j].getCategory()){
+            switch (ticketItems[j].getCategory()) {
                 case BOOK:
                     if (counterBook >= 2) {
                         discount = discountAux(ticketItems[j]);
@@ -144,7 +144,7 @@ public class Ticket {
                     }
                     break;
                 case CLOTHES:
-                    if (counterClothes >= 2){
+                    if (counterClothes >= 2) {
                         discount = discountAux(ticketItems[j]);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
@@ -152,7 +152,7 @@ public class Ticket {
                     }
                     break;
                 case STATIONERY_SHOP:
-                    if (counterStationery >= 2){
+                    if (counterStationery >= 2) {
                         discount = discountAux(ticketItems[j]);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
@@ -160,7 +160,7 @@ public class Ticket {
                     }
                     break;
                 case ELECTRONICS:
-                    if (counterElectronics >= 2){
+                    if (counterElectronics >= 2) {
                         discount = discountAux(ticketItems[j]);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
@@ -168,7 +168,7 @@ public class Ticket {
                     }
                     break;
             }
-            totalDiscount+=discount;
+            totalDiscount += discount;
         }
         return totalDiscount;
     }
@@ -178,9 +178,9 @@ public class Ticket {
      * @param product Product to calculate the discount.
      * @return Individual discount.
      */
-    private float discountAux(Product product){
+    private float discountAux(Product product) {
         float precio = product.getPrice();
-        switch (product.getCategory()){
+        switch (product.getCategory()) {
             case STATIONERY_SHOP:
                 return precio * 0.05f;
             case CLOTHES:
