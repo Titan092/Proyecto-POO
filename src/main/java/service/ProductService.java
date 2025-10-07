@@ -8,13 +8,18 @@ public class ProductService {
     private final int MAX_QUANTITY = 200;
     private int numProducts;
 
-    /// ProductService constructor.
+
+    /**
+     * ProductService constructor.
+     */
     public ProductService() {
         this.products = new Product[MAX_QUANTITY];
         this.numProducts = 0;
     }
 
-    /// Prints existing products.
+    /**
+     * Prints existing products.
+     */
     public void productList(){
         System.out.println("Catalog:");
         for (int i = 0; i < numProducts; i++){
@@ -24,11 +29,13 @@ public class ProductService {
         }
     }
 
-    /// Creates a product and adds it to the products service.
-    /// @param id Unique ID of the product.
-    /// @param name Name of the product.
-    /// @param category {@link Category} of the product.
-    /// @param price Positive, non-zero price of the product.
+    /**
+     * Creates a product and adds it to the products service.
+     * @param id Unique ID of the product.
+     * @param name Name of the product.
+     * @param category {@link Category} of the product.
+     * @param price Positive, non-zero price of the product.
+     */
     public void prodAdd(int id, String name, Category category, float price) {
         boolean end = false;
         int i = 0;
@@ -49,8 +56,10 @@ public class ProductService {
         }
     }
 
-    /// Removes a product with a certain ID.
-    /// @param id Unique ID of the product to remove.
+    /**
+     * Removes a product with a certain ID.
+     * @param id Unique ID of the product to remove.
+     */
     public void productRemove(int id) {
         if (id < 0) {
             System.out.println("Error, the ID entered is invalid.");
@@ -78,10 +87,12 @@ public class ProductService {
         }
     }
 
-    ///  Updates a product's name, category or price given its ID.
-    /// @param id Unique ID of the product to delete.
-    /// @param field Field to update. Permitted fields: NAME, CATEGORY, PRICE.
-    /// @param value Content to update the field.
+    /**
+     * Updates a product's name, category or price given its ID.
+     * @param id Unique ID of the product to delete.
+     * @param field Field to update. Permitted fields: NAME, CATEGORY, PRICE.
+     * @param value Content to update the field.
+     */
     public void productUpdate(int id, String field, String value){
         boolean found = false;
         int i = 0;
@@ -119,8 +130,10 @@ public class ProductService {
         }
     }
 
-    /// Get the list of products.
-    /// @return The list of products.
+    /**
+     * Get the list of products.
+     * @returnThe list of products.
+     */
     public Product[] getProducts() {
         return products;
     }

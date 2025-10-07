@@ -2,7 +2,7 @@ package model;
 
 public enum Category {
     MERCH,
-    STATIONERY,
+    STATIONERY_SHOP,
     CLOTHES,
     BOOK,
     ELECTRONICS,
