@@ -28,7 +28,7 @@ public class Ticket {
     }
 
     /**
-     * This method adds an amount of the indicated product with its id passed as a parameter.
+     * Adds an amount of the indicated product with its id passed as a parameter.
      * @param id Unique ID of the products.
      * @param amount Amount of products to add.
      * @param productService Array where products are located.
