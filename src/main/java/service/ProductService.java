@@ -5,67 +5,59 @@ import model.Product;
 
 public class ProductService {
     private Product[] products;
-    private final int MAX_CANTIDAD = 200;
+    private final int MAX_QUANTITY = 200;
     private int numProducts;
 
-    /**
-     *ProductService Constructor
-     */
+    /// ProductService constructor.
     public ProductService() {
-        this.products = new Product[MAX_CANTIDAD];
+        this.products = new Product[MAX_QUANTITY];
         this.numProducts = 0;
     }
 
-    /**
-     * Prints the Catalog of the products added
-     */
+    /// Prints existing products.
     public void productList(){
         System.out.println("Catalog:");
-        for (int i = 0; i<numProducts; i++){
+        for (int i = 0; i < numProducts; i++){
             if (products[i] != null){
                 System.out.println(products[i].toString());
             }
         }
     }
 
-    /**
-     * Creates a product and adds it to the products array
-     * @param id
-     * @param name
-     * @param category
-     * @param price
-     */
-    public void prodAdd (int id, String name, Category category, float price){ //Hay que ver como cuadrarlo con el COmmadnHandler
-        boolean terminar = false;
+    /// Creates a product and adds it to the products service.
+    /// @param id Unique ID of the product.
+    /// @param name Name of the product.
+    /// @param category {@link Category} of the product.
+    /// @param price Positive, non-zero price of the product.
+    public void prodAdd(int id, String name, Category category, float price) {
+        boolean end = false;
         int i = 0;
-        while (!terminar && i < MAX_CANTIDAD) {
+        while (!end && i < MAX_QUANTITY) {
             if (products[i] != null && products[i].getId() == id) {
-                System.out.println("Error, la id introducida ya existe para otro objeto");
-                terminar = true;
+                System.out.println("Error, the ID entered already exists for another object.");
+                end = true;
             } else if (products[i] == null) {
                 Product product = new Product(id, name, category, price);
                 products[i] = product;
                 numProducts++;
-                terminar = true;
+                end = true;
             }
             i++;
         }
-        if (!terminar) {
-            System.out.println("Error, excede el numero de productos permitidos");
+        if (!end) {
+            System.out.println("Error, exceeds the number of products allowed.");
         }
     }
 
-    /**
-     * Removes a product with a certain ID.
-     * @param id
-     */
-    public void productRemove (int id) {
+    /// Removes a product with a certain ID.
+    /// @param id Unique ID of the product to remove.
+    public void productRemove(int id) {
         if (id < 0) {
-            System.out.println("Error, la id introducida no es válida");
+            System.out.println("Error, the ID entered is invalid.");
         } else {
             boolean removed = false;
             int i = 0;
-            while (!removed && i <numProducts){
+            while (!removed && i < numProducts){
                 if (products[i] != null && products[i].getId() == id) {
                     System.out.println(products[i].toString());
                     products[i] = null;
@@ -74,28 +66,26 @@ public class ProductService {
                 i++;
             }
             if (removed){
-                for (int j = i; j<numProducts; j++){
-                    products[j] = products[j+1];
+                for (int j = i; j < numProducts; j++){
+                    products[j] = products[j + 1];
                 }
-                products[numProducts] = null; //Eliminamos el final ya que esta duplicado porque hemos desplazado todos uno a la izquierda a partir del elemento borrado
+                products[numProducts] = null;
                 numProducts--;
                 System.out.println("prod remove: ok");
-            }else{
-                System.out.println("No se ha encontrado el producto con esa id, por ende, no ha sido borrado");
+            } else {
+                System.out.println("The product with that ID has not been found, therefore it has not been deleted.");
             }
         }
     }
 
-    /**
-     *  Updates a product's name, category or price given its ID.
-     * @param id
-     * @param field
-     * @param value
-     */
-    public void productUpdate (int id, String field, String value){
-        boolean encontrado = false;
+    ///  Updates a product's name, category or price given its ID.
+    /// @param id Unique ID of the product to delete.
+    /// @param field Field to update. Permitted fields: NAME, CATEGORY, PRICE.
+    /// @param value Content to update the field.
+    public void productUpdate(int id, String field, String value){
+        boolean found = false;
         int i = 0;
-        while (!encontrado && i < MAX_CANTIDAD) {
+        while (!found && i < MAX_QUANTITY) {
             if (products[i] != null && products[i].getId() == id) {
                 switch (field.toUpperCase()) {
                     case "NAME":
@@ -105,9 +95,9 @@ public class ProductService {
                         try {
                             Category categoryNew = Category.valueOf(value.toUpperCase());
                             products[i].setCategory(categoryNew);
-                            System.out.println("Categoría actualizada correctamente.");
+                            System.out.println("Category successfully updated.");
                         } catch (IllegalArgumentException e) {
-                            System.out.println("Categoría no válida. Valores permitidos: "+Category.values());
+                            System.out.println("Invalid category. Permitted values: " + Category.values());
                         }
                         break;
                     case "PRICE":
@@ -115,24 +105,22 @@ public class ProductService {
                         products[i].setPrice(priceValue);
                         break;
                     default:
-                        System.out.println("Error al introducir el campo a actualizar");
+                        System.out.println("Error entering the field to be updated.");
                         break;
                 }
                 System.out.println(products[i].toString());
                 System.out.println("prod update: ok");
-                encontrado = true;
+                found = true;
             }
             i++;
         }
-        if (!encontrado) {
-            System.out.println("Error, la id introducida no es válida");
+        if (!found) {
+            System.out.println("Error, the ID entered is invalid.");
         }
     }
 
-    /**
-     * Get the list of products.
-     * @return The list of products.
-     */
+    /// Get the list of products.
+    /// @return The list of products.
     public Product[] getProducts() {
         return products;
     }
