@@ -13,19 +13,21 @@ import java.util.regex.Pattern;
 
 public class CommandHandler {
 
-    //Explicación de las expresiones regulares usadas:
-    // ^ indica el inicio de la cadena
-    // $ indica el final de la cadena
-    // String: ".+" (uno o más caracteres), "[a-zA-Z]+" (solo letras)
-    //int: "\d+" (uno o más dígitos)
-    //float: "\d+\.\d+" (número con decimales, ej: 12.34)
-    //boolean: "true|false"
+    // Explanation of the regular expressions used:
+    // ^ indicates the start of the string
+    // $ indicates the end of the chain
+    // String: ".+" (one or more characters), "[a-zA-Z]+" (only letters)
+    // int: "\d+" (one or more digits)
+    // float: "\d+\.\d+" (number with decimals, ex: 12.34)
+    // boolean: "true|false"
 
     private ProductService productService;
     private Ticket ticket;
 
-    //Prompt message
-    private final String PROMPT="tUPM> ";
+    /**
+     * Prompt message
+     */
+    private final String PROMPT = "tUPM> ";
 
     /**
      * Initializes all required components of the shop.
