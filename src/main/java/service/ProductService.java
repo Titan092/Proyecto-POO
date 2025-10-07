@@ -112,8 +112,12 @@ public class ProductService {
                         }
                         break;
                     case "PRICE":
-                        float priceValue = Float.parseFloat(value);
-                        products[i].setPrice(priceValue);
+                        try{
+                            float priceValue = Float.parseFloat(value);
+                            products[i].setPrice(priceValue);
+                        } catch (NumberFormatException e) {
+                            System.out.println("The price must be a valid number.");
+                        }
                         break;
                     default:
                         System.out.println("Error entering the field to be updated.");
