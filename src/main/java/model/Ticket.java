@@ -124,7 +124,7 @@ public class Ticket {
                 case CLOTHES:
                     counterClothes++;
                     break;
-                case STATIONERY_SHOP:
+                case STATIONERY:
                     counterStationery++;
                     break;
                 case ELECTRONICS:
@@ -151,7 +151,7 @@ public class Ticket {
                         System.out.println(ticketItems[j].toString());
                     }
                     break;
-                case STATIONERY_SHOP:
+                case STATIONERY:
                     if (counterStationery >= 2) {
                         discount = discountAux(ticketItems[j]);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
@@ -181,7 +181,7 @@ public class Ticket {
     private float discountAux(Product product) {
         float precio = product.getPrice();
         switch (product.getCategory()) {
-            case STATIONERY_SHOP:
+            case STATIONERY:
                 return precio * 0.05f;
             case CLOTHES:
                 return precio * 0.07f;
