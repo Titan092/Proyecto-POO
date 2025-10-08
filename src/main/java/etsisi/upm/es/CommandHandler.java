@@ -98,7 +98,7 @@ public class CommandHandler {
                                 ticket.printTicket();
                                 break;
                         }
-                    } else{
+                    } else {
                         System.out.println(ErrorMessageHandler.getERRORMESSAGE());
                     }
                     break;
@@ -120,7 +120,7 @@ public class CommandHandler {
      * Command that adds a product to the productService.
      * @param command String with the command.
      */
-    private void prodAdd(String command){
+    private void prodAdd(String command) {
         try{
             Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
             Matcher matcher = pattern.matcher(command);
@@ -136,7 +136,7 @@ public class CommandHandler {
             }
         } catch (NumberFormatException e) {
             System.out.println(ErrorMessageHandler.getVALIDNUMBER());
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
         }
     }
@@ -145,7 +145,7 @@ public class CommandHandler {
      * Command that prints all the products in productService.
      * @param commandUni String with the command.
      */
-    private void prodList(String[] commandUni){
+    private void prodList(String[] commandUni) {
         if (commandUni.length == 2){
             productService.productList();
         } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
@@ -155,7 +155,7 @@ public class CommandHandler {
      * Command that updates and existing product in productService.
      * @param command String with the command.
      */
-    private void prodUpdate(String command){
+    private void prodUpdate(String command) {
         // prod update <id> NAME|CATEGORY|PRICE <value>
         Pattern pattern = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
         Matcher matcher = pattern.matcher(command);
@@ -173,7 +173,7 @@ public class CommandHandler {
      * Command that removes a product in productService.
      * @param command String with the command.
      */
-    private void prodRemove(String command){
+    private void prodRemove(String command) {
         // prod remove <id>
         Pattern pattern = Pattern.compile("^prod remove (\\d+)$");
         Matcher matcher = pattern.matcher(command);
@@ -186,14 +186,14 @@ public class CommandHandler {
     }
 
     /**
-     * Command that adds an existing product to the ticket
-     * @param comando
+     * Command that adds an existing product to the ticket.
+     * @param command String with the command.
      */
-    private void ticketAdd(String comando){
+    private void ticketAdd(String command) {
         //ticket add <prodId> <quantity>
         Pattern pattern = Pattern.compile("^ticket add (\\d+) (\\d+)$");
-        Matcher matcher = pattern.matcher( comando);
-        if(matcher.matches()){
+        Matcher matcher = pattern.matcher( command);
+        if (matcher.matches()){
             int prodId = Integer.parseInt(matcher.group(1));
             int amount = Integer.parseInt(matcher.group(2));
             ticket.addProductToTicket(prodId,amount, productService);
