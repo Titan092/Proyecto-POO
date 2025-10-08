@@ -90,7 +90,7 @@ public class Ticket {
      * Prints a ticket.
      */
     public void printTicket() {
-        float totalPrice=0;
+        float totalPrice = 0;
         float totalDiscount = discount(ticketItems);
         for (int i = 0; i < numProducts; i++) {
             totalPrice += ticketItems[i].getPrice();
@@ -98,7 +98,7 @@ public class Ticket {
         float finalPrice = totalPrice - totalDiscount;
         System.out.println("Total price: " + totalPrice);
         System.out.println("Total discount: " + totalDiscount);
-        System.out.println("Final Price: " + finalPrice);
+        System.out.println("Final price: " + finalPrice);
         System.out.println("ticket print: ok");
     }
 
