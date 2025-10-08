@@ -135,7 +135,7 @@ public class ProductService {
 
     /**
      * Get the list of products.
-     * @returnThe list of products.
+     * @return The list of products.
      */
     public Product[] getProducts() {
         return products;
