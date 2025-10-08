@@ -204,13 +204,13 @@ public class CommandHandler {
 
     /**
      * Command that removes a product from the ticket
-     * @param comando
+     * @param comando String with the command.
      */
     private void ticketRemove(String comando){
         //ticket remove <prodId>
         Pattern pattern = Pattern.compile("^ticket remove (\\d+)$");
         Matcher matcher = pattern.matcher(comando);
-        if(matcher.matches()){
+        if (matcher.matches()){
             int prodId = Integer.parseInt(matcher.group(1));
             ticket.ticketRemove(prodId);
         } else {
@@ -224,22 +224,21 @@ public class CommandHandler {
     private void printHelp() {
         String SPACE="  ";
         System.out.println("Commands: ");
-        System.out.println(SPACE+"prod add <id> \"<name>\" <category> <price> ");
-        System.out.println(SPACE+"prod list");
-        System.out.println(SPACE+"prod update <id> NAME|CATEGORY|PRICE <value>");
-        System.out.println(SPACE+"prod remove <id>");
-        System.out.println(SPACE+"ticket new");
-        System.out.println(SPACE+"ticket add <prodId> <quantity> ");
-        System.out.println(SPACE+"ticket remove <prodId>");
-        System.out.println(SPACE+"ticket print");
-        System.out.println(SPACE+"echo \"<texto>\"");
-        System.out.println(SPACE+"help");
-        System.out.println(SPACE+"exit");
-        System.out.println("");
+        System.out.println(SPACE + "prod add <id> \"<name>\" <category> <price> ");
+        System.out.println(SPACE + "prod list");
+        System.out.println(SPACE + "prod update <id> NAME|CATEGORY|PRICE <value>");
+        System.out.println(SPACE + "prod remove <id>");
+        System.out.println(SPACE + "ticket new");
+        System.out.println(SPACE + "ticket add <prodId> <quantity> ");
+        System.out.println(SPACE + "ticket remove <prodId>");
+        System.out.println(SPACE + "ticket print");
+        System.out.println(SPACE + "echo \"<texto>\"");
+        System.out.println(SPACE + "help");
+        System.out.println(SPACE + "exit");
+        System.out.println();
         System.out.println("Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n" +
                 "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
     }
-
 
     /**
      * In case the user enters an unknown commands, prints a helpful message.
@@ -251,7 +250,7 @@ public class CommandHandler {
 
     /**
      * Prints whatever the user had entered before.
-     * @param message
+     * @param message Message the user entered.
      */
     private void echo(String message){
         System.out.println(message);
@@ -265,9 +264,4 @@ public class CommandHandler {
         System.out.println("Closing application.");
         System.out.println("Goodbye!");
     }
-
-
-
-
-
 }
