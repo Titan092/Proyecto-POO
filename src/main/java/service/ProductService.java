@@ -8,7 +8,6 @@ public class ProductService {
     private final int MAX_QUANTITY = 200;
     private int numProducts;
 
-
     /**
      * ProductService constructor.
      */

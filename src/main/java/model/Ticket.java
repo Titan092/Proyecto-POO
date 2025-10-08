@@ -9,7 +9,6 @@ public class Ticket {
     private final int MAX_AMOUNT = 100;
     private int numProducts;
 
-
     /**
      * Ticket constructor.
      */

@@ -9,8 +9,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
 public class CommandHandler {
 
     // Explanation of the regular expressions used:
@@ -255,7 +253,6 @@ public class CommandHandler {
     private void echo(String message){
         System.out.println(message);
     }
-
 
     /**
      * Bye!

@@ -7,7 +7,6 @@ public class Product {
     private Category category;
     private float price;
 
-
     /**
      * Product contructor.
      * @param id Unique ID.
@@ -94,10 +93,5 @@ public class Product {
     public String toString() {
         return "{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+price+"}";
     }
-
-
-
-
-
 
 }
