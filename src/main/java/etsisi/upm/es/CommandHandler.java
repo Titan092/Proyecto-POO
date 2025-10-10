@@ -124,11 +124,11 @@ public class CommandHandler {
             Matcher matcher = pattern.matcher(command);
             if (matcher.matches()) {
                 int id = Integer.parseInt(matcher.group(1));
-                String nombre = matcher.group(2);
-                Category categoria = Category.valueOf(matcher.group(3).toUpperCase());
-                float precio = Float.parseFloat(matcher.group(4));
+                String name = matcher.group(2);
+                Category category = Category.valueOf(matcher.group(3).toUpperCase());
+                float price = Float.parseFloat(matcher.group(4));
                 if(id >= 0)
-                    productService.prodAdd(id, nombre, categoria, precio);
+                    productService.prodAdd(id, name, category, price);
             } else {
                 System.out.println(ErrorMessageHandler.getERRORMESSAGE());
             }
