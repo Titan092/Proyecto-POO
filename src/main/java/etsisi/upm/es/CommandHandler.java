@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class CommandHandler {
 
-    // Explanation of the regular expressions used:
+    // Explanation of the used regular expressions:
     // ^ indicates the start of the string
     // $ indicates the end of the chain
     // String: ".+" (one or more characters), "[a-zA-Z]+" (only letters)
@@ -28,7 +28,7 @@ public class CommandHandler {
     private final String PROMPT = "tUPM> ";
 
     /**
-     * Initializes all required components of the shop.
+     * Initializes all the required components of the shop.
      */
     protected void init() {
         System.out.println("Welcome to the ticket module App.");
@@ -38,7 +38,7 @@ public class CommandHandler {
     }
 
     /**
-     * Starts execution of the shop.
+     * Starts the execution of the shop.
      */
     protected void start() {
         Scanner sc = new Scanner(System.in);
@@ -115,7 +115,7 @@ public class CommandHandler {
     }
 
     /**
-     * Command that adds a product to the productService.
+     * Adds a product to productService.
      * @param command String with the command.
      */
     private void prodAdd(String command) {
@@ -140,7 +140,7 @@ public class CommandHandler {
     }
 
     /**
-     * Command that prints all the products in productService.
+     * Prints all the products in productService.
      * @param commandUni String with the command.
      */
     private void prodList(String[] commandUni) {
@@ -150,7 +150,7 @@ public class CommandHandler {
     }
 
     /**
-     * Command that updates and existing product in productService.
+     * Updates an existing product in productService.
      * @param command String with the command.
      */
     private void prodUpdate(String command) {
@@ -168,7 +168,7 @@ public class CommandHandler {
     }
 
     /**
-     * Command that removes a product in productService.
+     * Removes a product in productService.
      * @param command String with the command.
      */
     private void prodRemove(String command) {
@@ -184,7 +184,7 @@ public class CommandHandler {
     }
 
     /**
-     * Command that adds an existing product to the ticket.
+     * Adds an existing product to the ticket.
      * @param command String with the command.
      */
     private void ticketAdd(String command) {
@@ -217,7 +217,7 @@ public class CommandHandler {
     }
 
     /**
-     * Prints all available commands.
+     * Prints all the available commands.
      */
     private void printHelp() {
         String SPACE="  ";
@@ -239,7 +239,7 @@ public class CommandHandler {
     }
 
     /**
-     * In case the user enters an unknown commands, prints a helpful message.
+     * In case the user enters an unknown command, prints a helpful message.
      */
     private void unknownCommand() {
         System.out.println("Your command is not contemplated.");
