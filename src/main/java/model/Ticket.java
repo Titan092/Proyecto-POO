@@ -40,7 +40,7 @@ public class Ticket {
             Product[] products = productService.getProducts();
             int availableCapacity = ticketItems.length - numProducts;
             if (amount > availableCapacity) {
-                System.out.println("There is no space available on the ticket for the number of products you wish to add. The remaining capacity is: " + availableCapacity + " products");
+                System.out.println(ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products");
             } else {
                 for (int i = 0; i < products.length; i++) {
                     if (products[i] != null && products[i].getId() == id) {
@@ -52,7 +52,7 @@ public class Ticket {
                     }
                 }
                 if (!productFound) {
-                    System.out.println("The product you want to add to the ticket does not exist.");
+                    System.out.println(ErrorMessageHandler.getPRODUCTNOTEXIST());
                 }
             }
         }
@@ -72,7 +72,7 @@ public class Ticket {
             }
         }
         if (!found) {
-            System.out.println("The product ID is invalid because it does not exist on the ticket.");
+            System.out.println(ErrorMessageHandler.getIDNOTEXIST());
         } else {
             Product[] ticketItemsAux = new Product[MAX_AMOUNT];
             int j = 0; // Position indicator for the auxiliary array.

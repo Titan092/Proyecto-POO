@@ -1,5 +1,6 @@
 package service;
 
+import exceptionHandler.ErrorMessageHandler;
 import model.Category;
 import model.Product;
 
@@ -40,7 +41,7 @@ public class ProductService {
         int i = 0;
         while (!end && i < MAX_QUANTITY) {
             if (products[i] != null && products[i].getId() == id) {
-                System.out.println("Error, the ID entered already exists for another object.");
+                System.out.println(ErrorMessageHandler.getNOTFINDGID());
                 end = true;
             } else if (products[i] == null) {
                 Product product = new Product(id, name, category, price);
@@ -51,7 +52,7 @@ public class ProductService {
             i++;
         }
         if (!end) {
-            System.out.println("Error, exceeds the number of products allowed.");
+            System.out.println(ErrorMessageHandler.getNOMOREPRODUCTS());
         }
     }
 
@@ -61,7 +62,7 @@ public class ProductService {
      */
     public void productRemove(int id) {
         if (id < 0) {
-            System.out.println("Error, the ID entered is invalid.");
+            System.out.println(ErrorMessageHandler.getWRONGID());
         } else {
             boolean removed = false;
             int i = 0;
@@ -81,7 +82,7 @@ public class ProductService {
                 numProducts--;
                 System.out.println("prod remove: ok");
             } else {
-                System.out.println("The product with that ID has not been found, therefore it has not been deleted.");
+                System.out.println(ErrorMessageHandler.getNOTFINDGID());
             }
         }
     }
@@ -107,7 +108,7 @@ public class ProductService {
                             products[i].setCategory(categoryNew);
                             System.out.println("Category successfully updated.");
                         } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid category. Permitted values: " + Category.values());
+                            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
                         }
                         break;
                     case "PRICE":
@@ -115,11 +116,11 @@ public class ProductService {
                             float priceValue = Float.parseFloat(value);
                             products[i].setPrice(priceValue);
                         } catch (NumberFormatException e) {
-                            System.out.println("The price must be a valid number.");
+                            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
                         }
                         break;
                     default:
-                        System.out.println("Error entering the field to be updated.");
+                        System.out.println(ErrorMessageHandler.getFIELDERROR());
                         break;
                 }
                 System.out.println(products[i].toString());
@@ -129,7 +130,7 @@ public class ProductService {
             i++;
         }
         if (!found) {
-            System.out.println("Error, the ID entered is invalid.");
+            System.out.println(ErrorMessageHandler.getIDNOTEXIST());
         }
     }
 
