@@ -44,7 +44,12 @@ public class CommandHandler {
         Scanner sc = new Scanner(System.in);
         boolean continues = true;
         while(continues){
-            System.out.print(PROMPT);
+            //This part is to differentiate between interactive and non-interactive mode (in the tests)
+            if (!(System.in instanceof java.io.FileInputStream)) { //Here, the code comes from a file
+                // If is non-interactive, does not use print
+                // If is  interactive, uses print
+                System.out.print(PROMPT);
+            }//All this is for cleaner output in the tests
             String command = sc.nextLine();
             String[] commandUni = command.split(" ");
             switch (commandUni[0]) {
