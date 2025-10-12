@@ -132,10 +132,11 @@ public class CommandHandler {
                 String name = matcher.group(2);
                 Category category = Category.valueOf(matcher.group(3).toUpperCase());
                 float price = Float.parseFloat(matcher.group(4));
-                if (id >= 0)
+                if (id >= 0) {
                     productService.prodAdd(id, name, category, price);
+                }
             } else {
-                System.out.println(ErrorMessageHandler.getWRONGID());
+                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
             }
         } catch (NumberFormatException e) {
             System.out.println(ErrorMessageHandler.getVALIDNUMBER());
