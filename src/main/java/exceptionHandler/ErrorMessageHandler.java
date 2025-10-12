@@ -6,7 +6,6 @@ public class ErrorMessageHandler {
     private static final String ERRORMESSAGE = "There has been a typo error, please, try again";
     private static final String VALIDNUMBER = "The price must be a valid number.";
     private static final String VALIDCATEGORY = "Invalid category. Allowed values: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS";
-    private static final String NOTENOUGHCHARACTERS = "Not enough characters for the command.";
     private static final String WRONGID="The ID must be a non-negative integer.";
     private static final String NOTFINDGID="Error, the ID entered is invalid.";
     private static final String NOSPACETICKET="There is no space available on the ticket for the number of products you wish to add. The remaining capacity is: ";
