@@ -75,6 +75,8 @@ public class CommandHandler {
                                 // prod remove <id>
                                 prodRemove(command);
                                 break;
+                            default:
+                                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
                         }
                     } else {
                         System.out.println(ErrorMessageHandler.getERRORMESSAGE());
