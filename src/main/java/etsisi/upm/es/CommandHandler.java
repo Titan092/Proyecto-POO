@@ -2,7 +2,7 @@ package etsisi.upm.es;
 
 import exceptionHandler.ErrorMessageHandler;
 import model.Category;
-import model.Ticket;
+import service.Ticket;
 import service.ProductService;
 
 import java.util.Scanner;

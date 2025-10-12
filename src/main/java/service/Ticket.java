@@ -1,7 +1,7 @@
-package model;
+package service;
 
 import exceptionHandler.ErrorMessageHandler;
-import service.ProductService;
+import model.Product;
 
 public class Ticket {
 
