@@ -25,9 +25,6 @@ public class ErrorMessageHandler {
     public static String getVALIDCATEGORY() {
         return VALIDCATEGORY;
     }
-    public static String getNOTENOUGHCHARACTERS() {
-        return NOTENOUGHCHARACTERS;
-    }
     public static String getWRONGID() {
         return WRONGID;
     }
