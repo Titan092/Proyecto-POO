@@ -77,6 +77,7 @@ public class CommandHandler {
                                 break;
                             default:
                                 System.out.println(ErrorMessageHandler.getERRORMESSAGE());
+                                break;
                         }
                     } else {
                         System.out.println(ErrorMessageHandler.getERRORMESSAGE());
@@ -101,6 +102,9 @@ public class CommandHandler {
                                 //ticket print
                                 //discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
                                 ticket.printTicket();
+                                break;
+                            default:
+                                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
                                 break;
                         }
                     } else {
