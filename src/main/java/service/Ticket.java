@@ -97,9 +97,9 @@ public class Ticket {
             totalPrice += ticketItems[i].getPrice();
         }
         float finalPrice = totalPrice - totalDiscount;
-        System.out.println("Total price: " + totalPrice);
-        System.out.println("Total discount: " + totalDiscount);
-        System.out.println("Final price: " + finalPrice);
+        System.out.printf("Total price: %.2f \n" , totalPrice);
+        System.out.printf("Total discount: %.2f \n" , totalDiscount);
+        System.out.printf("Final price: %.2f \n" , finalPrice);
         System.out.println("ticket print: ok");
     }
 
@@ -142,7 +142,8 @@ public class Ticket {
                         category = ticketItems[j].getCategory();
                         price = ticketItems[j].getPrice();
                         discount = (category.getDiscount()*price);
-                        System.out.println(ticketItems[j].toString() + "**discount -" + discount);
+                        System.out.print(ticketItems[j].toString() + "**discount -");
+                        System.out.printf("%.2f \n",discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
                     }
@@ -152,7 +153,9 @@ public class Ticket {
                         category = ticketItems[j].getCategory();
                         price = ticketItems[j].getPrice();
                         discount = (category.getDiscount()*price);
-                        System.out.println(ticketItems[j].toString() + "**discount -" + discount);
+                        System.out.print(ticketItems[j].toString() + "**discount -");
+                        System.out.printf("%.2f \n",discount);
+
                     } else {
                         System.out.println(ticketItems[j].toString());
                     }
@@ -162,7 +165,8 @@ public class Ticket {
                         category = ticketItems[j].getCategory();
                         price = ticketItems[j].getPrice();
                         discount = (category.getDiscount()*price);
-                        System.out.println(ticketItems[j].toString() + "**discount -" + discount);
+                        System.out.print(ticketItems[j].toString() + "**discount -");
+                        System.out.printf("%.2f \n",discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
                     }
@@ -172,7 +176,8 @@ public class Ticket {
                         category = ticketItems[j].getCategory();
                         price = ticketItems[j].getPrice();
                         discount = (category.getDiscount()*price);
-                        System.out.println(ticketItems[j].toString() + "**discount -" + discount);
+                        System.out.print(ticketItems[j].toString() + "**discount -");
+                        System.out.printf("%.2f \n",discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
                     }

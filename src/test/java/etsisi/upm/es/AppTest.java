@@ -15,7 +15,7 @@ public class AppTest {
     @Test
     public void FullAppTest(){
         try{
-            FileInputStream file=new FileInputStream("input.txt");
+            FileInputStream file=new FileInputStream("inputExigente.txt");
             System.setIn(file);
 
             CommandHandler command=new CommandHandler();
