@@ -6,4 +6,7 @@ public class BaseProduct extends Product{
         super(id, name, price);
         this.category = category;
     }
+
+
+
 }
