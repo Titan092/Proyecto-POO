@@ -1,6 +1,7 @@
 package service;
 
 import exceptionHandler.ErrorMessageHandler;
+import model.Category;
 import model.Product;
 
 public class Ticket {
@@ -133,10 +134,14 @@ public class Ticket {
         }
         for (int j = 0; j < numProducts; j++) {
             float discount = 0f;
+            float price = 0f;
+            Category category;
             switch (ticketItems[j].getCategory()) {
                 case BOOK:
                     if (counterBook >= 2) {
-                        discount = discountAux(ticketItems[j]);
+                        category = ticketItems[j].getCategory();
+                        price = ticketItems[j].getPrice();
+                        discount = (category.getDiscount()*price);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
@@ -144,7 +149,9 @@ public class Ticket {
                     break;
                 case CLOTHES:
                     if (counterClothes >= 2) {
-                        discount = discountAux(ticketItems[j]);
+                        category = ticketItems[j].getCategory();
+                        price = ticketItems[j].getPrice();
+                        discount = (category.getDiscount()*price);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
@@ -152,7 +159,9 @@ public class Ticket {
                     break;
                 case STATIONERY:
                     if (counterStationery >= 2) {
-                        discount = discountAux(ticketItems[j]);
+                        category = ticketItems[j].getCategory();
+                        price = ticketItems[j].getPrice();
+                        discount = (category.getDiscount()*price);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
@@ -160,7 +169,9 @@ public class Ticket {
                     break;
                 case ELECTRONICS:
                     if (counterElectronics >= 2) {
-                        discount = discountAux(ticketItems[j]);
+                        category = ticketItems[j].getCategory();
+                        price = ticketItems[j].getPrice();
+                        discount = (category.getDiscount()*price);
                         System.out.println(ticketItems[j].toString() + "**discount -" + discount);
                     } else {
                         System.out.println(ticketItems[j].toString());
@@ -170,26 +181,5 @@ public class Ticket {
             totalDiscount += discount;
         }
         return totalDiscount;
-    }
-
-    /**
-     * Calculates de discount of an individual product given its category.
-     * @param product Product to calculate the discount.
-     * @return Individual discount.
-     */
-    private float discountAux(Product product) {
-        float precio = product.getPrice();
-        switch (product.getCategory()) {
-            case STATIONERY:
-                return precio * 0.05f;
-            case CLOTHES:
-                return precio * 0.07f;
-            case BOOK:
-                return precio * 0.10f;
-            case ELECTRONICS:
-                return precio * 0.03f;
-            default: // MERCH y otros
-                return 0f;
-        }
     }
 }
