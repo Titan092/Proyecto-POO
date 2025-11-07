@@ -1,8 +1,6 @@
-package service;
+package model.products;
 
 import exceptionHandler.ErrorMessageHandler;
-import model.Category;
-import model.Product;
 
 public class ProductService {
     private Product[] products;

@@ -1,8 +1,9 @@
-package service;
+package model.tickets;
 
 import exceptionHandler.ErrorMessageHandler;
-import model.Category;
-import model.Product;
+import model.products.Category;
+import model.products.Product;
+import model.products.ProductService;
 
 public class Ticket {
 

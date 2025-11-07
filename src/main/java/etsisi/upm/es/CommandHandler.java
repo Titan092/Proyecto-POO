@@ -1,9 +1,9 @@
 package etsisi.upm.es;
 
 import exceptionHandler.ErrorMessageHandler;
-import model.Category;
-import service.Ticket;
-import service.ProductService;
+import model.products.Category;
+import model.tickets.Ticket;
+import model.products.ProductService;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

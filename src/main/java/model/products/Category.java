@@ -1,4 +1,4 @@
-package model;
+package model.products;
 
 public enum Category {
     MERCH(0f),
