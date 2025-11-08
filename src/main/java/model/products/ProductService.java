@@ -87,7 +87,7 @@ public class ProductService {
     public void prodList(){
         System.out.println("Catalog:");
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
-            
+            System.out.println(products.get(entry.getValue()).toString());
         }
 
 
