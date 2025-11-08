@@ -1,11 +1,12 @@
 package model.tickets;
 
 import exceptionHandler.ErrorMessageHandler;
-import model.products.Category;
-import model.products.IProduct;
-import model.products.ProductService;
+import model.products.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ticket {
@@ -13,9 +14,10 @@ public class Ticket {
     private static final DateTimeFormatter opening = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
     private static final DateTimeFormatter closing = DateTimeFormatter.ofPattern("-yy-MM-dd-HH:mm");
     private String id;
-    private IProduct[] ticketItems;
-    private final int MAX_AMOUNT = 100;
-    private int numProducts;
+    private static final int MAX_AMOUNT = 100;
+    private IProduct[] ticketItems = new IProduct[MAX_AMOUNT];
+    private int numProducts = 0;
+    private TicketStatus ticketStatus = TicketStatus.EMPTY;
 
     /**
      * Ticket constructor.
@@ -24,8 +26,6 @@ public class Ticket {
         String openingTimestamp = LocalDateTime.now().format(opening);
         int randomNumber = ThreadLocalRandom.current().nextInt(10000, 99999+1);
         this.id = openingTimestamp + randomNumber;
-        ticketItems = new IProduct[MAX_AMOUNT];
-        this.numProducts = 0;
     }
 
     /**
@@ -48,18 +48,21 @@ public class Ticket {
         if (id < 0){
             System.out.println(ErrorMessageHandler.getWRONGID());
         } else {
-            IProduct[] products = productService.getProducts();
+            Map<Integer, IProduct> products = productService.getProducts();
             int availableCapacity = ticketItems.length - numProducts;
             if (amount > availableCapacity) {
                 System.out.println(ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products");
             } else {
-                for (int i = 0; i < products.length; i++) {
-                    if (products[i] != null && products[i].getId() == id) {
+                for (IProduct product : products.values()) {
+                    if (product != null && id == product.getId()) {
                         for (int j = 0; j < amount; j++) {
-                            ticketItems[numProducts] = products[i];
+                            ticketItems[numProducts] = product;
                             numProducts++;
                         }
                         productFound = true;
+                        if (ticketStatus == TicketStatus.EMPTY) {
+                            ticketStatus = TicketStatus.ACTIVE;
+                        }
                     }
                 }
                 if (!productFound) {
@@ -85,7 +88,7 @@ public class Ticket {
         if (!found) {
             System.out.println(ErrorMessageHandler.getIDNOTEXIST());
         } else {
-            Product[] ticketItemsAux = new Product[MAX_AMOUNT];
+            IProduct[] ticketItemsAux = new IProduct[MAX_AMOUNT];
             int j = 0; // Position indicator for the auxiliary array.
             for (int i = 0; i < ticketItemsAux.length ; i++) {
                 if (ticketItems[i] != null){ // Only products that are not null will be saved, i.e., reset the array by removing deleted products (null).
@@ -120,80 +123,80 @@ public class Ticket {
      * @param ticketItems Products to check for discount.
      * @return Total discount.
      */
-    private float discount(Product[] ticketItems) {
+    private float discount(IProduct[] ticketItems) {
         float totalDiscount = 0f;
         int counterStationery = 0;
         int counterClothes = 0;
         int counterBook = 0;
         int counterElectronics = 0;
         for (int i = 0; i < numProducts; i++) {
-            switch (ticketItems[i].getCategory()) {
-                case BOOK:
-                    counterBook++;
-                    break;
-                case CLOTHES:
-                    counterClothes++;
-                    break;
-                case STATIONERY:
-                    counterStationery++;
-                    break;
-                case ELECTRONICS:
-                    counterElectronics++;
-                    break;
+            if (ticketItems[i] instanceof ICategorizable product) {
+                switch (product.getCategory()) {
+                    case BOOK:
+                        counterBook++;
+                        break;
+                    case CLOTHES:
+                        counterClothes++;
+                        break;
+                    case STATIONERY:
+                        counterStationery++;
+                        break;
+                    case ELECTRONICS:
+                        counterElectronics++;
+                        break;
+                }
             }
         }
         for (int j = 0; j < numProducts; j++) {
             float discount = 0f;
-            float price = 0f;
-            Category category;
-            switch (ticketItems[j].getCategory()) {
-                case BOOK:
-                    if (counterBook >= 2) {
-                        category = ticketItems[j].getCategory();
-                        price = ticketItems[j].getPrice();
-                        discount = (category.getDiscount()*price);
-                        System.out.print(ticketItems[j].toString() + "**discount -");
-                        System.out.printf("%.2f \n",discount);
-                    } else {
-                        System.out.println(ticketItems[j].toString());
-                    }
-                    break;
-                case CLOTHES:
-                    if (counterClothes >= 2) {
-                        category = ticketItems[j].getCategory();
-                        price = ticketItems[j].getPrice();
-                        discount = (category.getDiscount()*price);
-                        System.out.print(ticketItems[j].toString() + "**discount -");
-                        System.out.printf("%.2f \n",discount);
+            float price;
+            if (ticketItems[j] instanceof ICategorizable product) {
+                Category category = product.getCategory();
+                switch (category) {
+                    case BOOK:
+                        if (counterBook >= 2) {
+                            price = ticketItems[j].getPrice();
+                            discount = (category.getDiscount()*price);
+                            System.out.print(ticketItems[j].toString() + "**discount -");
+                            System.out.printf("%.2f \n",discount);
+                        } else {
+                            System.out.println(ticketItems[j].toString());
+                        }
+                        break;
+                    case CLOTHES:
+                        if (counterClothes >= 2) {
+                            price = ticketItems[j].getPrice();
+                            discount = (category.getDiscount()*price);
+                            System.out.print(ticketItems[j].toString() + "**discount -");
+                            System.out.printf("%.2f \n",discount);
 
-                    } else {
-                        System.out.println(ticketItems[j].toString());
-                    }
-                    break;
-                case STATIONERY:
-                    if (counterStationery >= 2) {
-                        category = ticketItems[j].getCategory();
-                        price = ticketItems[j].getPrice();
-                        discount = (category.getDiscount()*price);
-                        System.out.print(ticketItems[j].toString() + "**discount -");
-                        System.out.printf("%.2f \n",discount);
-                    } else {
-                        System.out.println(ticketItems[j].toString());
-                    }
-                    break;
-                case ELECTRONICS:
-                    if (counterElectronics >= 2) {
-                        category = ticketItems[j].getCategory();
-                        price = ticketItems[j].getPrice();
-                        discount = (category.getDiscount()*price);
-                        System.out.print(ticketItems[j].toString() + "**discount -");
-                        System.out.printf("%.2f \n",discount);
-                    } else {
-                        System.out.println(ticketItems[j].toString());
-                    }
-                    break;
+                        } else {
+                            System.out.println(ticketItems[j].toString());
+                        }
+                        break;
+                    case STATIONERY:
+                        if (counterStationery >= 2) {
+                            price = ticketItems[j].getPrice();
+                            discount = (category.getDiscount()*price);
+                            System.out.print(ticketItems[j].toString() + "**discount -");
+                            System.out.printf("%.2f \n",discount);
+                        } else {
+                            System.out.println(ticketItems[j].toString());
+                        }
+                        break;
+                    case ELECTRONICS:
+                        if (counterElectronics >= 2) {
+                            price = ticketItems[j].getPrice();
+                            discount = (category.getDiscount()*price);
+                            System.out.print(ticketItems[j].toString() + "**discount -");
+                            System.out.printf("%.2f \n",discount);
+                        } else {
+                            System.out.println(ticketItems[j].toString());
+                        }
+                        break;
+                }
+                totalDiscount += discount;
             }
-            totalDiscount += discount;
         }
         return totalDiscount;
     }
