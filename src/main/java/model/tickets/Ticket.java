@@ -44,31 +44,35 @@ public class Ticket {
      * @param productService Array where products are located.
      */
     public void addProductToTicket(int id, int amount, ProductService productService) {
-        boolean productFound = false;
-        if (id < 0){
-            System.out.println(ErrorMessageHandler.getWRONGID());
-        } else {
-            Map<Integer, IProduct> products = productService.getProducts();
-            int availableCapacity = ticketItems.length - numProducts;
-            if (amount > availableCapacity) {
-                System.out.println(ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products");
+        if (ticketStatus != TicketStatus.CLOSED) {
+            boolean productFound = false;
+            if (id < 0){
+                System.out.println(ErrorMessageHandler.getWRONGID());
             } else {
-                for (IProduct product : products.values()) {
-                    if (product != null && id == product.getId()) {
-                        for (int j = 0; j < amount; j++) {
-                            ticketItems[numProducts] = product;
-                            numProducts++;
-                        }
-                        productFound = true;
-                        if (ticketStatus == TicketStatus.EMPTY) {
-                            ticketStatus = TicketStatus.ACTIVE;
+                Map<Integer, IProduct> products = productService.getProducts();
+                int availableCapacity = ticketItems.length - numProducts;
+                if (amount > availableCapacity) {
+                    System.out.println(ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products");
+                } else {
+                    for (IProduct product : products.values()) {
+                        if (product != null && id == product.getId()) {
+                            for (int j = 0; j < amount; j++) {
+                                ticketItems[numProducts] = product;
+                                numProducts++;
+                            }
+                            productFound = true;
+                            if (ticketStatus == TicketStatus.EMPTY) {
+                                ticketStatus = TicketStatus.ACTIVE;
+                            }
                         }
                     }
-                }
-                if (!productFound) {
-                    System.out.println(ErrorMessageHandler.getPRODUCTNOTEXIST());
+                    if (!productFound) {
+                        System.out.println(ErrorMessageHandler.getPRODUCTNOTEXIST());
+                    }
                 }
             }
+        } else {
+            System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET());
         }
     }
 
@@ -77,26 +81,33 @@ public class Ticket {
      * @param id Unique ID of the products.
      */
     public void ticketRemove(int id) {
-        boolean found = false;
-        for (int i = 0; i < ticketItems.length; i++) {
-            if (ticketItems[i] != null && ticketItems[i].getId() == id) {
-                ticketItems[i] = null; // Matches are set to null.
-                found = true; // Valid ID.
-                numProducts--;
-            }
-        }
-        if (!found) {
-            System.out.println(ErrorMessageHandler.getIDNOTEXIST());
-        } else {
-            IProduct[] ticketItemsAux = new IProduct[MAX_AMOUNT];
-            int j = 0; // Position indicator for the auxiliary array.
-            for (int i = 0; i < ticketItemsAux.length ; i++) {
-                if (ticketItems[i] != null){ // Only products that are not null will be saved, i.e., reset the array by removing deleted products (null).
-                    ticketItemsAux[j] = ticketItems[i];
-                    j++;
+        if (ticketStatus != TicketStatus.CLOSED) {
+            boolean found = false;
+            for (int i = 0; i < ticketItems.length; i++) {
+                if (ticketItems[i] != null && ticketItems[i].getId() == id) {
+                    ticketItems[i] = null; // Matches are set to null.
+                    found = true; // Valid ID.
+                    numProducts--;
+                    if (numProducts == 0) {
+                        ticketStatus = TicketStatus.EMPTY;
+                    }
                 }
             }
-            ticketItems = ticketItemsAux; // Copies the auxiliary array, where everything is already sorted, to the original array.
+            if (!found) {
+                System.out.println(ErrorMessageHandler.getIDNOTEXIST());
+            } else {
+                IProduct[] ticketItemsAux = new IProduct[MAX_AMOUNT];
+                int j = 0; // Position indicator for the auxiliary array.
+                for (int i = 0; i < ticketItemsAux.length ; i++) {
+                    if (ticketItems[i] != null){ // Only products that are not null will be saved, i.e., reset the array by removing deleted products (null).
+                        ticketItemsAux[j] = ticketItems[i];
+                        j++;
+                    }
+                }
+                ticketItems = ticketItemsAux; // Copies the auxiliary array, where everything is already sorted, to the original array.
+            }
+        } else {
+            System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET());
         }
     }
 
@@ -104,16 +115,23 @@ public class Ticket {
      * Prints a ticket.
      */
     public void printTicket() {
-        float totalPrice = 0;
-        float totalDiscount = discount(ticketItems);
-        for (int i = 0; i < numProducts; i++) {
-            totalPrice += ticketItems[i].getPrice();
+        if (ticketStatus != TicketStatus.EMPTY) {
+            float totalPrice = 0;
+            float totalDiscount = discount(ticketItems);
+            for (int i = 0; i < numProducts; i++) {
+                totalPrice += ticketItems[i].getPrice();
+            }
+            float finalPrice = totalPrice - totalDiscount;
+            System.out.printf("Total price: %.2f \n" , totalPrice);
+            System.out.printf("Total discount: %.2f \n" , totalDiscount);
+            System.out.printf("Final price: %.2f \n" , finalPrice);
+            System.out.println("ticket print: ok");
+            if (ticketStatus == TicketStatus.ACTIVE) {
+                ticketStatus = TicketStatus.CLOSED;
+            }
+        } else {
+            System.out.println(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
         }
-        float finalPrice = totalPrice - totalDiscount;
-        System.out.printf("Total price: %.2f \n" , totalPrice);
-        System.out.printf("Total discount: %.2f \n" , totalDiscount);
-        System.out.printf("Final price: %.2f \n" , finalPrice);
-        System.out.println("ticket print: ok");
     }
 
     /**
