@@ -17,7 +17,8 @@ public class ErrorMessageHandler {
     private static final String EXISTINGIDCASH = "The cash ID is invalid, because there is already a cash with the same id";
     private static final String WRONGCASHID = "The cash ID is invalid, it must use this format: (UW+7digits)";
     private static final String WRONGDNIFORMAT = "The DNI is invalid, it must have 9 characters with the last one being a letter.";
-
+    private static final String DNINOTEXIST = "The DNI entered does not belong to any client.";
+    private static final String CASHIDNOTEXIST = "The Cash ID entered does not belong to any cash.";
 
     public static String getERRORMESSAGE() {
         return ERRORMESSAGE;
