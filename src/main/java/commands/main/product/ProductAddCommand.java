@@ -3,7 +3,7 @@ package commands.main.product;
 import commands.Command;
 import model.products.Category;
 import model.products.ProductService;
-import model.products.ProductServiceAntiguo;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +16,7 @@ public class ProductAddCommand extends Command {
     }
 
     public boolean apply(String[] args) {
+        boolean result = false;
         if (args.length > 0 && args[1].equals(this.getName())) {
             boolean callCustom=false;
             Pattern p=Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (\\S+) ([\\d.]+)(?: (\\d+))?$");
@@ -29,9 +30,9 @@ public class ProductAddCommand extends Command {
                 int maxPers = Integer.parseInt(m.group(5) );
                 if(callCustom) productService.prodAdd(id, name, category, price, maxPers);
                 else productService.prodAdd(id, name, category, price);
+                result=true;
             }
-            //productService.prodAdd();
         }
-        return false;
+        return result;
     }
 }

@@ -9,4 +9,6 @@ public class ProductAddMeetingCommand extends Command {
         super("add_meeting");
         this.productService = productService;
     }
+
+
 }
