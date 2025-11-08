@@ -3,10 +3,13 @@ package commands;
 public abstract class Command {
     String name;
 
-    String getName() {
+    protected Command (String name) {
+        this.name = name;
+    }
+    public String getName() {
         return name;
     }
-    boolean apply(String[] args) {//Personalizable method
+    public boolean apply(String[] args) {//Personalizable method
         return false;
     }
 }

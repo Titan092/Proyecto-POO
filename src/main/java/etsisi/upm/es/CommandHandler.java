@@ -1,7 +1,10 @@
 package etsisi.upm.es;
 
 import commands.Command;
+import commands.main.HelpCommand;
 import commands.main.product.ProductCommand;
+import commands.main.ticket.TicketCommand;
+import commands.main.user.UserCommand;
 import exceptionHandler.ErrorMessageHandler;
 import model.products.Category;
 import model.tickets.Ticket;
@@ -46,29 +49,53 @@ public class CommandHandler {
         tickets = new TicketService();
         users = new UserService();
         this.s = s;
+        initCommands();
     }
 
     private void initCommands() {
         // Here we would initialize the list of commands available in the application
         this.commands=new ArrayList<>();
-        commands.add(new ProductCommand());
+        commands.add(new ProductCommand(productService));
+        commands.add(new TicketCommand());
+        commands.add(new HelpCommand());
+        commands.add(new UserCommand());
     }
 
     /**
      * Starts the execution of the shop.
      */
     protected void start() {
-        Scanner sc = new Scanner(System.in);
         boolean continues = true;
         while(continues) {
             System.out.print(PROMPT);
             //This part is to differentiate between interactive and non-interactive mode (in the tests)
             //All this is for cleaner output in the tests
-            String command = sc.nextLine();
+            String command = s.nextLine();
             if (System.in instanceof java.io.FileInputStream) { //Here, the code comes from a file
                 System.out.println(command);
             }
             String[] commandUni = command.split(" ");
+            switch (commandUni[0]){
+                case "echo":
+                    echo(command);
+                    break;
+                case "exit":
+                    continues=false;
+                    break;
+                default:
+                    applyCommand(commandUni);
+            }
+        }
+    }
+
+
+    private void applyCommand(String[] commandUni) {
+        boolean found=false;
+        for (Command cmd:commands) {
+            found=cmd.apply(commandUni);
+        }
+        if(!found){
+            unknownCommand();
         }
     }
 
