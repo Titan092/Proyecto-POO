@@ -1,4 +1,6 @@
 package commands.main.product;
 
-public class ProductAddMeetingCommand {
+import commands.Command;
+
+public class ProductAddMeetingCommand extends Command {
 }

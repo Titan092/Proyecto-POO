@@ -1,4 +1,6 @@
 package commands.main.user;
 
-public class UserCommand {
+import commands.Command;
+
+public class UserCommand extends Command {
 }

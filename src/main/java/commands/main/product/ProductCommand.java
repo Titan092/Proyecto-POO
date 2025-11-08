@@ -1,4 +1,6 @@
 package commands.main.product;
 
-public class ProductCommand {
+import commands.Command;
+
+public class ProductCommand extends Command {
 }

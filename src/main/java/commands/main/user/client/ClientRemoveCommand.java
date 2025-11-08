@@ -1,4 +1,6 @@
 package commands.main.user.client;
 
-public class ClientRemoveCommand {
+import commands.Command;
+
+public class ClientRemoveCommand extends Command {
 }
