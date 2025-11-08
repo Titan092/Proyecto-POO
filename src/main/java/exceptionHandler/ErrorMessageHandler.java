@@ -13,6 +13,7 @@ public class ErrorMessageHandler {
     private static final String IDNOTEXIST="The product ID is invalid because it does not exist on the ticket.";
     private static final String FIELDERROR="Error entering the field to be updated.";
     private static final String NOMOREPRODUCTS="Error, exceeds the number of products allowed.";
+    private static final String EXISTINGID = "The product ID is invalid, because there is already a product with the same id";
 
 
     public static String getERRORMESSAGE() {
@@ -48,5 +49,7 @@ public class ErrorMessageHandler {
     public static String getNOMOREPRODUCTS() {
         return NOMOREPRODUCTS;
     }
+
+    public static String getEXISTINGID(){return EXISTINGID;}
 
 }
