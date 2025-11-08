@@ -183,6 +183,10 @@ public class ProductService {
             }
         }
     }
+
+    public Map<Integer,IProduct> getProducts(){
+        return products;
+    }
 }
 
 
