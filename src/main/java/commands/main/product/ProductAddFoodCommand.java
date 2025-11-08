@@ -34,7 +34,6 @@ public class ProductAddFoodCommand extends Command {
                 int maxPers = Integer.parseInt(m.group(5));
                 if(callWithId) productService.prodAddFood(id, name, price, expirationDate, maxPers);
                 else productService.prodAddFood(name, price, expirationDate, maxPers);
-
                 result=true;
             }
         }
