@@ -19,6 +19,7 @@ public class ProductService {
 
     //comand for baseProduct with random ID
     public void prodAdd(String name, Category category, float price){
+        int id = (int) (Math.random() * (9999999-1000000+1)) +1000000;
 
     }
 
