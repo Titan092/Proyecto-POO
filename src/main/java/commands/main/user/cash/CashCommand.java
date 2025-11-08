@@ -1,4 +1,6 @@
 package commands.main.user.cash;
 
-public class CashCommand {
+import commands.Command;
+
+public class CashCommand extends Command {
 }

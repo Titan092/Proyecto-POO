@@ -1,4 +1,6 @@
 package commands.main.ticket;
 
-public class TicketPrintCommand {
+import commands.Command;
+
+public class TicketPrintCommand extends Command {
 }

@@ -1,4 +1,6 @@
 package commands.main.product;
 
-public class ProductAddFoodCommand {
+import commands.Command;
+
+public class ProductAddFoodCommand extends Command {
 }

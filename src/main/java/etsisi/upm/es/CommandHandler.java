@@ -1,10 +1,16 @@
 package etsisi.upm.es;
 
+import commands.Command;
+import commands.main.product.ProductCommand;
 import exceptionHandler.ErrorMessageHandler;
 import model.products.Category;
 import model.tickets.Ticket;
 import model.products.ProductService;
+import model.tickets.TicketService;
+import model.users.UserService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +26,10 @@ public class CommandHandler {
     // boolean: "true|false"
 
     private ProductService productService;
-    private Ticket ticket;
+    private TicketService tickets;
+    private UserService users;
+    private Scanner s;
+    private List<Command> commands;
 
     /**
      * Prompt message
@@ -30,11 +39,19 @@ public class CommandHandler {
     /**
      * Initializes all the required components of the shop.
      */
-    protected void init() {
+    protected void init(Scanner s) {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
         productService = new ProductService();
-        ticket = new Ticket();
+        tickets = new TicketService();
+        users = new UserService();
+        this.s = s;
+    }
+
+    private void initCommands() {
+        // Here we would initialize the list of commands available in the application
+        this.commands=new ArrayList<>();
+        commands.add(new ProductCommand());
     }
 
     /**
@@ -43,7 +60,7 @@ public class CommandHandler {
     protected void start() {
         Scanner sc = new Scanner(System.in);
         boolean continues = true;
-        while(continues){
+        while(continues) {
             System.out.print(PROMPT);
             //This part is to differentiate between interactive and non-interactive mode (in the tests)
             //All this is for cleaner output in the tests
@@ -52,182 +69,14 @@ public class CommandHandler {
                 System.out.println(command);
             }
             String[] commandUni = command.split(" ");
-            switch (commandUni[0]) {
-                case "help":
-                    printHelp();
-                    break;
-                case "prod":
-                    if (commandUni.length>=2) { //If you have at least 2 words
-                        switch (commandUni[1]) {
-                            case "add":
-                                // prod add <id> "<name>" <category> <price>
-                                prodAdd(command);
-                                break;
-                            case "list":
-                                //prod list
-                                prodList(commandUni);
-                                break;
-                            case "update":
-                                // prod update <id> NAME|CATEGORY|PRICE <value>
-                                prodUpdate(command);
-                                break;
-                            case "remove":
-                                // prod remove <id>
-                                prodRemove(command);
-                                break;
-                            default:
-                                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-                                break;
-                        }
-                    } else {
-                        System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-                    }
-                    break;
-                case "ticket":
-                    if (commandUni.length>=2){
-                        switch (commandUni[1]){
-                            case "new":
-                                //ticket new
-                                ticket.newTicket();
-                                break;
-                            case "add":
-                                //ticket add <prodId> <quantity>
-                                ticketAdd(command);
-                                break;
-                            case "remove":
-                                //ticket remove <prodId>
-                                ticketRemove(command);
-                                break;
-                            case "print":
-                                //ticket print
-                                //discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
-                                ticket.printTicket();
-                                break;
-                            default:
-                                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-                                break;
-                        }
-                    } else {
-                        System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-                    }
-                    break;
-                case "echo":
-                    echo(command);
-                    break;
-                case "exit":
-                    continues = false;
-                    break;
-                default:
-                    unknownCommand();
-                    break;
-            }
-        }
-        sc.close();
-    }
-
-    /**
-     * Adds a product to productService.
-     * @param command String with the command.
-     */
-    private void prodAdd(String command) {
-        try{
-            Pattern pattern = Pattern.compile("^prod add (\\d+) \"([^\"]+)\" (.+) ([\\d.]+)$");
-            Matcher matcher = pattern.matcher(command);
-            if (matcher.matches()) {
-                int id = Integer.parseInt(matcher.group(1));
-                String name = matcher.group(2);
-                Category category = Category.valueOf(matcher.group(3).toUpperCase());
-                float price = Float.parseFloat(matcher.group(4));
-                if (name.length()>0 && name.length()<=100) {
-                    productService.prodAdd(id, name, category, price);
-                }else
-                    System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-            } else {
-                System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-            }
-        } catch (NumberFormatException e) {
-            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
-        } catch (IllegalArgumentException e) {
-            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
         }
     }
 
-    /**
-     * Prints all the products in productService.
-     * @param commandUni String with the command.
-     */
-    private void prodList(String[] commandUni) {
-        if (commandUni.length == 2){
-            productService.productList();
-        } else System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-    }
 
-    /**
-     * Updates an existing product in productService.
-     * @param command String with the command.
-     */
-    private void prodUpdate(String command) {
-        // prod update <id> NAME|CATEGORY|PRICE <value>
-        Pattern pattern = Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
-        Matcher matcher = pattern.matcher(command);
-        if (matcher.matches()){
-            int id = Integer.parseInt(matcher.group(1));
-            String field = matcher.group(2);
-            String value = matcher.group(3);
-            productService.productUpdate(id, field, value);
-        } else {
-            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-        }
-    }
 
-    /**
-     * Removes a product in productService.
-     * @param command String with the command.
-     */
-    private void prodRemove(String command) {
-        // prod remove <id>
-        Pattern pattern = Pattern.compile("^prod remove (\\d+)$");
-        Matcher matcher = pattern.matcher(command);
-        if (matcher.matches()){
-            int id = Integer.parseInt(matcher.group(1));
-            productService.productRemove(id);
-        } else {
-            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-        }
-    }
 
-    /**
-     * Adds an existing product to the ticket.
-     * @param command String with the command.
-     */
-    private void ticketAdd(String command) {
-        //ticket add <prodId> <quantity>
-        Pattern pattern = Pattern.compile("^ticket add (\\d+) (\\d+)$");
-        Matcher matcher = pattern.matcher( command);
-        if (matcher.matches()){
-            int prodId = Integer.parseInt(matcher.group(1));
-            int amount = Integer.parseInt(matcher.group(2));
-            ticket.addProductToTicket(prodId,amount, productService);
-        } else {
-            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-        }
-    }
 
-    /**
-     * Command that removes a product from the ticket
-     * @param comando String with the command.
-     */
-    private void ticketRemove(String comando){
-        //ticket remove <prodId>
-        Pattern pattern = Pattern.compile("^ticket remove (\\d+)$");
-        Matcher matcher = pattern.matcher(comando);
-        if (matcher.matches()){
-            int prodId = Integer.parseInt(matcher.group(1));
-            ticket.ticketRemove(prodId);
-        } else {
-            System.out.println(ErrorMessageHandler.getERRORMESSAGE());
-        }
-    }
+
 
     /**
      * Prints all the available commands.
@@ -273,5 +122,6 @@ public class CommandHandler {
     protected void end() {
         System.out.println("Closing application.");
         System.out.println("Goodbye!");
+        s.close();
     }
 }

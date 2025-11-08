@@ -1,4 +1,6 @@
 package commands.main;
 
-public class HelpCommand {
+import commands.Command;
+
+public class HelpCommand extends Command {
 }

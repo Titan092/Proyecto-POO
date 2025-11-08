@@ -1,4 +1,6 @@
 package commands.main.product;
 
-public class ProductRemoveCommand {
+import commands.Command;
+
+public class ProductRemoveCommand extends Command {
 }

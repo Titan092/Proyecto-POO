@@ -1,4 +1,6 @@
 package commands.main.user.client;
 
-public class ClientCommand {
+import commands.Command;
+
+public class ClientCommand extends Command {
 }
