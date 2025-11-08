@@ -1,11 +1,13 @@
 package model.users;
 
 import exceptionHandler.ErrorMessageHandler;
+import model.products.IProduct;
 import model.users.Cash;
 import model.users.IUser;
 
-import java.util.HashMap;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+
 
 public class UserService {
 
@@ -42,6 +44,27 @@ public class UserService {
     }
 
     public void clientList(){
+        //ARREGLAR ESTO MIAU
+
+        //Put the keys in an ArrayList
+        HashMap<String,Client> clientSortedByName = new HashMap<>();
+
+        List<String> clientNames = new ArrayList<>();
+        for (Map.Entry<String, IUser> entry : users.entrySet()){
+          if (!Character.isDigit(entry.getKey().charAt(8))){ //if last character is not a number its a dni, so its a client
+              clientSortedByName.put(entry.getValue().getName(),(Client) entry.getValue());
+             clientNames.add(entry.getValue().getName());
+          }
+        }
+
+        //Sort the keys alphabetically
+        Collections.sort(clientNames);
+
+        for (int i=0;i<clientNames.size();i++){
+            String clientName = clientNames.get(i);
+            System.out.println(clientName);
+        }
+
 
     }
 
