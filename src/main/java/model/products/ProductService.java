@@ -81,7 +81,44 @@ public class ProductService {
 
 
     public void prodUpdate(int id, String field, String value){
-
+        boolean found = false;
+        int i = 0;
+        while (!found && i < MAX_QUANTITY) {
+            if (products[i] != null && products[i].getId() == id) {
+                switch (field.toUpperCase()) {
+                    case "NAME":
+                        products[i].setName(value);
+                        break;
+                    case "CATEGORY":
+                        try {
+                            Category categoryNew = Category.valueOf(value.toUpperCase());
+                            products[i].setCategory(categoryNew);
+                            System.out.println("Category successfully updated.");
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
+                        }
+                        break;
+                    case "PRICE":
+                        try{
+                            float priceValue = Float.parseFloat(value);
+                            products[i].setPrice(priceValue);
+                        } catch (NumberFormatException e) {
+                            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
+                        }
+                        break;
+                    default:
+                        System.out.println(ErrorMessageHandler.getFIELDERROR());
+                        break;
+                }
+                System.out.println(products[i].toString());
+                System.out.println("prod update: ok");
+                found = true;
+            }
+            i++;
+        }
+        if (!found) {
+            System.out.println(ErrorMessageHandler.getIDNOTEXIST());
+        }
     }
 
     public void prodList(){
