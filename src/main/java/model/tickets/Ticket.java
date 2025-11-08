@@ -2,13 +2,18 @@ package model.tickets;
 
 import exceptionHandler.ErrorMessageHandler;
 import model.products.Category;
-import model.products.Product;
+import model.products.IProduct;
 import model.products.ProductService;
-import model.products.ProductServiceAntiguo;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Ticket {
 
-    private Product[] ticketItems;
+    private static final DateTimeFormatter opening = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
+    private static final DateTimeFormatter closing = DateTimeFormatter.ofPattern("-yy-MM-dd-HH:mm");
+    private String id;
+    private IProduct[] ticketItems;
     private final int MAX_AMOUNT = 100;
     private int numProducts;
 
@@ -16,7 +21,10 @@ public class Ticket {
      * Ticket constructor.
      */
     public Ticket() {
-        ticketItems = new Product[MAX_AMOUNT];
+        String openingTimestamp = LocalDateTime.now().format(opening);
+        int randomNumber = ThreadLocalRandom.current().nextInt(10000, 99999+1);
+        this.id = openingTimestamp + randomNumber;
+        ticketItems = new IProduct[MAX_AMOUNT];
         this.numProducts = 0;
     }
 
@@ -24,7 +32,7 @@ public class Ticket {
      * Resets the ticket.
      */
     public void newTicket() {
-        ticketItems = new Product[MAX_AMOUNT];
+        ticketItems = new IProduct[MAX_AMOUNT];
         this.numProducts = 0;
         System.out.println("ticket new: ok");
     }
@@ -40,7 +48,7 @@ public class Ticket {
         if (id < 0){
             System.out.println(ErrorMessageHandler.getWRONGID());
         } else {
-            Product[] products = productService.getProducts();
+            IProduct[] products = productService.getProducts();
             int availableCapacity = ticketItems.length - numProducts;
             if (amount > availableCapacity) {
                 System.out.println(ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products");
