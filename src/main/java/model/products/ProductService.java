@@ -17,7 +17,13 @@ public class ProductService {
         this.numProducts = 0;
     }
 
-    //command for baseProduct
+    //comand for baseProduct with random ID
+    public void prodAdd(String name, Category category, float price){
+
+    }
+
+
+    //command for baseProduct with explicit ID
     public void prodAdd(int id, String name, Category category ,float price){
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
@@ -81,29 +87,34 @@ public class ProductService {
 
 
     public void prodUpdate(int id, String field, String value){
-        /*
-        boolean found = false;
-        int i = 0;
-        while (!found && i < MAX_QUANTITY) {
-            if (products[i] != null && products[i].getId() == id) {
-                switch (field.toUpperCase()) {
+        if (id<0){
+            System.out.println(ErrorMessageHandler.getWRONGID());
+        }else{
+            if (!products.containsKey(id)){
+                System.out.println(ErrorMessageHandler.getIDNOTEXIST());
+            }else{
+                IProduct product = products.get(id); //the product that is going to be updated
+                switch (field.toUpperCase()){
                     case "NAME":
-                        products[i].setName(value);
+                        product.setName(value);
                         break;
                     case "CATEGORY":
-                        try {
+                        try{
                             Category categoryNew = Category.valueOf(value.toUpperCase());
-                            products[i].setCategory(categoryNew);
-                            System.out.println("Category successfully updated.");
-                        } catch (IllegalArgumentException e) {
+                            if (product instanceof ICategorizable){
+                                ((ICategorizable) product).setCategory(categoryNew);
+                            }else{
+                                System.out.println("This type of product do not have category");
+                            }
+                        }catch (IllegalArgumentException e){
                             System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
                         }
                         break;
                     case "PRICE":
                         try{
                             float priceValue = Float.parseFloat(value);
-                            products[i].setPrice(priceValue);
-                        } catch (NumberFormatException e) {
+                            product.setPrice(priceValue);
+                        }catch (NumberFormatException e) {
                             System.out.println(ErrorMessageHandler.getVALIDNUMBER());
                         }
                         break;
@@ -111,17 +122,10 @@ public class ProductService {
                         System.out.println(ErrorMessageHandler.getFIELDERROR());
                         break;
                 }
-                System.out.println(products[i].toString());
+                System.out.println(product);
                 System.out.println("prod update: ok");
-                found = true;
             }
-            i++;
         }
-        if (!found) {
-            System.out.println(ErrorMessageHandler.getIDNOTEXIST());
-        }
-         */
-
     }
 
     public void prodList(){
@@ -129,8 +133,6 @@ public class ProductService {
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
             System.out.println(products.get(entry.getValue()).toString());
         }
-
-
     }
 
     public void prodRemove(int id) {

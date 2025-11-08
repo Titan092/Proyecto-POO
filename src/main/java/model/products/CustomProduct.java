@@ -9,13 +9,16 @@ public class CustomProduct extends BaseProduct {
         this.maxPers = maxPers;
     }
 
-    int getMaxPers(){
+    public int getMaxPers(){
         return maxPers;
     }
 
-    void setMaxPers(int maxPers){
+    public void setMaxPers(int maxPers){
         this.maxPers = maxPers;
     }
 
-
+    @Override
+    public void setCategory(Category category) {
+        super.setCategory(category);
+    }
 }

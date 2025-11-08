@@ -1,6 +1,6 @@
 package model.products;
 
-public class BaseProduct extends Product {
+public class BaseProduct extends Product implements ICategorizable{
     private Category category;
     public BaseProduct(int id, String name, Category category, float price) {
         super(id, name, price);
@@ -11,8 +11,10 @@ public class BaseProduct extends Product {
         return category;
     }
 
-    void setCategory(Category category){
+    public void setCategory(Category category){
         this.category = category;
     }
+
+
 
 }
