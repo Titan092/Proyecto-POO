@@ -1,15 +1,16 @@
 package commands.main.product;
 
 import commands.Command;
-import model.products.ProductServiceAntiguo;
+import model.products.ProductService;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCommand extends Command {
     private List<Command> subCommands;
-    private ProductServiceAntiguo productService;
-    public ProductCommand(ProductServiceAntiguo productService) {
+    private ProductService productService;
+    public ProductCommand(ProductService productService) {
         super("prod");
         this.productService=productService;
         initSubCommands();
