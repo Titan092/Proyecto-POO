@@ -14,6 +14,8 @@ public class ErrorMessageHandler {
     private static final String FIELDERROR="Error entering the field to be updated.";
     private static final String NOMOREPRODUCTS="Error, exceeds the number of products allowed.";
     private static final String EXISTINGID = "The product ID is invalid, because there is already a product with the same id";
+    private static final String EXISTINGIDCASH = "The cash ID is invalid, because there is already a cash with the same id";
+    private static final String WRONGCASHID = "The cash ID is invalid, it must use this format: (UW+7digits)";
 
 
     public static String getERRORMESSAGE() {
@@ -51,5 +53,10 @@ public class ErrorMessageHandler {
     }
 
     public static String getEXISTINGID(){return EXISTINGID;}
+
+    public static String getEXISTINGIDCASH(){return EXISTINGIDCASH;}
+
+    public static String getWRONGCASHID(){return WRONGCASHID;}
+
 
 }
