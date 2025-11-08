@@ -21,7 +21,7 @@ public class UserService {
 
     public void clientAdd(String name, String dni, String email, String cashId){
         if ((dni.length()==9)){
-           if (Character.isDigit(dni.charAt(8))){
+           if (!Character.isDigit(dni.charAt(8))){
                users.put(dni,new Client(name,dni,email,cashId));
                numClients++;
            }else{
@@ -43,15 +43,23 @@ public class UserService {
         numCash++;
     }
 
-    public void cashAdd(String id, String name, String email){
-        if (!(id.length()==9)){
+    public void cashAdd(String cashId, String name, String email){
+        if (!(cashId.length()==9)){
             System.out.println(ErrorMessageHandler.getWRONGCASHID());
         }else{
-            if (!users.containsKey(id)){
-                users.put(id, new Cash(id, name, email));
+            if (!users.containsKey(cashId)){
+                users.put(cashId, new Cash(cashId, name, email));
             }else{
                 System.out.println(ErrorMessageHandler.getEXISTINGIDCASH());
             }
+        }
+    }
+
+    public void clientRemove(String dni){
+        if (users.containsKey(dni)){
+            users.remove(dni);
+        }else{
+            System.out.println("No hay un cliente con este Id");
         }
     }
 }
