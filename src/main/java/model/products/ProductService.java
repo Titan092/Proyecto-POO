@@ -19,9 +19,12 @@ public class ProductService {
 
     //comand for baseProduct with random ID
     public void prodAdd(String name, Category category, float price){
-        int id = (int) (Math.random() * (9999999-1000000+1)) +1000000;
-
-
+        int id;
+        do{
+            id = (int) (Math.random() * (9999999-1000000+1)) +1000000;
+        }while(products.containsKey(id));
+        products.put(id, new BaseProduct(id, name , category, price));
+        numProducts++;
     }
 
 
@@ -41,7 +44,17 @@ public class ProductService {
         }
     }
 
-    //command for CustomProduct (overload)
+    //comand for CustomProduct with random ID
+    public void prodAdd(String name, Category category, float price, int maxPers){
+        int id;
+        do{
+            id = (int) (Math.random() * (9999999-1000000+1)) +1000000;
+        }while(products.containsKey(id));
+        products.put(id,new CustomProduct(id,name,category,price,maxPers));
+        numProducts++;
+    }
+
+    //command for CustomProduct
     public void prodAdd(int id, String name, Category category, float price, int maxPers){
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
@@ -55,6 +68,16 @@ public class ProductService {
                 System.out.println(ErrorMessageHandler.getEXISTINGID());
             }
         }
+    }
+
+    //commando for Food with random ID
+    public void prodAddFood(String name, float price, Date date, int maxPeople){
+        int id;
+        do{
+            id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
+        }while(products.containsKey(id));
+        products.put(id,new Food(id,name,price,date,maxPeople));
+        numProducts++;
     }
 
     public void prodAddFood(int id, String name, float price, Date date, int maxPeople){
