@@ -1,6 +1,6 @@
 package model.products;
 
-public abstract class Product {
+public abstract class Product implements IProduct{
 
     private int id;
     private String name;
@@ -13,21 +13,12 @@ public abstract class Product {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     /**
      * Get ID.
      * @return ID.
      */
     public int getId() {
+
         return id;
     }
 
@@ -38,6 +29,7 @@ public abstract class Product {
      * @return Price.
      */
     public float getPrice() {
+
         return price;
     }
 
@@ -46,6 +38,7 @@ public abstract class Product {
      * @return Name.
      */
     public String getName() {
+
         return name;
     }
 
@@ -59,6 +52,7 @@ public abstract class Product {
      * @param name Name.
      */
     public void setName(String name) {
+
         this.name = name;
     }
 
@@ -67,6 +61,7 @@ public abstract class Product {
      * @param price Price.
      */
     public void setPrice(float price) {
+
         this.price = price;
     }
 
@@ -75,6 +70,7 @@ public abstract class Product {
      * @param id ID.
      */
     public void setId(int id) {
+
         this.id = id;
     }
 
