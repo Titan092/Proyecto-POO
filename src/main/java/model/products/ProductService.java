@@ -81,6 +81,7 @@ public class ProductService {
 
 
     public void prodUpdate(int id, String field, String value){
+        /*
         boolean found = false;
         int i = 0;
         while (!found && i < MAX_QUANTITY) {
@@ -119,6 +120,8 @@ public class ProductService {
         if (!found) {
             System.out.println(ErrorMessageHandler.getIDNOTEXIST());
         }
+         */
+
     }
 
     public void prodList(){
