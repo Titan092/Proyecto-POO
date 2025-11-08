@@ -5,7 +5,7 @@ public class Client extends User{
     private String cashId;
     //id is the DNI of the client
     //chasId is the ID of the casher
-    public Client(String id, String cashId, String name, String email){
+    public Client(String name, String id, String email, String cashId){
         super(id,name,email);
         this.cashId = cashId;
     }
