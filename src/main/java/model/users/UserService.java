@@ -25,10 +25,10 @@ public class UserService {
                users.put(dni,new Client(name,dni,email,cashId));
                numClients++;
            }else{
-               System.out.println("El ultimo caracter debe de ser una letra y no un numero");
+               System.out.println(ErrorMessageHandler.getWRONGDNIFORMAT());
            }
         }else{
-            System.out.println("El dni tiene que tener 9 caracteres");
+            System.out.println(ErrorMessageHandler.getWRONGDNIFORMAT());
         }
     }
 
