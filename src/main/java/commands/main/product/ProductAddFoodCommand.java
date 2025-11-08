@@ -1,11 +1,11 @@
 package commands.main.product;
 
 import commands.Command;
-import model.products.ProductService;
+import model.products.ProductServiceAntiguo;
 
 public class ProductAddFoodCommand extends Command {
-    private ProductService productService;
-    public ProductAddFoodCommand(ProductService productService) {
+    private ProductServiceAntiguo productService;
+    public ProductAddFoodCommand(ProductServiceAntiguo productService) {
         super("addFood");
         this.productService = productService;
     }

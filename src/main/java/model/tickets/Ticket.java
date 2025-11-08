@@ -3,7 +3,7 @@ package model.tickets;
 import exceptionHandler.ErrorMessageHandler;
 import model.products.Category;
 import model.products.Product;
-import model.products.ProductService;
+import model.products.ProductServiceAntiguo;
 
 public class Ticket {
 
@@ -34,7 +34,7 @@ public class Ticket {
      * @param amount Amount of products to add.
      * @param productService Array where products are located.
      */
-    public void addProductToTicket(int id, int amount, ProductService productService) {
+    public void addProductToTicket(int id, int amount, ProductServiceAntiguo productService) {
         boolean productFound = false;
         if (id < 0){
             System.out.println(ErrorMessageHandler.getWRONGID());

@@ -2,15 +2,14 @@ package commands.main.product;
 
 import commands.Command;
 import model.products.Category;
-import model.products.ProductService;
+import model.products.ProductServiceAntiguo;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProductAddCommand extends Command {
-    private ProductService productService;
-    public ProductAddCommand(ProductService productService) {
+    private ProductServiceAntiguo productService;
+    public ProductAddCommand(ProductServiceAntiguo productService) {
         super("add");
         this.productService = productService;
     }
