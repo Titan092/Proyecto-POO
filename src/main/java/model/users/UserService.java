@@ -32,6 +32,15 @@ public class UserService {
         }
     }
 
+    public void clientRemove(String dni){
+        if (users.containsKey(dni)){
+            users.remove(dni);
+            numClients--;
+        }else{
+            System.out.println("No hay un cliente con este Id");
+        }
+    }
+
     //comand for Cash with random Id
     public void cashAdd(String name, String email){
         String id;
@@ -55,11 +64,14 @@ public class UserService {
         }
     }
 
-    public void clientRemove(String dni){
-        if (users.containsKey(dni)){
-            users.remove(dni);
+    public void cashRemove(String cashId){
+        if (users.containsValue(cashId)){
+            users.remove(cashId);
         }else{
-            System.out.println("No hay un cliente con este Id");
+            System.out.println("No hay un cajero con este Id");
         }
     }
+
+
+
 }
