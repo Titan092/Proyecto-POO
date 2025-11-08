@@ -96,6 +96,16 @@ public class ProductService {
         }
     }
 
+    //command for Meeting with random ID
+    public void prodAddMeeting(String name, float price, LocalDate date, int maxPeople){
+        int id;
+        do{
+            id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
+        }while(products.containsKey(id));
+        products.put(id,new Meeting(id,name,price,date,maxPeople));
+        numProducts++;
+    }
+
     public void prodAddMeeting(int id, String name, float price, LocalDate date, int maxPeople){
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
