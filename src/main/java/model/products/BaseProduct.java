@@ -7,14 +7,12 @@ public class BaseProduct extends Product implements ICategorizable{
         this.category = category;
     }
 
-    Category getCategory(){
-        return category;
-    }
-
     public void setCategory(Category category){
         this.category = category;
     }
 
-
-
+    @Override
+    public Category getCategory() {
+        return category;
+    }
 }

@@ -1,6 +1,6 @@
 package model.tickets;
 
-public enum EstadoTicket {
+public enum TicketStatus {
     EMPTY,
     ACTIVE,
     CLOSED;
