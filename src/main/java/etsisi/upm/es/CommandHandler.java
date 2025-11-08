@@ -5,7 +5,7 @@ import commands.main.HelpCommand;
 import commands.main.product.ProductCommand;
 import commands.main.ticket.TicketCommand;
 import commands.main.user.UserCommand;
-import model.products.ProductServiceAntiguo;
+import model.products.ProductService;
 import model.tickets.TicketService;
 import model.users.UserService;
 
@@ -23,7 +23,7 @@ public class CommandHandler {
     // float: "\d+\.\d+" (number with decimals, ex: 12.34)
     // boolean: "true|false"
 
-    private ProductServiceAntiguo productService;
+    private ProductService productService;
     private TicketService tickets;
     private UserService users;
     private Scanner s;
@@ -40,7 +40,7 @@ public class CommandHandler {
     protected void init(Scanner s) {
         System.out.println("Welcome to the ticket module App.");
         System.out.println("Ticket module. Type 'help' to see commands.");
-        productService = new ProductServiceAntiguo();
+        productService = new ProductService();
         tickets = new TicketService();
         users = new UserService();
         this.s = s;

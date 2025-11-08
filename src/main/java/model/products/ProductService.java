@@ -2,7 +2,7 @@ package model.products;
 
 import exceptionHandler.ErrorMessageHandler;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +71,7 @@ public class ProductService {
     }
 
     //commando for Food with random ID
-    public void prodAddFood(String name, float price, Date date, int maxPeople){
+    public void prodAddFood(String name, float price, LocalDate date, int maxPeople){
         int id;
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
@@ -80,7 +80,7 @@ public class ProductService {
         numProducts++;
     }
 
-    public void prodAddFood(int id, String name, float price, Date date, int maxPeople){
+    public void prodAddFood(int id, String name, float price, LocalDate date, int maxPeople){
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
         }else{
@@ -95,7 +95,17 @@ public class ProductService {
         }
     }
 
-    public void prodAddMeeting(int id, String name, float price, Date date, int maxPeople){
+    //command for Meeting with random ID
+    public void prodAddMeeting(String name, float price, LocalDate date, int maxPeople){
+        int id;
+        do{
+            id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
+        }while(products.containsKey(id));
+        products.put(id,new Meeting(id,name,price,date,maxPeople));
+        numProducts++;
+    }
+
+    public void prodAddMeeting(int id, String name, float price, LocalDate date, int maxPeople){
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
         }else{
