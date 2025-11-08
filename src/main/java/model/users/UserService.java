@@ -37,7 +37,7 @@ public class UserService {
             users.remove(dni);
             numClients--;
         }else{
-            System.out.println("No hay un cliente con este Id");
+            System.out.println("No hay un cliente con este DNI");
         }
     }
 
