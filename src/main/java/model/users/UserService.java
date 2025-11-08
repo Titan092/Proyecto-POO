@@ -18,7 +18,5 @@ public class UserService {
             char letraDNI = letras.charAt(numRandom % 23);
             DNI = numRandom + String.valueOf(letraDNI);
         }while ();
-
-
     }
 }
