@@ -1,18 +1,19 @@
 package model.products;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public abstract class EventProduct extends Product {
 
-    private Date date;
+    private LocalDate date;
     private int maxPeople;
 
-    public EventProduct(int id, String name, float price, Date date, int maxPeople){
+    public EventProduct(int id, String name, float price, LocalDate date, int maxPeople){
         super(id,name,price);
         this.date = date;
         this.maxPeople = maxPeople;
     }
 
-    Date getDate(){
+    LocalDate getDate(){
         return date;
     }
 
@@ -20,7 +21,7 @@ public abstract class EventProduct extends Product {
         return maxPeople;
     }
 
-    void setDate(Date date){
+    void setDate(LocalDate date){
         this.date = date;
     }
 
