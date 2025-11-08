@@ -5,7 +5,7 @@ import model.products.ProductService;
 
 public class ProductAddMeetingCommand extends Command {
     private ProductService productService;
-    public ProductAddMeetingCommand() {
+    public ProductAddMeetingCommand(ProductService productService) {
         super("add_meeting");
         this.productService = productService;
     }

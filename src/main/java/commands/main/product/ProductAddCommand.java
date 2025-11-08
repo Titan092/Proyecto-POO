@@ -2,14 +2,15 @@ package commands.main.product;
 
 import commands.Command;
 import model.products.Category;
+import model.products.ProductService;
 import model.products.ProductServiceAntiguo;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProductAddCommand extends Command {
-    private ProductServiceAntiguo productService;
-    public ProductAddCommand(ProductServiceAntiguo productService) {
+    private ProductService productService;
+    public ProductAddCommand(ProductService productService) {
         super("add");
         this.productService = productService;
     }
@@ -25,7 +26,7 @@ public class ProductAddCommand extends Command {
                 Category category = Category.valueOf(m.group(3).toUpperCase());
                 float price =Float.parseFloat(m.group(4));
                 if(m.group(5)!=null) callCustom=true;
-                Integer maxPers = m.group(5) != null ? Integer.parseInt(m.group(5)) : null;
+                int maxPers = Integer.parseInt(m.group(5) );
                 if(callCustom) productService.prodAdd(id, name, category, price, maxPers);
                 else productService.prodAdd(id, name, category, price);
             }
