@@ -51,7 +51,7 @@ public class CommandHandler {
         // Here we would initialize the list of commands available in the application
         this.commands=new ArrayList<>();
         commands.add(new ProductCommand(productService));
-        commands.add(new TicketCommand());
+        commands.add(new TicketCommand(tickets, productService));
         commands.add(new HelpCommand());
         commands.add(new UserCommand());
     }
@@ -88,6 +88,7 @@ public class CommandHandler {
         boolean found=false;
         for (Command cmd:commands) {
             found=cmd.apply(commandUni);
+            if(found) break;
         }
         if(!found){
             unknownCommand();

@@ -28,10 +28,10 @@ public class ProductCommand extends Command {
     }
 
     public boolean apply(String[] args) {
-        // Implementation of the product command logic goes here
         boolean found=false;
         for (Command cmd:subCommands) {
             found=cmd.apply(args);
+            if(found) break;
         }
         return found;
     }
