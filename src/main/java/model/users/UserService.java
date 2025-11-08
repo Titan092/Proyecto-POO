@@ -37,7 +37,7 @@ public class UserService {
             users.remove(dni);
             numClients--;
         }else{
-            System.out.println("No hay un cliente con este DNI");
+            System.out.println(ErrorMessageHandler.getDNINOTEXIST());
         }
     }
 
@@ -68,7 +68,7 @@ public class UserService {
         if (users.containsValue(cashId)){
             users.remove(cashId);
         }else{
-            System.out.println("No hay un cajero con este Id");
+            System.out.println(ErrorMessageHandler.getCASHIDNOTEXIST());
         }
     }
 

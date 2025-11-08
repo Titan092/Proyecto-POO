@@ -62,5 +62,9 @@ public class ErrorMessageHandler {
 
     public static String getWRONGDNIFORMAT(){return WRONGDNIFORMAT;}
 
+    public static String getDNINOTEXIST(){return DNINOTEXIST;}
+
+    public static String getCASHIDNOTEXIST(){return CASHIDNOTEXIST;}
+
 
 }
