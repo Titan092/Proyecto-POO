@@ -29,9 +29,11 @@ public class TicketCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean found=false;
-        for (Command cmd:subCommands) {
-            found=cmd.apply(args);
-            if(found) break;
+        if(args[0]==this.getName()) {
+            for (Command cmd:subCommands) {
+                found=cmd.apply(args);
+                if(found) break;
+            }
         }
         return found;
     }

@@ -53,7 +53,7 @@ public class CommandHandler {
         commands.add(new ProductCommand(productService));
         commands.add(new TicketCommand(tickets, productService));
         commands.add(new HelpCommand());
-        commands.add(new UserCommand());
+        commands.add(new UserCommand(users));
     }
 
     /**
