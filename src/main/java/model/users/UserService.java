@@ -41,6 +41,10 @@ public class UserService {
         }
     }
 
+    public void clientList(){
+
+    }
+
     //comand for Cash with random Id
     public void cashAdd(String name, String email){
         String id;
@@ -70,6 +74,10 @@ public class UserService {
         }else{
             System.out.println(ErrorMessageHandler.getCASHIDNOTEXIST());
         }
+    }
+
+    public void cashList(){
+
     }
 
 
