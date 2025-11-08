@@ -17,7 +17,13 @@ public class ProductService {
         this.numProducts = 0;
     }
 
-    //command for baseProduct
+    //comand for baseProduct with random ID
+    public void prodAdd(String name, Category category, float price){
+
+    }
+
+
+    //command for baseProduct with explicit ID
     public void prodAdd(int id, String name, Category category ,float price){
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
