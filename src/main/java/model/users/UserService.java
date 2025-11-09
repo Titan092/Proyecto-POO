@@ -15,12 +15,22 @@ public class UserService {
     private int numClients;
     private int numCash;
 
+    /**
+     * UserService constructor
+     */
     public UserService(){
         this.users = new HashMap<>();
         this.numClients = 0;
         this.numCash = 0;
     }
 
+    /**
+     * Creates the client and adds it to the HashMap
+     * @param name
+     * @param dni
+     * @param email
+     * @param cashId
+     */
     public void clientAdd(String name, String dni, String email, String cashId){
         if ((dni.length()==9)){
            if (!Character.isDigit(dni.charAt(8))){
@@ -34,6 +44,10 @@ public class UserService {
         }
     }
 
+    /**
+     * Delete the client with the ID passed as a parameter.
+     * @param dni
+     */
     public void clientRemove(String dni){
         if (users.containsKey(dni)){
             users.remove(dni);
@@ -43,6 +57,9 @@ public class UserService {
         }
     }
 
+    /**
+     * Print the list of client, showing their name first and then their DNI.
+     */
     public void clientList(){
 
         //Put the name and Dni in a list
@@ -66,6 +83,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Creates the cash with a random cash ID and adds it to the HashMap
+     * @param name
+     * @param email
+     */
     //comand for Cash with random Id
     public void cashAdd(String name, String email){
         String id;
@@ -77,6 +99,12 @@ public class UserService {
         numCash++;
     }
 
+    /**
+     * Creates the cash and adds it to the HashMap
+     * @param cashId
+     * @param name
+     * @param email
+     */
     public void cashAdd(String cashId, String name, String email){
         if (!(cashId.length()==9)){
             System.out.println(ErrorMessageHandler.getWRONGCASHID());
@@ -89,6 +117,10 @@ public class UserService {
         }
     }
 
+    /**
+     * Delete the cash with the ID passed as a parameter.
+     * @param cashId
+     */
     public void cashRemove(String cashId){
         if (users.containsValue(cashId)){
             users.remove(cashId);
@@ -97,6 +129,9 @@ public class UserService {
         }
     }
 
+    /**
+     * Print the list of cash, showing their name first and then their cash ID.
+     */
     public void cashList(){
         //Put the name and the cashId in a list
         List<String> cashNameAndId = new ArrayList<>();
