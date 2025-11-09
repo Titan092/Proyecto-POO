@@ -14,6 +14,7 @@ public class UserCommand extends Command {
     public UserCommand(UserService userService) {
         super("user");
         this.userService = userService;
+        initSubCommands();
     }
 
     private void initSubCommands() {
