@@ -120,6 +120,10 @@ public class UserService {
 
     }
 
+    public void cashTickets(){
+
+    }
+
 
 
 }

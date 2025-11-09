@@ -19,8 +19,8 @@ public class ErrorMessageHandler {
     private static final String WRONGDNIFORMAT = "The DNI is invalid, it must have 9 characters with the last one being a letter.";
     private static final String DNINOTEXIST = "The DNI entered does not belong to any client.";
     private static final String CASHIDNOTEXIST = "The Cash ID entered does not belong to any cash.";
-    private static final String PRINT_EMPTY_TICKET = "You can't print an empty ticket dumbass.";
-    private static final String USE_CLOSED_TICKET = "You can't modify a closed ticket dickhead.";
+    private static final String PRINT_EMPTY_TICKET = "You can't print an empty ticket.";
+    private static final String USE_CLOSED_TICKET = "You can't modify a closed ticket.";
 
     public static String getERRORMESSAGE() {
         return ERRORMESSAGE;
