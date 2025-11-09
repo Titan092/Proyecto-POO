@@ -99,26 +99,24 @@ public class UserService {
 
     public void cashList(){
         //Put the name and the cashId in a list
-        List<String> cashNameAndDni = new ArrayList<>();
+        List<String> cashNameAndId = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
             if (Character.isAlphabetic(0)){//if the first character is alphabetic (U from UW) is a chash
                 String nameAndCashId = (entry.getValue().getName())+" "+ (entry.getValue().getId());
-                cashNameAndDni.add(nameAndCashId);
+                cashNameAndId.add(nameAndCashId);
             }
         }
 
         //Sort the names alphabetically
-        Collections.sort(cashNameAndDni);
+        Collections.sort(cashNameAndId);
 
-        for (int i=0;i<cashNameAndDni.size();i++){
+        for (int i=0;i<cashNameAndId.size();i++){
             //separate the names and dnis
-            String [] cashNameAndIdSeparated = cashNameAndDni.get(i).split(" ");
+            String [] cashNameAndIdSeparated = cashNameAndId.get(i).split(" ");
             String cashName = cashNameAndIdSeparated[0];
             String cashId = cashNameAndIdSeparated[1];
             System.out.println("Cash name: "+cashName+" Cash ID: "+cashId);
         }
-
-
 
     }
 
