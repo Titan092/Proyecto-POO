@@ -18,7 +18,7 @@ public class TicketAddCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length > 0 && args[1].equals(this.getName())) { // Sin terminar
+        if(args.length > 0 && args[1].equals(this.getName())) {
             // ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt> --p<txt>]
             Pattern pattern = Pattern.compile("^ticket add (.+) (.+) (\\d+) (\\d+) ");
             Matcher matcher = pattern.matcher(String.join(" ", args));
@@ -38,10 +38,8 @@ public class TicketAddCommand extends Command {
                 }else{
                     //ticketService.ticketAdd(ticketId, cashId, prodId, amount);
                 }
-
                 result = true;
             }
-
         }
         return result;
     }
