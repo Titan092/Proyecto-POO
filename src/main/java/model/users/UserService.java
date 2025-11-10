@@ -3,6 +3,7 @@ package model.users;
 import exceptionHandler.ErrorMessageHandler;
 import model.products.IProduct;
 import model.tickets.Ticket;
+import model.tickets.TicketService;
 import model.users.Cash;
 import model.users.IUser;
 
@@ -155,23 +156,22 @@ public class UserService {
     /**
      * Prints the tickets created by the cashier with the ID passed as a parameter, sorted by ticket ID and status.
      * @param cashId
-     * @param ticket
+     * @param ticketService
      */
-    public void cashTickets(String cashId, Ticket ticket){
-        ArrayList<String> listTicketID = new ArrayList<>();
-        IProduct [] ticketItems = ticket.getTicketItems();
-        for (int i=0; i< ticketItems.length;i++){
-            if (ticketItems[i].getId().equals(cashId)){
-                String idTicketAndStatus = (ticketItems[i].getId())+" "+(ticket.getTicketStatus());
-                listTicketID.add(idTicketAndStatus);
+    public void cashTickets(String cashId, TicketService ticketService){
+        Map<String, Ticket> tickets = ticketService.getTickets();
+        ArrayList<String> ticketIDs = new ArrayList<>();
+        for (Ticket ticket : tickets.values()) {
+            if (ticket.getUserID().equals(cashId)){
+                String idTicketAndStatus = ticket.getUserID() + " " + ticket.getStatus();
+                ticketIDs.add(idTicketAndStatus);
             }
         }
         //Sort by ticket ID
-        Collections.sort(listTicketID);
-
-        for (int i=0; i< listTicketID.size();i++){
-            String [] separatedTicketIdAndStatus = listTicketID.get(i).split(" ");
-            System.out.println("Ticket id: "+ separatedTicketIdAndStatus[0]+" Ticket Status: "+ separatedTicketIdAndStatus[1]);
+        Collections.sort(ticketIDs);
+        for (String ticketID : ticketIDs){
+            String[]  ticketIDSeparated = ticketID.split(" ");
+            System.out.println("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);
         }
     }
 }

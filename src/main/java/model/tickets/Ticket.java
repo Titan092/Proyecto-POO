@@ -3,29 +3,33 @@ package model.tickets;
 import exceptionHandler.ErrorMessageHandler;
 import model.products.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Ticket {
-
-    private static final DateTimeFormatter opening = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
     private static final DateTimeFormatter closing = DateTimeFormatter.ofPattern("-yy-MM-dd-HH:mm");
     private String id;
     private static final int MAX_AMOUNT = 100;
     private IProduct[] ticketItems = new IProduct[MAX_AMOUNT];
     private int numProducts = 0;
-    private TicketStatus ticketStatus = TicketStatus.EMPTY;
+    private TicketStatus status = TicketStatus.EMPTY;
+    private final String userID;
 
     /**
      * Ticket constructor.
      */
-    public Ticket() {
-        String openingTimestamp = LocalDateTime.now().format(opening);
-        int randomNumber = ThreadLocalRandom.current().nextInt(10000, 99999+1);
-        this.id = openingTimestamp + randomNumber;
+    public Ticket(String id, String userID) {
+        this.userID = userID;
+        this.id = id;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public TicketStatus getStatus() {
+        return status;
     }
 
     /**
@@ -44,7 +48,7 @@ public class Ticket {
      * @param productService Array where products are located.
      */
     public void addProductToTicket(int id, int amount, ProductService productService) {
-        if (ticketStatus != TicketStatus.CLOSED) {
+        if (status != TicketStatus.CLOSED) {
             boolean productFound = false;
             if (id < 0){
                 System.out.println(ErrorMessageHandler.getWRONGID());
@@ -61,8 +65,8 @@ public class Ticket {
                                 numProducts++;
                             }
                             productFound = true;
-                            if (ticketStatus == TicketStatus.EMPTY) {
-                                ticketStatus = TicketStatus.ACTIVE;
+                            if (status == TicketStatus.EMPTY) {
+                                status = TicketStatus.ACTIVE;
                             }
                         }
                     }
@@ -81,7 +85,7 @@ public class Ticket {
      * @param id Unique ID of the products.
      */
     public void ticketRemove(int id) {
-        if (ticketStatus != TicketStatus.CLOSED) {
+        if (status != TicketStatus.CLOSED) {
             boolean found = false;
             for (int i = 0; i < ticketItems.length; i++) {
                 if (ticketItems[i] != null && ticketItems[i].getId() == id) {
@@ -89,7 +93,7 @@ public class Ticket {
                     found = true; // Valid ID.
                     numProducts--;
                     if (numProducts == 0) {
-                        ticketStatus = TicketStatus.EMPTY;
+                        status = TicketStatus.EMPTY;
                     }
                 }
             }
@@ -115,7 +119,7 @@ public class Ticket {
      * Prints a ticket.
      */
     public void printTicket() {
-        if (ticketStatus != TicketStatus.EMPTY) {
+        if (status != TicketStatus.EMPTY) {
             float totalPrice = 0;
             float totalDiscount = discount(ticketItems);
             for (int i = 0; i < numProducts; i++) {
@@ -126,8 +130,10 @@ public class Ticket {
             System.out.printf("Total discount: %.2f \n" , totalDiscount);
             System.out.printf("Final price: %.2f \n" , finalPrice);
             System.out.println("ticket print: ok");
-            if (ticketStatus == TicketStatus.ACTIVE) {
-                ticketStatus = TicketStatus.CLOSED;
+            if (status == TicketStatus.ACTIVE) {
+                String closingTimestamp = LocalDateTime.now().format(closing);
+                this.id += closingTimestamp;
+                status = TicketStatus.CLOSED;
             }
         } else {
             System.out.println(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
@@ -217,13 +223,5 @@ public class Ticket {
             }
         }
         return totalDiscount;
-    }
-
-    public IProduct[] getTicketItems() {
-        return ticketItems;
-    }
-
-    public TicketStatus getTicketStatus() {
-        return ticketStatus;
     }
 }
