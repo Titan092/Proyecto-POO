@@ -222,4 +222,8 @@ public class Ticket {
     public IProduct[] getTicketItems() {
         return ticketItems;
     }
+
+    public TicketStatus getTicketStatus() {
+        return ticketStatus;
+    }
 }

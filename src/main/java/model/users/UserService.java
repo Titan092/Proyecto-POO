@@ -2,6 +2,7 @@ package model.users;
 
 import exceptionHandler.ErrorMessageHandler;
 import model.products.IProduct;
+import model.tickets.Ticket;
 import model.users.Cash;
 import model.users.IUser;
 
@@ -77,9 +78,7 @@ public class UserService {
         for (int i=0;i<clientNamesAndDni.size();i++){
             //separate the names and dnis
             String [] clientNamesAndDniSeparated = clientNamesAndDni.get(i).split(" ");
-            String clientName = clientNamesAndDniSeparated[0];
-            String clientDni = clientNamesAndDniSeparated[1];
-            System.out.println("Client name: "+clientName+" DNI: "+clientDni);
+            System.out.println("Client name: "+clientNamesAndDniSeparated[0]+" DNI: "+clientNamesAndDniSeparated[1]);
         }
     }
 
@@ -148,15 +147,27 @@ public class UserService {
         for (int i=0;i<cashNameAndId.size();i++){
             //separate the names and dnis
             String [] cashNameAndIdSeparated = cashNameAndId.get(i).split(" ");
-            String cashName = cashNameAndIdSeparated[0];
-            String cashId = cashNameAndIdSeparated[1];
-            System.out.println("Cash name: "+cashName+" Cash ID: "+cashId);
+            System.out.println("Cash name: "+cashNameAndIdSeparated[0]+" Cash ID: "+cashNameAndIdSeparated[1]);
         }
 
     }
 
-    public void cashTickets(String cashId){
+    public void cashTickets(String cashId, Ticket ticket){
+        ArrayList<String> listTicketID = new ArrayList<>();
+        IProduct [] ticketItems = ticket.getTicketItems();
+        for (int i=0; i< ticketItems.length;i++){
+            if (ticketItems[i].getId().equals(cashId)){
+                String idTicketAndStatus = (ticketItems[i].getId())+" "+(ticket.getTicketStatus());
+                listTicketID.add(idTicketAndStatus);
+            }
+        }
+        //Sort by ticket ID
+        Collections.sort(listTicketID);
 
+        for (int i=0; i< listTicketID.size();i++){
+            String [] separatedTicketIdAndStatus = listTicketID.get(i).split(" ");
+            System.out.println("Ticket id: "+ separatedTicketIdAndStatus[0]+" Ticket Status: "+ separatedTicketIdAndStatus[1]);
+        }
     }
 
 
