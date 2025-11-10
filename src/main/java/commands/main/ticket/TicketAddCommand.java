@@ -19,16 +19,24 @@ public class TicketAddCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length > 0 && args[1].equals(this.getName())) { // Sin terminar
-            // ticket add <ticketId> <cashId> <prodId> <amount> [--p<prodId1> --p<prodId2> ...]
-            Pattern pattern = Pattern.compile("^ticket add (.+) (.+) (\\d+) (\\d+) (?: ((?:--p\\S+)(?:\\s+--p\\S+)*))?\\s*$");
+            // ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt> --p<txt>]
+            Pattern pattern = Pattern.compile("^ticket add (.+) (.+) (\\d+) (\\d+) ");
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if(matcher.matches()) {
                 String ticketId = matcher.group(1);
                 String cashId = matcher.group(2);
                 int prodId = Integer.parseInt(matcher.group(3));
                 int amount = Integer.parseInt(matcher.group(4));
-                if(matcher.group(5) != null) {
-                    String productsPart = matcher.group(5);
+                if(args.length>6) {
+                    String[] personalizable=new String[args.length-6];
+                    for (int i = 6; i < args.length; i++) {
+                        if (args[i].startsWith("--p")) {
+                            personalizable[i-6]=args[i].substring(3);
+                        }
+                    }
+                    //ticketService.ticketAdd(ticketId, cashId, prodId, amount, personalizable);
+                }else{
+                    //ticketService.ticketAdd(ticketId, cashId, prodId, amount);
                 }
 
                 result = true;
