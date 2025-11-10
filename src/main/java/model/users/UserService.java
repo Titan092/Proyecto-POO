@@ -152,6 +152,11 @@ public class UserService {
 
     }
 
+    /**
+     * Prints the tickets created by the cashier with the ID passed as a parameter, sorted by ticket ID and status.
+     * @param cashId
+     * @param ticket
+     */
     public void cashTickets(String cashId, Ticket ticket){
         ArrayList<String> listTicketID = new ArrayList<>();
         IProduct [] ticketItems = ticket.getTicketItems();
