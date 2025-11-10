@@ -169,7 +169,4 @@ public class UserService {
             System.out.println("Ticket id: "+ separatedTicketIdAndStatus[0]+" Ticket Status: "+ separatedTicketIdAndStatus[1]);
         }
     }
-
-
-
 }
