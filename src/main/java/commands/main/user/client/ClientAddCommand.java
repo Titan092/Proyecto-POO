@@ -15,7 +15,8 @@ public class ClientAddCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length > 0 && args[1].equals(this.getName())) {
-            Pattern pattern = Pattern.compile("^client add \"([^\\\"]+)\\\"\\s+([0-9]{8}[A-Za-z])\\s+([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,})\\s+([A-Za-z0-9_-]+)\\s*$");
+            //client add "<nombre>" <DNI> <email> <cashId>
+            Pattern pattern = Pattern.compile("^client add \"(.+)\" (.+) (.+) (.+)$");
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if (matcher.matches()) {
                 String name = matcher.group(1);

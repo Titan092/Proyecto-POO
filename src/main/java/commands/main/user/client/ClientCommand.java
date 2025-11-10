@@ -12,6 +12,7 @@ public class ClientCommand extends Command {
     public ClientCommand(UserService userService) {
         super("client");
         this.userService = userService;
+        initSubCommands();
     }
 
     public boolean apply(String[] args) {

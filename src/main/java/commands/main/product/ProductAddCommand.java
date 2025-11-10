@@ -18,9 +18,10 @@ public class ProductAddCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if (args.length > 0 && args[1].equals(this.getName())) {
+            //prod add [<id>] "<name>" <category> <price> [<maxPers>]
             boolean callWithId=false;
             boolean callCustom=false;
-            Pattern p=Pattern.compile("^prod add (?:(\\d+))? \"([^\"]+)\" (\\S+) ([\\d.]+)(?: (\\d+))?$");
+            Pattern p=Pattern.compile("^prod add (?:(\\d+))? \"([^\"]+)\" (.+) ([\\d.]+)(?: (\\d+))?$");
             Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 int id=0;

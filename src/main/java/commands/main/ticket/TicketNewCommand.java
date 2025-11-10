@@ -16,7 +16,8 @@ public class TicketNewCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length >0 && args[1].equals(this.getName())) {
-            Pattern pattern = Pattern.compile("^ticket\\s+new(?:\\s+\\[([A-Za-z0-9_-]+)\\])?\\s+([A-Za-z0-9_-]+)\\s+([A-Za-z0-9_-]+)\\s*$");
+            //ticket new [<id>] <cashId> <userId>
+            Pattern pattern = Pattern.compile("^ticket new(?:(.+))? (.+) (.+)$");
             Matcher m = pattern.matcher(String.join(" ", args));
             if (m.matches()) {
                 String ticketId = m.group(2);
