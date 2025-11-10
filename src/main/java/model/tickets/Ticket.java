@@ -218,4 +218,8 @@ public class Ticket {
         }
         return totalDiscount;
     }
+
+    public IProduct[] getTicketItems() {
+        return ticketItems;
+    }
 }

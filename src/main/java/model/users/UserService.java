@@ -31,7 +31,7 @@ public class UserService {
      * @param email
      * @param cashId
      */
-    public void clientAdd(String name, String dni, String email, String cashId){
+    public void clientAdd(String name, String dni, String email, String cashId){//Creo que aqui habria que hacer algo para lo de que los cajeros puedan ser clientes pero con otro correo
         if ((dni.length()==9)){
            if (!Character.isDigit(dni.charAt(8))){
                users.put(dni,new Client(name,dni,email,cashId));
@@ -155,7 +155,7 @@ public class UserService {
 
     }
 
-    public void cashTickets(){
+    public void cashTickets(String cashId){
 
     }
 
