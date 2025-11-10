@@ -12,7 +12,7 @@ public class CashTicketsCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length > 2 && args[2].equals(this.getName())) {
+        if(args.length > 2 && args[1].equals(this.getName())) {
             // CashTickets logic to be implemented
             result = true;
         }

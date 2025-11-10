@@ -12,8 +12,8 @@ public class ClientListCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length > 0 && args[2].equals(this.getName())) {
-            // ClientList logic to be implemented
+        if(args.length > 0 && args[1].equals(this.getName())) {
+            // userService.clientList();
             result = true;
         }
         return result;

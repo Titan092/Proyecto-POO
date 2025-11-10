@@ -12,8 +12,8 @@ public class CashListCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length > 2 && args[2].equals(this.getName())) {
-            // CashList logic to be implemented
+        if(args.length == 2 && args[1].equals(this.getName())) {
+            // userService.cashList();
             result = true;
         }
         return result;

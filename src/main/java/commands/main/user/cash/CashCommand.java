@@ -12,13 +12,18 @@ public class CashCommand extends Command {
     public CashCommand(UserService userService) {
         super("cash");
         this.userService = userService;
+        initSubCommands();
     }
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length >0 && args[1].equals(this.getName())) {
-            // Cash logic to be implemented
-            result = true;
+        if(args.length >0 && args[0].equals(this.getName())) {
+            for(Command cmd : subCommands) {
+                if(cmd.apply(args)) {
+                    result = true;
+                    break;
+                }
+            }
         }
         return result;
     }

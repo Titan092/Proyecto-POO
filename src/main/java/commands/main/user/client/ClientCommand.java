@@ -16,7 +16,7 @@ public class ClientCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length >0 && args[1].equals(this.getName())) {
+        if(args.length >0 && args[0].equals(this.getName())) {
             for(Command cmd:subCommands) {
                 result=cmd.apply(args);
                 if(result) break;
