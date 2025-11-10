@@ -21,7 +21,7 @@ public class ProductAddCommand extends Command {
             boolean callWithId=false;
             boolean callCustom=false;
             Pattern p=Pattern.compile("^prod add (?:(\\d+))? \"([^\"]+)\" (\\S+) ([\\d.]+)(?: (\\d+))?$");
-            Matcher m=p.matcher(args.toString());
+            Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 int id=0;
                 if(m.group(1)!=null){

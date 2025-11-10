@@ -19,7 +19,7 @@ public class ProductUpdateCommand extends Command {
         if (args.length > 0 && args[1].equals(this.getName())) {
             boolean callCustom=false;
             Pattern p=Pattern.compile("^prod update (\\d+) (NAME|CATEGORY|PRICE|name|category|price) (.+)$");
-            Matcher m=p.matcher(args.toString());
+            Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 int id = Integer.parseInt(m.group(1));
                 String field = m.group(2);

@@ -14,7 +14,7 @@ public class TicketListCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length == 2 && args[1].equals(this.getName())) {
-            //TicketList logic to be implemented
+            //ticketService.ticketList();
             result = true;
         }
         return result;

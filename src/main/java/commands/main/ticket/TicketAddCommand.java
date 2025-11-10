@@ -4,6 +4,9 @@ import commands.Command;
 import model.products.ProductService;
 import model.tickets.TicketService;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class TicketAddCommand extends Command {
     private TicketService ticketService;
     private ProductService productService;
@@ -15,9 +18,22 @@ public class TicketAddCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean result = false;
-        if(args.length > 0 && args[1].equals(this.getName())) {
-            //TicketAdd logic to be implemented
-            result = true;
+        if(args.length > 0 && args[1].equals(this.getName())) { // Sin terminar
+            // ticket add <ticketId> <cashId> <prodId> <amount> [--p<prodId1> --p<prodId2> ...]
+            Pattern pattern = Pattern.compile("^ticket add ([A-Za-z0-9]+) ([A-Za-z0-9]+) (\\d+) (\\d+)(?: ((?:--p\\S+)(?:\\s+--p\\S+)*))?\\s*$");
+            Matcher matcher = pattern.matcher(String.join(" ", args));
+            if(matcher.matches()) {
+                String ticketId = matcher.group(1);
+                String cashId = matcher.group(2);
+                int prodId = Integer.parseInt(matcher.group(3));
+                int amount = Integer.parseInt(matcher.group(4));
+                if(matcher.group(5) != null) {
+                    String productsPart = matcher.group(5);
+                }
+
+                result = true;
+            }
+
         }
         return result;
     }
