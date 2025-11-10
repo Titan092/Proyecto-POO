@@ -15,6 +15,7 @@ public class TicketCommand extends Command {
         super("ticket");
         this.ticketService = ticketService;
         this.productService = productService;
+        initSubCommands();
     }
 
     private void initSubCommands() {

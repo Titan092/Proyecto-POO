@@ -20,7 +20,7 @@ public class TicketAddCommand extends Command {
         boolean result = false;
         if(args.length > 0 && args[1].equals(this.getName())) { // Sin terminar
             // ticket add <ticketId> <cashId> <prodId> <amount> [--p<prodId1> --p<prodId2> ...]
-            Pattern pattern = Pattern.compile("^ticket add ([A-Za-z0-9]+) ([A-Za-z0-9]+) (\\d+) (\\d+)(?: ((?:--p\\S+)(?:\\s+--p\\S+)*))?\\s*$");
+            Pattern pattern = Pattern.compile("^ticket add (.+) (.+) (\\d+) (\\d+) (?: ((?:--p\\S+)(?:\\s+--p\\S+)*))?\\s*$");
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if(matcher.matches()) {
                 String ticketId = matcher.group(1);
