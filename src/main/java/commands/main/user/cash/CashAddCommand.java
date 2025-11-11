@@ -24,9 +24,9 @@ public class CashAddCommand extends Command {
                 String email = matcher.group(3);
                 String cashId = matcher.group(1);
                 if(cashId != null) {
-                    //userService.addCash(cashId, name, email);
+                    userService.cashAdd(cashId, name, email);
                 } else {
-                    //userService.addCash(name, email);
+                    userService.cashAdd(name, email);
                 }
                 result = true;
             }

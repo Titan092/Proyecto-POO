@@ -20,7 +20,7 @@ public class CashRemoveCommand extends Command {
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if (matcher.matches()) {
                 String cashId = matcher.group(1);
-                //userService.removeCash(cashId);
+                userService.cashRemove(cashId);
                 result = true;
             }
 
