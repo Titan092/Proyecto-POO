@@ -14,18 +14,12 @@ public class Ticket {
     private IProduct[] ticketItems = new IProduct[MAX_AMOUNT];
     private int numProducts = 0;
     private TicketStatus status = TicketStatus.EMPTY;
-    private final String userID;
 
     /**
      * Ticket constructor.
      */
-    public Ticket(String id, String userID) {
-        this.userID = userID;
+    public Ticket(String id) {
         this.id = id;
-    }
-
-    public String getUserID() {
-        return userID;
     }
 
     public TicketStatus getStatus() {
