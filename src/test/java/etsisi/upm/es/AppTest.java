@@ -21,7 +21,7 @@ public class AppTest {
             System.setIn(file);
 
             CommandHandler command=new CommandHandler();
-            command.init(s);
+            command.init();
             command.start();
             command.end();
 

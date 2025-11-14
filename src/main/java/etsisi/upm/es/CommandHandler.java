@@ -26,7 +26,6 @@ public class CommandHandler {
     private ProductService productService;
     private TicketService tickets;
     private UserService users;
-    private Scanner s;
     private List<Command> commands;
 
     /**
@@ -37,14 +36,16 @@ public class CommandHandler {
     /**
      * Initializes all the required components of the shop.
      */
-    protected void init(Scanner s) {
-        System.out.println("Welcome to the ticket module App.");
-        System.out.println("Ticket module. Type 'help' to see commands.");
+    protected String init() {
+        String WELCOME_MESSAGE = "Welcome to the ticket module App.\n" +
+                                                          "Ticket module. Type 'help' to see commands.";
+        //CLI.printMessage("Welcome to the ticket module App.");
+        //CLI.printMessage("Ticket module. Type 'help' to see commands.");
         productService = new ProductService();
         tickets = new TicketService();
         users = new UserService();
-        this.s = s;
         initCommands();
+        return WELCOME_MESSAGE;
     }
 
     private void initCommands() {
@@ -62,13 +63,11 @@ public class CommandHandler {
     protected void start() {
         boolean continues = true;
         while(continues) {
-            System.out.print(PROMPT);
+            CLI.printPrompt(PROMPT);
             //This part is to differentiate between interactive and non-interactive mode (in the tests)
             //All this is for cleaner output in the tests
-            String command = s.nextLine();
-            if (System.in instanceof java.io.FileInputStream) { //Here, the code comes from a file
-                System.out.println(command);
-            }
+            String command = CLI.readCommand();
+            CLI.printIfIsFileInput(command);
             String[] commandUni = command.split(" ");
             switch (commandUni[0]){
                 case "echo":
@@ -84,15 +83,18 @@ public class CommandHandler {
     }
 
 
-    private void applyCommand(String[] commandUni) {
+    protected Command applyCommand(String[] commandUni) {
         boolean found=false;
         for (Command cmd:commands) {
             found=cmd.apply(commandUni);
-            if(found) break;
+            if(found){
+                return cmd;
+            }
         }
         if(!found){
-            unknownCommand();
+            unknownCommand();//Hacerle una clase Command para esto
         }
+        return null;
     }
 
 
@@ -126,25 +128,31 @@ public class CommandHandler {
     /**
      * In case the user enters an unknown command, prints a helpful message.
      */
-    private void unknownCommand() {
-        System.out.println("Your command is not contemplated.");
-        System.out.println("Type \"help\" for the command guide");
+    private String unknownCommand() {
+        String message="Your command is not contemplated.\n"+
+                       "Type \"help\" for the command guide";
+        //CLI.printMessage("Your command is not contemplated.");
+        //CLI.printMessage("Type \"help\" for the command guide");
+        return message;
     }
 
     /**
      * Prints whatever the user had entered before.
      * @param message Message the user entered.
      */
-    private void echo(String message){
-        System.out.println(message);
+    protected void echo(String message){
+        CLI.printMessage(message);
+        //No se usa
     }
 
     /**
      * Bye!
      */
-    protected void end() {
-        System.out.println("Closing application.");
-        System.out.println("Goodbye!");
-        s.close();
+    protected String end() {
+        String GOODBYE_MESSAGE="Closing application.\n"+
+                               "Goodbye!";
+        //CLI.printMessage("Closing application.");
+        //CLI.printMessage("Goodbye!");
+        return GOODBYE_MESSAGE;
     }
 }

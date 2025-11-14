@@ -32,7 +32,10 @@ public class ProductCommand extends Command {
         if(args[0]==this.getName()) {
             for (Command cmd:subCommands) {
                 found=cmd.apply(args);
-                if(found) break;
+                if(found) {
+                    this.setMessage(cmd.getMessage());
+                    break;
+                }
             }
         }
 
