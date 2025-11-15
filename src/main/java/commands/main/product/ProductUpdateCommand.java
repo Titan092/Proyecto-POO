@@ -23,7 +23,7 @@ public class ProductUpdateCommand extends Command {
                 int id = Integer.parseInt(m.group(1));
                 String field = m.group(2);
                 String value = m.group(3);
-                productService.prodUpdate(id, field, value);
+                this.setMessage(productService.prodUpdate(id, field, value));
                 result=true;
             }
         }

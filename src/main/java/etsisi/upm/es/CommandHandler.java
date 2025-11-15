@@ -2,6 +2,7 @@ package etsisi.upm.es;
 
 import commands.Command;
 import commands.main.HelpCommand;
+import commands.main.UnknownCommand;
 import commands.main.product.ProductCommand;
 import commands.main.ticket.TicketCommand;
 import commands.main.user.UserCommand;
@@ -92,7 +93,7 @@ public class CommandHandler {
             }
         }
         if(!found){
-            unknownCommand();//Hacerle una clase Command para esto
+            return new UnknownCommand();
         }
         return null;
     }

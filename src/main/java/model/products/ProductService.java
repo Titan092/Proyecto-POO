@@ -122,7 +122,8 @@ public class ProductService {
     }
 
 
-    public void prodUpdate(int id, String field, String value){
+    public String prodUpdate(int id, String field, String value){
+        String result="";
         if (id<0){
             System.out.println(ErrorMessageHandler.getWRONGID());
         }else{
@@ -158,17 +159,20 @@ public class ProductService {
                         System.out.println(ErrorMessageHandler.getFIELDERROR());
                         break;
                 }
-                System.out.println(product);
-                System.out.println("prod update: ok");
+                result=result+product.toString();
+                result=result+"prod update: ok";
             }
         }
+        return result;
     }
 
-    public void prodList(){
-        System.out.println("Catalog:");
+    public String prodList(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("Catalog:\n");
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
-            System.out.println(products.get(entry.getValue()).toString());
+            sb.append(products.get(entry.getValue()).toString());
         }
+        return sb.toString();
     }
 
     public void prodRemove(int id) {
