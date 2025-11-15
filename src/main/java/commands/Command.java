@@ -3,6 +3,7 @@ package commands;
 public abstract class Command {
     String name;
     String message;
+    //Podemos crear un errorMessage si queremos
 
     protected Command (String name) {
         this.name = name;
