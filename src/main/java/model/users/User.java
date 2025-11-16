@@ -46,4 +46,14 @@ public abstract class User implements IUser {
     public void insertTicket(Ticket ticket){
         tickets.add(ticket);
     }
+
+    public ArrayList<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(ArrayList<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+
 }

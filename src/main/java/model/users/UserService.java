@@ -124,10 +124,23 @@ public class UserService {
     public void cashRemove(String cashId){
         if (users.containsValue(cashId)){
             users.remove(cashId);
+            //deleteTicketsFromCash(cashId);
         }else{
             System.out.println(ErrorMessageHandler.getCASHIDNOTEXIST());
         }
     }
+
+    /*
+    private void deleteTicketsFromCash(String cashId){
+     User user = (User) users.get(cashId);
+        ArrayList<Ticket> tickets = user.getTickets();
+        for (int i = 0; i<tickets.size(); i++){
+            tickets.remove(i);
+            tickets.set(i, null);
+        }
+    }
+     */
+
 
     /**
      * Print the list of cash, showing their name first and then their cash ID.
@@ -159,16 +172,18 @@ public class UserService {
      * @param ticketService
      */
     public void cashTickets(String cashId, TicketService ticketService){
-        Map<String, Ticket> tickets = ticketService.getTickets();
+        //comprobar que es cajero
+        Cash cash = (Cash) users.get(cashId);
+        HashMap<String, Ticket> tickets = cash.getCashTickets();
         ArrayList<String> ticketIDs = new ArrayList<>();
-        for (Ticket ticket : tickets.values()) {
-            if (ticket.getUserID().equals(cashId)){
-                String idTicketAndStatus = ticket.getUserID() + " " + ticket.getStatus();
-                ticketIDs.add(idTicketAndStatus);
-            }
+        for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
+            String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
+            ticketIDs.add(idTicketAndStatus);
         }
+
         //Sort by ticket ID
         Collections.sort(ticketIDs);
+
         for (String ticketID : ticketIDs){
             String[]  ticketIDSeparated = ticketID.split(" ");
             System.out.println("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);

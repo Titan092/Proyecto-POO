@@ -22,6 +22,10 @@ public class Ticket {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public TicketStatus getStatus() {
         return status;
     }

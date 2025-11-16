@@ -1,6 +1,12 @@
 package model.users;
 
+import model.tickets.Ticket;
+
+import java.util.HashMap;
+
 public class Client extends User{
+
+    private HashMap<String, Ticket> ticketsClient = new HashMap();
 
     private String cashId;
     //id is the DNI of the client
@@ -17,4 +23,7 @@ public class Client extends User{
     public void setCashId(String cashId){
         this.cashId = cashId;
     }
+
+    
+
 }

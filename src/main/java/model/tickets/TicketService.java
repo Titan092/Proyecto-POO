@@ -21,12 +21,14 @@ public class TicketService {
         Ticket ticket = new Ticket(id);
         tickets.put(id, ticket);
         numTickets++;
+        return ticket;
     }
 
     public Ticket ticketNew(String ticketID) {
         Ticket ticket = new Ticket(ticketID);
         tickets.put(ticketID, ticket);
         numTickets++;
+        return ticket;
     }
 
     public void addProductToTicket(String ticketID, String cashID, int id, int amount, ProductService productService) {
