@@ -26,6 +26,10 @@ public class UserService {
         this.numCash = 0;
     }
 
+    public HashMap<String, IUser> getUsers() {
+        return users;
+    }
+
     /**
      * Creates the client and adds it to the HashMap
      * @param name
