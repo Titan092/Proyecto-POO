@@ -17,7 +17,7 @@ public class Cash extends User {
         return tickets;
     }
 
-
+    //Se podria poner para heredar
     public void addTicket(String cashID, Ticket ticket){
         tickets.put(cashID, ticket);
     }
