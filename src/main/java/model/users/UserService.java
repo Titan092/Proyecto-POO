@@ -130,17 +130,6 @@ public class UserService {
         }
     }
 
-    /*
-    private void deleteTicketsFromCash(String cashId){
-     User user = (User) users.get(cashId);
-        ArrayList<Ticket> tickets = user.getTickets();
-        for (int i = 0; i<tickets.size(); i++){
-            tickets.remove(i);
-            tickets.set(i, null);
-        }
-    }
-     */
-
 
     /**
      * Print the list of cash, showing their name first and then their cash ID.
@@ -190,4 +179,3 @@ public class UserService {
         }
     }
 }
-

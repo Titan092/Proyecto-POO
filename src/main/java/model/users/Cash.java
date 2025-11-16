@@ -16,4 +16,6 @@ public class Cash extends User {
     public HashMap<String, Ticket> getCashTickets() {
         return tickets;
     }
+
+
 }
