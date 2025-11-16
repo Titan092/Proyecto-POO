@@ -1,9 +1,14 @@
 package model.tickets;
 
 import model.products.ProductService;
+import model.users.Cash;
+import model.users.IUser;
+import model.users.UserService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,7 +21,7 @@ public class TicketService {
 
     public Ticket ticketNew() {
         String openingTimestamp = LocalDateTime.now().format(opening);
-        int randomNumber = ThreadLocalRandom.current().nextInt(10000, 99999+1);
+        int randomNumber = ThreadLocalRandom.current().nextInt(10000, 99999 + 1);
         String id = openingTimestamp + randomNumber;
         Ticket ticket = new Ticket(id);
         tickets.put(id, ticket);
@@ -52,12 +57,23 @@ public class TicketService {
 
     }
 
-    public Map<String, Ticket> getTickets() {
-        return tickets;
+    public void ticketList(UserService userService) {
+        HashMap<String, IUser> users = userService.getUsers();
+        ArrayList<String> cashIDSorted = new ArrayList<>();
+        for (Map.Entry<String, IUser> entry : users.entrySet()) {
+            if (Character.isAlphabetic(0)) {//if the first character is alphabetic (U from UW) is a chash
+                cashIDSorted.add(entry.getValue().getId());
+            }
+        }
+        //Sort by cashID
+        Collections.sort(cashIDSorted);
+
+        for (String cashID : cashIDSorted){
+            Cash cash = (Cash) users.get(cashID);
+            HashMap<String, Ticket> tickets = cash.getCashTickets();
+            for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
+                entry.getValue().printTicket();
+            }
+        }
     }
-
-    public void ticketList(){
-
-    }
-
 }
