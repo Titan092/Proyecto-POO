@@ -36,6 +36,8 @@ public class TicketService {
         return ticket;
     }
 
+
+
     public void addProductToTicket(String ticketID, String cashID, int id, int amount, ProductService productService) {
         if (tickets.containsKey(ticketID)) {
             Ticket ticket = tickets.get(ticketID);
