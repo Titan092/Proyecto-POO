@@ -146,33 +146,37 @@ public class ProductService {
                 switch (field.toUpperCase()){
                     case "NAME":
                         product.setName(value);
+                        result=result+product.toString();
+                        result=result+"prod update: ok";
                         break;
                     case "CATEGORY":
                         try{
                             Category categoryNew = Category.valueOf(value.toUpperCase());
                             if (product instanceof ICategorizable){
                                 ((ICategorizable) product).setCategory(categoryNew);
+                                result=result+product.toString();
+                                result=result+"prod update: ok";
                             }else{
-                                System.out.println("This type of product do not have category");
+                                result=("This type of product do not have category");
                             }
                         }catch (IllegalArgumentException e){
-                            System.out.println(ErrorMessageHandler.getVALIDCATEGORY());
+                            result=(ErrorMessageHandler.getVALIDCATEGORY());
                         }
                         break;
                     case "PRICE":
                         try{
                             float priceValue = Float.parseFloat(value);
                             product.setPrice(priceValue);
+                            result=result+product.toString();
+                            result=result+"prod update: ok";
                         }catch (NumberFormatException e) {
-                            System.out.println(ErrorMessageHandler.getVALIDNUMBER());
+                            result=(ErrorMessageHandler.getVALIDNUMBER());
                         }
                         break;
                     default:
-                        System.out.println(ErrorMessageHandler.getFIELDERROR());
+                        result=(ErrorMessageHandler.getFIELDERROR());
                         break;
                 }
-                result=result+product.toString();
-                result=result+"prod update: ok";
             }
         }
         return result;
