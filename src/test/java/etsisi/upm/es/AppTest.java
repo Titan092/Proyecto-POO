@@ -22,7 +22,7 @@ public class AppTest {
 
             CommandHandler command=new CommandHandler();
             command.init();
-            command.start();
+
             command.end();
 
             file.close();

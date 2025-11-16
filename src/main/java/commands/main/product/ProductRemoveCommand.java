@@ -21,7 +21,7 @@ public class ProductRemoveCommand extends Command {
             Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 int id = Integer.parseInt(m.group(1));
-                productService.prodRemove(id);
+                this.setMessage(productService.prodRemove(id));
                 result=true;
             }
         }

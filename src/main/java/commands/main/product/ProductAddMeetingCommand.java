@@ -30,8 +30,8 @@ public class ProductAddMeetingCommand extends Command {
                 float price =Float.parseFloat(m.group(3));
                 LocalDate expirationDate = LocalDate.parse(m.group(4));
                 int maxPers = Integer.parseInt(m.group(5));
-                if(callWithId) productService.prodAddMeeting(id, name, price, expirationDate, maxPers);
-                else productService.prodAddMeeting(name, price, expirationDate, maxPers);
+                if(callWithId) this.setMessage(productService.prodAddMeeting(id, name, price, expirationDate, maxPers));
+                else this.setMessage(productService.prodAddMeeting(name, price, expirationDate, maxPers));
                 result=true;
             }
         }

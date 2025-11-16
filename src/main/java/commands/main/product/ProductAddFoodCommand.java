@@ -33,8 +33,8 @@ public class ProductAddFoodCommand extends Command {
                 float price =Float.parseFloat(m.group(3));
                 LocalDate expirationDate = LocalDate.parse(m.group(4));
                 int maxPers = Integer.parseInt(m.group(5));
-                if(callWithId) productService.prodAddFood(id, name, price, expirationDate, maxPers);
-                else productService.prodAddFood(name, price, expirationDate, maxPers);
+                if(callWithId) this.setMessage(productService.prodAddFood(id, name, price, expirationDate, maxPers));
+                else this.setMessage(productService.prodAddFood(name, price, expirationDate, maxPers));
                 result=true;
             }
         }

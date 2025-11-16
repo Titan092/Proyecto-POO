@@ -37,10 +37,10 @@ public class ProductAddCommand extends Command {
                     callCustom=true;
                     maxPers = Integer.parseInt(m.group(5) );
                 }
-                if(callCustom && callWithId) productService.prodAdd(id, name, category, price, maxPers);
-                else if(!callCustom && callWithId) productService.prodAdd(id, name, category, price);
-                else if(callCustom && !callWithId) productService.prodAdd(name, category, price, maxPers);
-                else productService.prodAdd(name, category, price);
+                if(callCustom && callWithId) this.setMessage(productService.prodAdd(id, name, category, price, maxPers));
+                else if(!callCustom && callWithId) this.setMessage(productService.prodAdd(id, name, category, price));
+                else if(callCustom && !callWithId) this.setMessage(productService.prodAdd(name, category, price, maxPers));
+                else this.setMessage(productService.prodAdd(name, category, price));
                 result=true;
             }
         }

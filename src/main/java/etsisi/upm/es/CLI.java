@@ -34,6 +34,12 @@ public class CLI implements ICLI{
         }
     }
 
+    private void printIfIsNotNull(String message){
+        if(message!=null){
+            System.out.println(message);
+        }
+    }
+
     @Override
     public void start(CommandHandler commandHandler, String[] args) {
         if(args.length>0){
@@ -74,7 +80,7 @@ public class CLI implements ICLI{
                     break;
                 default:
                     activeCommand=commandHandler.applyCommand(commandUni);
-                    System.out.println(activeCommand.getMessage());
+                    printIfIsNotNull(activeCommand.getMessage());
             }
         }
     }
