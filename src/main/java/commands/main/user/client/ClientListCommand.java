@@ -13,7 +13,7 @@ public class ClientListCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length > 0 && args[1].equals(this.getName())) {
-            // userService.clientList();
+            this.setMessage(userService.clientList());
             result = true;
         }
         return result;

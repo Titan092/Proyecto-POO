@@ -37,37 +37,41 @@ public class UserService {
      * @param email
      * @param cashId
      */
-    public void clientAdd(String name, String dni, String email, String cashId){//Creo que aqui habria que hacer algo para lo de que los cajeros puedan ser clientes pero con otro correo
+    public String clientAdd(String name, String dni, String email, String cashId){//Creo que aqui habria que hacer algo para lo de que los cajeros puedan ser clientes pero con otro correo
+        String message = null;
         if ((dni.length()==9)){
            if (!Character.isDigit(dni.charAt(8))){
                users.put(dni,new Client(name,dni,email,cashId));
                numClients++;
            }else{
-               System.out.println(ErrorMessageHandler.getWRONGDNIFORMAT());
+               message=ErrorMessageHandler.getWRONGDNIFORMAT();
            }
         }else{
-            System.out.println(ErrorMessageHandler.getWRONGDNIFORMAT());
+            message=ErrorMessageHandler.getWRONGDNIFORMAT();
         }
+        return message;
     }
 
     /**
      * Delete the client with the ID passed as a parameter.
      * @param dni
      */
-    public void clientRemove(String dni){
+    public String clientRemove(String dni){
+        String message = null;
         if (users.containsKey(dni)){
             users.remove(dni);
             numClients--;
         }else{
-            System.out.println(ErrorMessageHandler.getDNINOTEXIST());
+            message=ErrorMessageHandler.getDNINOTEXIST();
         }
+        return message;
     }
 
     /**
      * Print the list of client, showing their name first and then their DNI.
      */
-    public void clientList(){
-
+    public String clientList(){
+        StringBuffer sb = new StringBuffer();
         //Put the name and Dni in a list
         List<String> clientNamesAndDni = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
@@ -83,8 +87,9 @@ public class UserService {
         for (int i=0;i<clientNamesAndDni.size();i++){
             //separate the names and dnis
             String [] clientNamesAndDniSeparated = clientNamesAndDni.get(i).split(" ");
-            System.out.println("Client name: "+clientNamesAndDniSeparated[0]+" DNI: "+clientNamesAndDniSeparated[1]);
+            sb.append("Client name: "+clientNamesAndDniSeparated[0]+" DNI: "+clientNamesAndDniSeparated[1]);
         }
+        return sb.toString();
     }
 
     /**
@@ -93,7 +98,7 @@ public class UserService {
      * @param email
      */
     //comand for Cash with random Id
-    public void cashAdd(String name, String email){
+    public String cashAdd(String name, String email){
         String id;
         do{
             int numRandom = ThreadLocalRandom.current().nextInt(1000000, 9999999+1);
@@ -101,6 +106,7 @@ public class UserService {
         }while(users.containsKey(id));
         users.put(id, new Cash(id,name,email));
         numCash++;
+        return null;
     }
 
     /**
@@ -109,36 +115,41 @@ public class UserService {
      * @param name
      * @param email
      */
-    public void cashAdd(String cashId, String name, String email){
+    public String cashAdd(String cashId, String name, String email){
+        String message = null;
         if (!(cashId.length()==9)){
-            System.out.println(ErrorMessageHandler.getWRONGCASHID());
+            message=ErrorMessageHandler.getWRONGCASHID();
         }else{
             if (!users.containsKey(cashId)){
                 users.put(cashId, new Cash(cashId, name, email));
             }else{
-                System.out.println(ErrorMessageHandler.getEXISTINGIDCASH());
+                message=ErrorMessageHandler.getEXISTINGIDCASH();
             }
         }
+        return message;
     }
 
     /**
      * Delete the cash with the ID passed as a parameter.
      * @param cashId
      */
-    public void cashRemove(String cashId){
+    public String cashRemove(String cashId){
+        String message = null;
         if (users.containsValue(cashId)){
             users.remove(cashId);
             //deleteTicketsFromCash(cashId);
         }else{
-            System.out.println(ErrorMessageHandler.getCASHIDNOTEXIST());
+            message=ErrorMessageHandler.getCASHIDNOTEXIST();
         }
+        return message;
     }
 
 
     /**
      * Print the list of cash, showing their name first and then their cash ID.
      */
-    public void cashList(){
+    public String cashList(){
+        StringBuffer sb = new StringBuffer();
         //Put the name and the cashId in a list
         List<String> cashNameAndId = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
@@ -154,17 +165,17 @@ public class UserService {
         for (int i=0;i<cashNameAndId.size();i++){
             //separate the names and dnis
             String [] cashNameAndIdSeparated = cashNameAndId.get(i).split(" ");
-            System.out.println("Cash name: "+cashNameAndIdSeparated[0]+" Cash ID: "+cashNameAndIdSeparated[1]);
+            sb.append("Cash name: "+cashNameAndIdSeparated[0]+" Cash ID: "+cashNameAndIdSeparated[1]);
         }
-
+        return sb.toString();
     }
 
     /**
      * Prints the tickets created by the cashier with the ID passed as a parameter, sorted by ticket ID and status.
      * @param cashId
-     * @param ticketService
      */
-    public void cashTickets(String cashId, TicketService ticketService){
+    public String cashTickets(String cashId){
+        StringBuffer sb = new StringBuffer();
         //comprobar que es cajero
         Cash cash = (Cash) users.get(cashId);
         HashMap<String, Ticket> tickets = cash.getCashTickets();
@@ -179,7 +190,8 @@ public class UserService {
 
         for (String ticketID : ticketIDs){
             String[]  ticketIDSeparated = ticketID.split(" ");
-            System.out.println("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);
+            sb.append("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);
         }
+        return sb.toString();
     }
 }

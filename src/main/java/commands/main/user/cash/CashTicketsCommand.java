@@ -20,7 +20,7 @@ public class CashTicketsCommand extends Command {
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if (matcher.matches()) {
                 String cashId = matcher.group(1);
-                //userService.cashTickets(cashId);
+                this.setMessage(userService.cashTickets(cashId));
             }
             result = true;
         }

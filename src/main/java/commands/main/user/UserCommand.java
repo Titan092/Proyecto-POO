@@ -27,7 +27,10 @@ public class UserCommand extends Command {
         boolean found=false;
         for (Command cmd:subCommands) {
             found=cmd.apply(args);
-            if(found) break;
+            if(found){
+                this.setMessage(cmd.getMessage());
+                break;
+            }
         }
         return found;
     }

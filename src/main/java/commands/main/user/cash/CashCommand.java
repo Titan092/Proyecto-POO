@@ -21,6 +21,7 @@ public class CashCommand extends Command {
             for(Command cmd : subCommands) {
                 if(cmd.apply(args)) {
                     result = true;
+                    this.setMessage(cmd.getMessage());
                     break;
                 }
             }

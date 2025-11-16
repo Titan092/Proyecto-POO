@@ -23,7 +23,7 @@ public class ClientAddCommand extends Command {
                 String DNI = matcher.group(2);
                 String email = matcher.group(3);
                 String cashId= matcher.group(4);
-                //userService.addClient(name, DNI, email, CashId);
+                this.setMessage(userService.clientAdd(name, DNI, email, cashId));
                 result = true;
             }
 

@@ -20,7 +20,7 @@ public class ClientRemoveCommand extends Command {
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if (matcher.matches()) {
                 String DNI = matcher.group(1);
-                //userService.removeClient(DNI);
+                this.setMessage(userService.clientRemove(DNI));
                 result = true;
             }
         }

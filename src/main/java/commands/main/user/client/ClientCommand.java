@@ -20,7 +20,10 @@ public class ClientCommand extends Command {
         if(args.length >0 && args[0].equals(this.getName())) {
             for(Command cmd:subCommands) {
                 result=cmd.apply(args);
-                if(result) break;
+                if(result){
+                    this.setMessage(cmd.getMessage());
+                    break;
+                }
             }
         }
         return result;
