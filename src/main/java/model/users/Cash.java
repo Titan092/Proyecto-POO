@@ -18,4 +18,8 @@ public class Cash extends User {
     }
 
 
+    public void addTicket(String cashID, Ticket ticket){
+        tickets.put(cashID, ticket);
+    }
+
 }
