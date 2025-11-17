@@ -96,8 +96,8 @@ public class UserService {
             String [] clientNamesAndDniSeparated = clientNamesAndDni.get(i).split(" ");
             Client client = (Client) users.get(clientNamesAndDniSeparated[1]); //field [1] its the id used to get the client
             sb.append("\t"+client.toString());
-            //faltaria poner en el cli --> cash list: ok
         }
+        sb.append("client list: ok");
         return sb.toString();
     }
 
@@ -173,7 +173,7 @@ public class UserService {
         //Put the name and the cashId in a list
         List<String> cashNameAndId = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
-            if (Character.isAlphabetic(0)){//if the first character is alphabetic (U from UW) is a chash
+            if (Character.isAlphabetic(entry.getKey().charAt(0))){//if the first character is alphabetic (U from UW) is a chash
                 String nameAndCashId = (entry.getValue().getName())+" "+ (entry.getValue().getId());
                 cashNameAndId.add(nameAndCashId);
             }
@@ -191,6 +191,8 @@ public class UserService {
         sb.append("cash list: ok");
         return sb.toString();
     }
+
+
 
     /**
      * Prints the tickets created by the cashier with the ID passed as a parameter, sorted by ticket ID and status.
