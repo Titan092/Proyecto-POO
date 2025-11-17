@@ -3,7 +3,7 @@ package model.tickets;
 import model.products.ProductService;
 import model.users.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class TicketService {
             sb.append("The cashID is not valid");
         }else{
             int numRandom = ThreadLocalRandom.current().nextInt(10000, 99999+1);
-            String ticketID = LocalDate.now().format(opening) + numRandom;
+            String ticketID = LocalDateTime.now().format(opening) + numRandom;
             Ticket ticket = new Ticket(ticketID);
             Cash casher = (Cash) casherLists.get(cashID);
             casher.newTicket(ticketID, ticket);
