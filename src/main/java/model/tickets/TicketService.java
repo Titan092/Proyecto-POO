@@ -45,6 +45,16 @@ public class TicketService {
             casher.addProductToTicket(ticketID, productID, amount, productService);
         }
     }
+    public void ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts , UserService userService, ProductService productService) {
+        if (cashID.charAt(0) != 'U'){
+            System.out.println("Invalid cash ID");
+        }else{
+            HashMap<String, IUser> casherLists = userService.getUsers();
+            Cash casher = (Cash) casherLists.get(cashID);
+            casher.addProductToTicket(ticketID, productID, amount, productService);
+
+        }
+    }
 
     public void ticketList(UserService userService) {
         HashMap<String, IUser> users = userService.getUsers();

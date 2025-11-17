@@ -59,10 +59,14 @@ public class UserService {
      * @param dni
      */
     public String clientRemove(String dni){
-        String message = null;
+        String message;
+        if (!Character.isAlphabetic(dni.charAt(8)) || dni.length() != 9){
+            message = "Invalid ID";
+        }
         if (users.containsKey(dni)){
             users.remove(dni);
             numClients--;
+            message = "client remove: ok";
         }else{
             message=ErrorMessageHandler.getDNINOTEXIST();
         }
@@ -74,6 +78,7 @@ public class UserService {
      */
     public String clientList(){
         StringBuffer sb = new StringBuffer();
+        sb.append("Client:\n");
         //Put the name and Dni in a list
         List<String> clientNamesAndDni = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
@@ -89,7 +94,9 @@ public class UserService {
         for (int i=0;i<clientNamesAndDni.size();i++){
             //separate the names and dnis
             String [] clientNamesAndDniSeparated = clientNamesAndDni.get(i).split(" ");
-            sb.append("Client name: "+clientNamesAndDniSeparated[0]+" DNI: "+clientNamesAndDniSeparated[1]);
+            Client client = (Client) users.get(clientNamesAndDniSeparated[1]); //field [1] its the id used to get the client
+            sb.append("\t"+client.toString());
+            //faltaria poner en el cli --> cash list: ok
         }
         return sb.toString();
     }
@@ -138,15 +145,15 @@ public class UserService {
      * @param cashId
      */
     public String cashRemove(String cashId){
-        String message = null;
-        if (cashId.charAt(0) != 'U'){
+        String message;
+        if (cashId.charAt(0) != 'U' || cashId.length() != 9){
             message = "The id is not valid";
         }else{
             if (users.containsValue(cashId)){
                 Cash cash = (Cash) users.get(cashId);
                 cash.deleteTickets(cashId, users);
                 users.remove(cashId);
-                message = "Cash remove ok";
+                message = "cash remove ok";
             }else{
                 message=ErrorMessageHandler.getCASHIDNOTEXIST();
             }
@@ -162,6 +169,7 @@ public class UserService {
      */
     public String cashList(){
         StringBuffer sb = new StringBuffer();
+        sb.append("Cash:\n");
         //Put the name and the cashId in a list
         List<String> cashNameAndId = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
@@ -177,7 +185,8 @@ public class UserService {
         for (int i=0;i<cashNameAndId.size();i++){
             //separate the names and dnis
             String [] cashNameAndIdSeparated = cashNameAndId.get(i).split(" ");
-            sb.append("Cash name: "+cashNameAndIdSeparated[0]+" Cash ID: "+cashNameAndIdSeparated[1]);
+            Cash cash = (Cash) users.get(cashNameAndIdSeparated[1]); //field [1] its the id used to get the client
+            sb.append("\t"+cash.toString());
         }
         return sb.toString();
     }
@@ -188,22 +197,26 @@ public class UserService {
      */
     public String cashTickets(String cashId){
         StringBuffer sb = new StringBuffer();
-        //comprobar que es cajero
-        Cash cash = (Cash) users.get(cashId);
-        HashMap<String, Ticket> tickets = cash.getTickets();
-        ArrayList<String> ticketIDs = new ArrayList<>();
-        for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
-            String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
-            ticketIDs.add(idTicketAndStatus);
+        if (cashId.charAt(0) == 'U' && cashId.length() == 9){
+            sb.append("Tickets:\n");
+            Cash cash = (Cash) users.get(cashId);
+            HashMap<String, Ticket> tickets = cash.getTickets();
+            ArrayList<String> ticketIDs = new ArrayList<>();
+            for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
+                String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
+                ticketIDs.add(idTicketAndStatus);
+            }
+
+            //Sort by ticket ID
+            Collections.sort(ticketIDs);
+
+            for (String ticketID : ticketIDs){
+                String[]  ticketIDSeparated = ticketID.split(" ");
+                sb.append("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);
+            }
         }
 
-        //Sort by ticket ID
-        Collections.sort(ticketIDs);
 
-        for (String ticketID : ticketIDs){
-            String[]  ticketIDSeparated = ticketID.split(" ");
-            sb.append("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);
-        }
         return sb.toString();
     }
 }
