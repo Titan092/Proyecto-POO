@@ -17,23 +17,37 @@ public class TicketService {
     private final int MAX_TICKETS = 100;
     private int numTickets = 0;
 
-    public Ticket ticketNew(String ticketID, String cashID, UserService userService) {
+    public String ticketNew(String ticketID, String cashID, String clientID , UserService userService) {
         HashMap<String, IUser> casherLists = userService.getUsers();
         Ticket ticket = new Ticket(ticketID);
         Cash casher = (Cash) casherLists.get(cashID);
         casher.newTicket(ticketID, ticket);
-        return ticket;
+
+        return "";
     }
 
-    public Ticket ticketNew(String ticketID, String cashID, String clientID, UserService userService) {
+    public String ticketNew(String ticketID, String cashID, String clientID, UserService userService) {
+        StringBuffer sb = new StringBuffer();
         HashMap<String, IUser> casherLists = userService.getUsers();
-        Ticket ticket = new Ticket(ticketID);
-        Cash casher = (Cash) casherLists.get(cashID);
-        casher.newTicket(ticketID, ticket);
-        Client client = (Client) casherLists.get(clientID);
-        client.newTicket(ticketID, ticket);
-        return ticket;
+        if (clientID.length() != 9 || !Character.isAlphabetic(clientID.charAt(8))){
+            sb.append("The clientID is not valid");
+        } else if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
+            sb.append("The cashID is not valid");
+        }else{
+            Ticket ticket = new Ticket(ticketID);
+            Cash casher = (Cash) casherLists.get(cashID);
+            casher.newTicket(ticketID, ticket);
+            Client client = (Client) casherLists.get(clientID);
+            client.newTicket(ticketID, ticket);
+            sb.append("Ticket: "+ticketID+"\n");
+            sb.append("\t"+"Total price: 0.0 \n");
+            sb.append("\t"+"Total discount: 0.0");
+            sb.append("\t"+"Final Price: 0.0");
+            sb.append("ticket new: ok\n");
+        }
+        return sb.toString();
     }
+
 
     // Adds a product to a ticket
     public void ticketAdd(String ticketID, String cashID, int productID, int amount, UserService userService, ProductService productService) {
