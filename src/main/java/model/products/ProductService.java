@@ -27,7 +27,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id, new BaseProduct(id, name , category, price));
         numProducts++;
-        message = ((BaseProduct) products.get(id)).toString();
+        message = ((BaseProduct) products.get(id)).toString() + "prod add: ok";
         return message;
     }
 
@@ -42,7 +42,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new BaseProduct(id, name , category, price));
                     numProducts++;
-                    message = ((BaseProduct) products.get(id)).toString();
+                    message = ((BaseProduct) products.get(id)).toString() + "prod add: ok";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -60,7 +60,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id,new CustomProduct(id,name,category,price,maxPers));
         numProducts++;
-        message = ((CustomProduct) products.get(id)).toString();
+        message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
         return message;
     }
 
@@ -74,7 +74,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new CustomProduct(id,name,category,price,maxPers));
                     numProducts++;
-                    message = ((CustomProduct) products.get(id)).toString();
+                    message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -92,7 +92,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id,new Food(id,name,price,date,maxPeople));
         numProducts++;
-        message = ((Food) products.get(id)).toString();
+        message = ((Food) products.get(id)).toString() + "prod add: ok";
         return message;
     }
 
@@ -105,7 +105,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Food(id,name,price,date,maxPeople));
                     numProducts++;
-                    message = ((Food) products.get(id)).toString();
+                    message = ((Food) products.get(id)).toString() + "prod add: ok";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -123,7 +123,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id,new Meeting(id,name,price,date,maxPeople));
         numProducts++;
-        message = ((Meeting) products.get(id)).toString();
+        message = ((Meeting) products.get(id)).toString() + "prod add: ok";
         return message;
     }
 
@@ -136,7 +136,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Meeting(id,name,price,date,maxPeople));
                     numProducts++;
-                    message = ((Meeting) products.get(id)).toString();
+                    message = ((Meeting) products.get(id)).toString() + "prod add: ok";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -158,16 +158,14 @@ public class ProductService {
                 switch (field.toUpperCase()){
                     case "NAME":
                         product.setName(value);
-                        result = product.toString();
-                        // esto tendria que decirlo el cli y el metodo solo devolver el como queda el producto con el toString: result=result+"prod update: ok";
+                        result = product.toString() + "prod update: ok";
                         break;
                     case "CATEGORY":
                         try{
                             Category categoryNew = Category.valueOf(value.toUpperCase());
                             if (product instanceof ICategorizable){
                                 ((ICategorizable) product).setCategory(categoryNew);
-                                result = product.toString();
-                                // esto tendria que decirlo el cli y el metodo solo devolver el como queda el producto con el toString: result=result+"prod update: ok";
+                                result = product.toString() + "prod update: ok";
                             }else{
                                 result=("This type of product do not have category");
                             }
@@ -179,8 +177,7 @@ public class ProductService {
                         try{
                             float priceValue = Float.parseFloat(value);
                             product.setPrice(priceValue);
-                            result=product.toString();
-                            // esto tendria que decirlo el cli y el metodo solo devolver el como queda el producto con el toString: result=result+"prod update: ok";
+                            result=product.toString() + "prod update: ok";
                         }catch (NumberFormatException e) {
                             result=(ErrorMessageHandler.getVALIDNUMBER());
                         }
@@ -200,21 +197,21 @@ public class ProductService {
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
             sb.append(products.get(entry.getValue()).toString());
         }
+        sb.append("prod list: ok\n");
         return sb.toString();
     }
 
     public String prodRemove(int id) {
-        String message=null;
+        String message;
         if (id < 0) {
             message=ErrorMessageHandler.getWRONGID();
         } else {
             if (!products.containsKey(id)) {
                 message=ErrorMessageHandler.getNOTFINDGID();
             } else {
-                message = products.get(id).toString(); //muestra el producto antes de ser borrado
+                message = products.get(id).toString() + "prod remove: ok";
                 products.remove(id);
                 numProducts--;
-                //el cli luego tendria que escribir --> prod remove: ok
             }
         }
         return message;
