@@ -25,6 +25,7 @@ public class ProductRemoveCommand extends Command {
                 result=true;
             }
         }
+
         return result;
     }
 }
