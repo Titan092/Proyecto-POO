@@ -7,6 +7,7 @@ import model.users.IUser;
 import model.users.UserService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TicketService {
     private static final DateTimeFormatter opening = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
 
+
     public String ticketNew(String cashID, String clientID, UserService userService) {
         StringBuffer sb = new StringBuffer();
         HashMap<String, IUser> casherLists = userService.getUsers();
@@ -26,7 +28,7 @@ public class TicketService {
             sb.append("The cashID is not valid");
         }else{
             int numRandom = ThreadLocalRandom.current().nextInt(10000, 99999+1);
-            String ticketID = LocalDate.now().format(opening) + numRandom;
+            String ticketID = LocalDateTime.now().format(opening) + numRandom;
             Ticket ticket = new Ticket(ticketID);
             Cash casher = (Cash) casherLists.get(cashID);
             casher.newTicket(ticketID, ticket);
@@ -81,6 +83,7 @@ public class TicketService {
         }
         return sb.toString();
     }
+
     public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts , UserService userService, ProductService productService) {
         if (cashID.charAt(0) != 'U'){
             System.out.println("Invalid cash ID");
@@ -90,6 +93,7 @@ public class TicketService {
             casher.addProductToTicket(ticketID, productID, amount, productService);
 
         }
+        return null;
     }
 
     public String ticketList(UserService userService) {
@@ -118,12 +122,12 @@ public class TicketService {
     }
 
     public String ticketRemove(String ticketID, String cashID, int prodID){
-        String message;
+        String message = null;
         return message;
     }
 
     public String ticketPrint(String ticketID, String cashID){
-        String message;
+        String message = null;
         return message;
     }
 

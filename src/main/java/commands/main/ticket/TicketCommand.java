@@ -13,7 +13,7 @@ public class TicketCommand extends Command {
     private ProductService productService;
     private UserService userService;
     private List<Command> subCommands;
-    public TicketCommand(TicketService ticketService, ProductService productService) {
+    public TicketCommand(TicketService ticketService, ProductService productService, UserService userService) {
         super("ticket");
         this.ticketService = ticketService;
         this.productService = productService;
