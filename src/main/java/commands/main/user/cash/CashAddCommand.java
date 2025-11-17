@@ -22,8 +22,8 @@ public class CashAddCommand extends Command {
             if (matcher.matches()) {
                 String name = matcher.group(2);
                 String email = matcher.group(3);
-                String cashId = matcher.group(1);
                 if(matcher.group(1) != null) {
+                    String cashId = matcher.group(1);
                     this.setMessage(userService.cashAdd(cashId, name, email));
                 } else {
                     this.setMessage(userService.cashAdd(name, email));
