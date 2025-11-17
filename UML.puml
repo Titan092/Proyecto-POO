@@ -1,0 +1,365 @@
+@startuml
+package commands {
+    package main{
+        package product{
+            class ProductCommand{
+            --Private Data--
+            -productService : ProductService
+            -subCommands : List<Command>
+            --Constructor--
+            +ProductCommand(productService : ProductService)
+            --Public Methods--
+            +initSubCommands() : void
+            +apply(args : String[]) : boolean
+            }
+
+            class ProductAddCommand{
+            --Private Data--
+            -productService : ProductService
+            --Constructor--
+            +ProductAddCommand(productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+
+            }
+
+            class ProductAddFoodCommand{
+            --Private Data--
+            -productService : ProductService
+            --Constructor--
+            +ProductAddFoodCommand(productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class ProductAddMeetingCommand{
+            --Private Data--
+            -productService : ProductService
+            --Constructor--
+            +ProductAddMeetingCommand(productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class ProductListCommand{
+            --Private Data--
+            -productService : ProductService
+            --Constructor--
+            +ProductListCommand(productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class ProductRemoveCommand{
+            --Private Data--
+            -productService : ProductService
+            --Constructor--
+            +ProductRemoveCommand(productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class ProductUpdateCommand{
+            --Private Data--
+            -productService : ProductService
+            --Constructor--
+            +ProductUpdateCommand(productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+        }
+
+        package ticket{
+            class TicketCommand{
+            --Private Data--
+            -productService : ProductService
+            -ticketService : TicketService
+            -subCommands : List<Command>
+            --Constructor--
+            +TicketCommand(ticketService : TicketService, productService : ProductService)
+            --Public Methods--
+            +initSubCommands() : void
+            +apply(args : String[]) : boolean
+            }
+
+            class TicketAddCommand{
+            --Private Data--
+            -ticketService : TicketService
+            -productService : ProductService
+            --Constructor--
+            +TicketAddCommand(ticketService : TicketService, productService : ProductService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class TicketListCommand{
+            --Private Data--
+            -ticketService : TicketService
+            --Constructor--
+            +TicketListCommand(ticketService : TicketService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class TicketNewCommand{
+            --Private Data--
+            -ticketService : TicketService
+            -userService : UserService
+            --Constructor--
+            +TicketNewCommand(ticketService : TicketService, userService : UserService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class TicketPrintCommand{
+            --Private Data--
+            -ticketService : TicketService
+            -userService : UserService
+            --Constructor--
+            +TicketPrintCommand(ticketService : TicketService, userService : UserService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+
+            class TicketRemoveCommand{
+            --Private Data--
+            -ticketService : TicketService
+            -userService : UserService
+            --Constructor--
+            +TicketRemoveCommand(ticketService : TicketService, userService : UserService)
+            --Public Methods--
+            +apply(args : String[]) : boolean
+            }
+        }
+
+        package user{
+            class UserCommand{
+                --Private Data--
+                -userService : UserService
+                -subCommands : List<Command>
+                --Constructor--
+                +UserCommand(userService : UserService)
+                --Public Methods--
+                +initSubCommands() : void
+                +apply(args : String[]) : boolean
+            }
+
+            package cash{
+                class CashCommand{
+                --Private Data--
+                -userService : UserService
+                -subCommands : List<Command>
+                --Constructor--
+                +CashCommand(userService : UserService)
+                --Public Methods--
+                +initSubCommands() : void
+                +apply(args : String[]) : boolean
+                }
+
+                class CashAddCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +CashAddCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+
+                class CashListCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +CashListCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+
+                class CashRemoveCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +CashRemoveCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+
+                class CashTicketsCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +CashTicketsCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+
+            }
+
+            package client{
+                class ClientCommand{
+                --Private Data--
+                -userService : UserService
+                -subCommands : List<Command>
+                --Constructor--
+                +ClientCommand(userService : UserService)
+                --Public Methods--
+                +initSubCommands() : void
+                +apply(args : String[]) : boolean
+                }
+
+                class ClientAddCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +ClientAddCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+
+                class ClientListCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +ClientListCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+
+                class ClientRemoveCommand{
+                --Private Data--
+                -userService : UserService
+                --Constructor--
+                +ClientRemoveCommand(userService : UserService)
+                --Public Methods--
+                +apply(args : String[]) : boolean
+                }
+            }
+        }
+        class HelpCommand{
+        --Public Methods--
+        +HelpCommand()
+        +apply(args : String[]) : boolean
+        +getHelp() : String
+        }
+
+        class UnknownCommand{
+        --Public Methods--
+        +UnknownCommand()
+        }
+    }
+    class Command {
+    --Public Methods--
+    #Command(name : String)
+    +apply(args : String[]) : boolean
+    }
+}
+
+
+set separator none
+package etsisi.upm.es {
+    class CLI {
+
+    }
+
+    class CommandHandler {
+
+    }
+
+    interface ICLI {
+
+    }
+
+    class Shop{
+
+    }
+}
+
+
+package exceptionHandler{
+    class ErrorMessageHandler{
+
+    }
+}
+
+
+package model{
+    package products{
+        class BaseProduct{
+
+        }
+
+        class CustomProduct{
+
+        }
+
+        class EventProduct{
+
+        }
+
+        class Food{
+
+        }
+
+        class Meeting{
+
+        }
+
+        class Product{
+
+        }
+
+        class ProductService{
+
+        }
+
+        enum Category{
+
+        }
+
+        interface ICategorizable{
+
+        }
+
+        interface IProduct{
+
+        }
+    }
+
+
+    package tickets{
+        class Ticket{
+
+        }
+
+        class TicketService{
+
+        }
+
+        enum TicketStatus{
+
+        }
+    }
+
+
+    package users{
+        class Cash{
+
+        }
+
+        class Client{
+
+        }
+
+        class User{
+
+        }
+
+        class UserService{
+
+        }
+
+        interface IUser{
+
+        }
+    }
+}
+@enduml
