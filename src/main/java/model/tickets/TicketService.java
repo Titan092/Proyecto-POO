@@ -6,24 +6,39 @@ import model.users.Client;
 import model.users.IUser;
 import model.users.UserService;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TicketService {
     private static final DateTimeFormatter opening = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
-    private final int MAX_TICKETS = 100;
-    private int numTickets = 0;
 
-    public String ticketNew(String ticketID, String cashID, String clientID , UserService userService) {
+    public String ticketNew(String cashID, String clientID, UserService userService) {
+        StringBuffer sb = new StringBuffer();
         HashMap<String, IUser> casherLists = userService.getUsers();
-        Ticket ticket = new Ticket(ticketID);
-        Cash casher = (Cash) casherLists.get(cashID);
-        casher.newTicket(ticketID, ticket);
-
-        return "";
+        if (clientID.length() != 9 || !Character.isAlphabetic(clientID.charAt(8))){
+            sb.append("The clientID is not valid");
+        } else if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
+            sb.append("The cashID is not valid");
+        }else{
+            int numRandom = ThreadLocalRandom.current().nextInt(10000, 99999+1);
+            String ticketID = LocalDate.now().format(opening) + numRandom;
+            Ticket ticket = new Ticket(ticketID);
+            Cash casher = (Cash) casherLists.get(cashID);
+            casher.newTicket(ticketID, ticket);
+            Client client = (Client) casherLists.get(clientID);
+            client.newTicket(ticketID, ticket);
+            sb.append("Ticket: "+ticketID+"\n");
+            sb.append("\t"+"Total price: 0.0 \n");
+            sb.append("\t"+"Total discount: 0.0");
+            sb.append("\t"+"Final Price: 0.0");
+            sb.append("ticket new: ok\n");
+        }
+        return sb.toString();
     }
 
     public String ticketNew(String ticketID, String cashID, String clientID, UserService userService) {
