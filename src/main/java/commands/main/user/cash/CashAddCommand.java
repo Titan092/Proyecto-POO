@@ -17,7 +17,7 @@ public class CashAddCommand extends Command {
         boolean result = false;
         if(args.length > 2 && args[1].equals(this.getName())) {
             // cash add [<id>] "<nombre>"<email>
-            Pattern pattern = Pattern.compile("^cash add (.+)? \"(.+)\" (.+)$");
+            Pattern pattern = Pattern.compile("^cash add (\s+)? \"(.+)\" (.+)$");
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if (matcher.matches()) {
                 String name = matcher.group(2);

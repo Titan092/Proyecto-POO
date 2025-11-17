@@ -41,7 +41,7 @@ public class HelpCommand extends Command {
                 "  exit\n" +
                 "\n" +
                 "Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n" +
-                "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.";
+                "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.\n";
         return result;
     }
 }
