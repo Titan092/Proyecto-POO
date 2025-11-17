@@ -12,7 +12,7 @@ public abstract class User implements IUser {
     private String id;
     private String name;
     private String email;
-    private HashMap<String, Ticket> tickets = new HashMap<>();
+    protected HashMap<String, Ticket> tickets = new HashMap<>();
 
     public User(String id, String name, String email){
         this.id = id;
@@ -55,8 +55,11 @@ public abstract class User implements IUser {
         Ticket existingTicket = tickets.get(ticketID);
         if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSED) {
             System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET() );
+        } else if (existingTicket != null) {
+            existingTicket.addProductToTicket(productID, amount, productService);
+        } else {
+
         }
-        existingTicket.addProductToTicket(productID, amount, productService);
     }
 
     public Ticket getTicket(String ticketID) {

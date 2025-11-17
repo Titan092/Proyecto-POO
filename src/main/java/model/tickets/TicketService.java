@@ -39,8 +39,7 @@ public class TicketService {
     public void ticketAdd(String ticketID, String cashID, int productID, int amount, UserService userService, ProductService productService) {
         HashMap<String, IUser> casherLists = userService.getUsers();
         Cash casher = (Cash) casherLists.get(cashID);
-        Ticket ticket = casher.getTicket(ticketID);
-        ticket.addProductToTicket(productID, amount, productService);
+        casher.addProductToTicket(ticketID, productID, amount, productService);
     }
 
     public void ticketList(UserService userService) {
