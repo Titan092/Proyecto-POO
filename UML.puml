@@ -246,7 +246,7 @@ package commands {
         +UnknownCommand()
         }
     }
-    class Command {
+    abstract class Command {
     --Public Methods--
     #Command(name : String)
     +apply(args : String[]) : boolean
@@ -276,7 +276,26 @@ package etsisi.upm.es {
 
 package exceptionHandler{
     class ErrorMessageHandler{
-
+    --Private Data--
+    -{static}ERRORMESAGE : String[]
+    -{static}VALIDNUMBER : String[]
+    -{static}VALIDCATEGORY : String[]
+    -{static}WRONGID : String[]
+    -{static}NOTFINDGID : String[]
+    -{static}NOSPACERICKET : String[]
+    -{static}PRODUCTNOTEXIST : String[]
+    -{static}IDNOTEXIST : String[]
+    -{static}FIELDERROR : String[]
+    -{static}NOMOREPRODUCTS : String[]
+    -{static}EXISTINGID : String[]
+    -{static}EXISTINGIDCASH : String[]
+    -{static}WRONGCASHID : String[]
+    -{static}WRONGDNIFORMAT : String[]
+    -{static}DNINOTEXIST : String[]
+    -{static}CASHIDNOTEXIST : String[]
+    -{static}USE_CLOSED_TICKET : String[]
+    -{static}TICKET_ALREADY_EXISTS : String[]
+    -{static}TICKET_DOESN'T_EXIST : String[]
     }
 }
 
