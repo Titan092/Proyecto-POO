@@ -58,7 +58,7 @@ public abstract class User implements IUser {
         } else if (existingTicket != null) {
             existingTicket.addProductToTicket(productID, amount, productService);
         } else {
-
+            System.out.println(ErrorMessageHandler.getTicketDoesntExist());
         }
     }
 

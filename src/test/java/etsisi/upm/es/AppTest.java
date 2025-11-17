@@ -17,14 +17,12 @@ public class AppTest {
     public void FullAppTest(){
        Scanner s=new Scanner(System.in);
         try{
-            FileInputStream file=new FileInputStream("inputExigente.txt");
+            FileInputStream file=new FileInputStream("input2");
             System.setIn(file);
-
-            CommandHandler command=new CommandHandler();
-            command.init();
-
-            command.end();
-
+            String[] args = new String[0];
+            CLI cli = new CLI();
+            CommandHandler commandHandler=new CommandHandler();
+            cli.start(commandHandler, args);
             file.close();
         }catch (IOException e){
             System.out.println("Error: "+e.getMessage());

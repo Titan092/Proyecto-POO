@@ -6,6 +6,7 @@ import model.tickets.Ticket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Cash extends User {
     public Cash(String id, String name, String email){
@@ -22,7 +23,7 @@ public class Cash extends User {
                     Ticket ticketClient = ticketEntry.getValue();
                     for (Map.Entry<String, Ticket> cashTicketEntry : tickets.entrySet()){
                         Ticket ticketCash = cashTicketEntry.getValue();
-                        if (ticketClient.getId() == ticketCash.getId()){
+                        if (Objects.equals(ticketClient.getId(), ticketCash.getId())){
                             clientTickets.remove(ticketClient.getId());
                         }
                     }

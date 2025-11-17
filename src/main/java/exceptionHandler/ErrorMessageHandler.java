@@ -22,6 +22,7 @@ public class ErrorMessageHandler {
     private static final String PRINT_EMPTY_TICKET = "You can't print an empty ticket.";
     private static final String USE_CLOSED_TICKET = "You can't modify a closed ticket.";
     private static final String TICKET_ALREADY_EXISTS = "The ticket already exists.";
+    private static final String TICKET_DOESNT_EXIST = "The ticket already exists.";
 
     public static String getERRORMESSAGE() {
         return ERRORMESSAGE;
@@ -74,4 +75,5 @@ public class ErrorMessageHandler {
     public static String getUSE_CLOSED_TICKET(){return USE_CLOSED_TICKET;}
 
     public static String getTicketAlreadyExists() {return TICKET_ALREADY_EXISTS;}
+    public static String getTicketDoesntExist() {return TICKET_DOESNT_EXIST;}
 }
