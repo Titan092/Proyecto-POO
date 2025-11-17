@@ -115,7 +115,7 @@ public class UserService {
         }while(users.containsKey(id));
         users.put(id, new Cash(id,name,email));
         numCash++;
-        message = ((Cash) users.get(id)).toString();
+        message = ((Cash) users.get(id)).toString() + "cash add: ok";
         return message;
     }
 
@@ -132,7 +132,7 @@ public class UserService {
         }else{
             if (!users.containsKey(cashId)){
                 users.put(cashId, new Cash(cashId, name, email));
-                message = ((Cash) users.get(cashId)).toString();
+                message = ((Cash) users.get(cashId)).toString() + "cash add: ok";
             }else{
                 message=ErrorMessageHandler.getEXISTINGIDCASH();
             }
@@ -188,6 +188,7 @@ public class UserService {
             Cash cash = (Cash) users.get(cashNameAndIdSeparated[1]); //field [1] its the id used to get the client
             sb.append("\t"+cash.toString());
         }
+        sb.append("cash list: ok");
         return sb.toString();
     }
 
