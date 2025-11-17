@@ -149,7 +149,7 @@ public class UserService {
         if (cashId.charAt(0) != 'U' || cashId.length() != 9){
             message = "The id is not valid";
         }else{
-            if (users.containsValue(cashId)){
+            if (users.containsKey(cashId)){
                 Cash cash = (Cash) users.get(cashId);
                 cash.deleteTickets(cashId, users);
                 users.remove(cashId);
@@ -160,8 +160,6 @@ public class UserService {
         }
         return message;
     }
-
-
 
 
     /**
@@ -215,11 +213,10 @@ public class UserService {
 
             for (String ticketID : ticketIDs){
                 String[]  ticketIDSeparated = ticketID.split(" ");
-                sb.append("Ticket id: "+ticketIDSeparated[0]+" Ticket ID: "+ticketIDSeparated[1]);
+                sb.append("\t"+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]);
             }
+            sb.append("cash tickets: ok\n");
         }
-
-
         return sb.toString();
     }
 }
