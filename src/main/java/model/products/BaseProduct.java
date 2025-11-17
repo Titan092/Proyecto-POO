@@ -15,4 +15,9 @@ public class BaseProduct extends Product implements ICategorizable{
     public Category getCategory() {
         return category;
     }
+
+    @Override
+    public String toString() {
+        return "{class:Product, id:"+super.getId()+", name:"+ "'" +super.getName()+"'"+", category:"+category+", price:"+super.getPrice()+"}\n";
+    }
 }

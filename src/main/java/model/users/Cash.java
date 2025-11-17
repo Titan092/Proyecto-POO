@@ -32,4 +32,8 @@ public class Cash extends User {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Client{identifier='"+super.getId()+ "'"+", name='"+super.getName()+"', email='"+super.getEmail()+"}\n";
+    }
 }

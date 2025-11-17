@@ -9,5 +9,8 @@ public class Meeting extends EventProduct {
         super(id,name,price,date,maxPeople);
     }
 
-
+    @Override
+    public String toString() {
+        return "{class:Meeting, id:"+super.getId()+", name:"+"'"+super.getName()+"'"+", price:"+super.getPrice()+", date of Event:"+ super.getDate()+", max people allowed:"+ super.getMaxPeople()+"}\n";
+    }
 }

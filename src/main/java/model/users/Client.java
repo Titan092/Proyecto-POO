@@ -21,6 +21,8 @@ public class Client extends User{
         this.cashId = cashId;
     }
 
-    
-
+    @Override
+    public String toString() {
+       return "Client{identifier='"+super.getId()+ "'"+", name='"+super.getName()+"', email='"+super.getEmail()+"', cash="+cashId+"}\n";
+    }
 }

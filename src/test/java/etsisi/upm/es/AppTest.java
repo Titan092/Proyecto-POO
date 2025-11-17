@@ -17,7 +17,7 @@ public class AppTest {
     public void FullAppTest(){
        Scanner s=new Scanner(System.in);
         try{
-            FileInputStream file=new FileInputStream("input2");
+            FileInputStream file=new FileInputStream("input2.txt");
             System.setIn(file);
             String[] args = new String[0];
             CLI cli = new CLI();

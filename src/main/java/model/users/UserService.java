@@ -43,6 +43,8 @@ public class UserService {
            if (!Character.isDigit(dni.charAt(8))){
                users.put(dni,new Client(name,dni,email,cashId));
                numClients++;
+               message = ((Client) users.get(dni)).toString();
+               //faltaria escribir en el cli --> client add: ok
            }else{
                message=ErrorMessageHandler.getWRONGDNIFORMAT();
            }
@@ -99,14 +101,15 @@ public class UserService {
      */
     //comand for Cash with random Id
     public String cashAdd(String name, String email){
-        String id;
+        String id, message;
         do{
             int numRandom = ThreadLocalRandom.current().nextInt(1000000, 9999999+1);
             id = "UW" + numRandom;
         }while(users.containsKey(id));
         users.put(id, new Cash(id,name,email));
         numCash++;
-        return null;
+        message = ((Cash) users.get(id)).toString();
+        return message;
     }
 
     /**
@@ -122,6 +125,7 @@ public class UserService {
         }else{
             if (!users.containsKey(cashId)){
                 users.put(cashId, new Cash(cashId, name, email));
+                message = ((Cash) users.get(cashId)).toString();
             }else{
                 message=ErrorMessageHandler.getEXISTINGIDCASH();
             }

@@ -21,4 +21,9 @@ public class CustomProduct extends BaseProduct {
     public void setCategory(Category category) {
         super.setCategory(category);
     }
+
+    @Override
+    public String toString() {
+        return "{class:Product, id:"+super.getId()+", name:"+ "'" +super.getName()+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPers: "+maxPers+"}\n";
+    }
 }

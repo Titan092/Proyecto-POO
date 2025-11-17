@@ -9,5 +9,8 @@ public class Food extends EventProduct {
         super(id,name,price,date,maxPeople);
     }
 
-
+    @Override
+    public String toString() {
+        return "{class:Food, id:"+super.getId()+", name:"+"'"+super.getName()+"'"+", price:"+super.getPrice()+", date of Event:"+ super.getDate()+", max people allowed:"+ super.getMaxPeople()+"}\n";
+    }
 }

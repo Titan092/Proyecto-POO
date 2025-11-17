@@ -20,19 +20,21 @@ public class ProductService {
 
     //comand for baseProduct with random ID
     public String prodAdd(String name, Category category, float price){
+        String message;
         int id;
         do{
             id = ThreadLocalRandom.current().nextInt(1000000, 9999999+1);
         }while(products.containsKey(id));
         products.put(id, new BaseProduct(id, name , category, price));
         numProducts++;
-        return null;
+        message = ((BaseProduct) products.get(id)).toString();
+        return message;
     }
 
 
     //command for baseProduct with explicit ID
     public String prodAdd(int id, String name, Category category ,float price){
-        String message=null;
+        String message = null;
         if (id<0){
             message=ErrorMessageHandler.getWRONGID();
         }else{
@@ -40,6 +42,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new BaseProduct(id, name , category, price));
                     numProducts++;
+                    message = ((BaseProduct) products.get(id)).toString();
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -50,18 +53,20 @@ public class ProductService {
 
     //comand for CustomProduct with random ID
     public String prodAdd(String name, Category category, float price, int maxPers){
+        String message;
         int id;
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000;
         }while(products.containsKey(id));
         products.put(id,new CustomProduct(id,name,category,price,maxPers));
         numProducts++;
-        return null;
+        message = ((CustomProduct) products.get(id)).toString();
+        return message;
     }
 
     //command for CustomProduct
     public String prodAdd(int id, String name, Category category, float price, int maxPers){
-        String message=null;
+        String message = null;
         if (id<0){
             message=ErrorMessageHandler.getWRONGID();
         }else{
@@ -69,6 +74,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new CustomProduct(id,name,category,price,maxPers));
                     numProducts++;
+                    message = ((CustomProduct) products.get(id)).toString();
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -79,13 +85,15 @@ public class ProductService {
 
     //commando for Food with random ID
     public String prodAddFood(String name, float price, LocalDate date, int maxPeople){
+        String message;
         int id;
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
         }while(products.containsKey(id));
         products.put(id,new Food(id,name,price,date,maxPeople));
         numProducts++;
-        return null;
+        message = ((Food) products.get(id)).toString();
+        return message;
     }
 
     public String prodAddFood(int id, String name, float price, LocalDate date, int maxPeople){
@@ -97,6 +105,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Food(id,name,price,date,maxPeople));
                     numProducts++;
+                    message = ((Food) products.get(id)).toString();
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -107,13 +116,15 @@ public class ProductService {
 
     //command for Meeting with random ID
     public String prodAddMeeting(String name, float price, LocalDate date, int maxPeople){
+        String message;
         int id;
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
         }while(products.containsKey(id));
         products.put(id,new Meeting(id,name,price,date,maxPeople));
         numProducts++;
-        return null;
+        message = ((Meeting) products.get(id)).toString();
+        return message;
     }
 
     public String prodAddMeeting(int id, String name, float price, LocalDate date, int maxPeople){
@@ -125,6 +136,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Meeting(id,name,price,date,maxPeople));
                     numProducts++;
+                    message = ((Meeting) products.get(id)).toString();
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -135,27 +147,27 @@ public class ProductService {
 
 
     public String prodUpdate(int id, String field, String value){
-        String result="";
+        String result;
         if (id<0){
-            System.out.println(ErrorMessageHandler.getWRONGID());
+            result = ErrorMessageHandler.getWRONGID();
         }else{
             if (!products.containsKey(id)){
-                System.out.println(ErrorMessageHandler.getIDNOTEXIST());
+                result = ErrorMessageHandler.getIDNOTEXIST();
             }else{
                 IProduct product = products.get(id); //the product that is going to be updated
                 switch (field.toUpperCase()){
                     case "NAME":
                         product.setName(value);
-                        result=result+product.toString();
-                        result=result+"prod update: ok";
+                        result = product.toString();
+                        // esto tendria que decirlo el cli y el metodo solo devolver el como queda el producto con el toString: result=result+"prod update: ok";
                         break;
                     case "CATEGORY":
                         try{
                             Category categoryNew = Category.valueOf(value.toUpperCase());
                             if (product instanceof ICategorizable){
                                 ((ICategorizable) product).setCategory(categoryNew);
-                                result=result+product.toString();
-                                result=result+"prod update: ok";
+                                result = product.toString();
+                                // esto tendria que decirlo el cli y el metodo solo devolver el como queda el producto con el toString: result=result+"prod update: ok";
                             }else{
                                 result=("This type of product do not have category");
                             }
@@ -167,8 +179,8 @@ public class ProductService {
                         try{
                             float priceValue = Float.parseFloat(value);
                             product.setPrice(priceValue);
-                            result=result+product.toString();
-                            result=result+"prod update: ok";
+                            result=product.toString();
+                            // esto tendria que decirlo el cli y el metodo solo devolver el como queda el producto con el toString: result=result+"prod update: ok";
                         }catch (NumberFormatException e) {
                             result=(ErrorMessageHandler.getVALIDNUMBER());
                         }
@@ -199,8 +211,10 @@ public class ProductService {
             if (!products.containsKey(id)) {
                 message=ErrorMessageHandler.getNOTFINDGID();
             } else {
+                message = products.get(id).toString(); //muestra el producto antes de ser borrado
                 products.remove(id);
                 numProducts--;
+                //el cli luego tendria que escribir --> prod remove: ok
             }
         }
         return message;
