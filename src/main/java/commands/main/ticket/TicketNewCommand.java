@@ -2,15 +2,18 @@ package commands.main.ticket;
 
 import commands.Command;
 import model.tickets.TicketService;
+import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TicketNewCommand extends Command {
     private TicketService ticketService;
-    public TicketNewCommand(TicketService ticketService) {
+    private UserService userService;
+    public TicketNewCommand(TicketService ticketService, UserService userService) {
         super("new");
         this.ticketService = ticketService;
+        this.userService = userService;
     }
 
     public boolean apply(String[] args) {
@@ -24,9 +27,9 @@ public class TicketNewCommand extends Command {
                 String cashId = m.group(3);
                 if (m.group(1) != null) {
                     String customerId = m.group(1);
-                    //ticketService.ticketNew(ticketId, cashId, customerId);
+                    ticketService.ticketNew(ticketId, cashId, customerId, userService);
                 } else {
-                    //ticketService.ticketNew(ticketId, cashId);
+                    ticketService.ticketNew(ticketId, cashId, userService);
                 }
                 result = true;
             }

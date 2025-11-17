@@ -1,22 +1,23 @@
 package model.users;
 
+import exceptionHandler.ErrorMessageHandler;
+import model.products.ProductService;
 import model.tickets.Ticket;
+import model.tickets.TicketStatus;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class User implements IUser {
 
     private String id;
     private String name;
     private String email;
-    // Every user has a list of tickets associated with it
-    private ArrayList<Ticket> tickets;
+    private HashMap<String, Ticket> tickets = new HashMap<>();
 
     public User(String id, String name, String email){
         this.id = id;
         this.name = name;
         this.email = email;
-        this.tickets = new ArrayList<>();
     }
 
     public String getId(){
@@ -43,17 +44,30 @@ public abstract class User implements IUser {
         this.email = email;
     }
 
-    public void insertTicket(Ticket ticket){
-        tickets.add(ticket);
+    public void newTicket(String ticketID, Ticket ticket) {
+        if (tickets.containsKey(ticketID))  {
+            System.out.println(ErrorMessageHandler.getTicketAlreadyExists() );
+        }
+        tickets.put(ticketID, ticket);
     }
 
-    public ArrayList<Ticket> getTickets() {
+    public void addProductToTicket(String ticketID, int productID, int amount, ProductService productService) {
+        Ticket existingTicket = tickets.get(ticketID);
+        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSED) {
+            System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET() );
+        }
+        existingTicket.addProductToTicket(productID, amount, productService);
+    }
+
+    public Ticket getTicket(String ticketID) {
+        return tickets.get(ticketID);
+    }
+
+    public void removeTicket(String ticketID) {
+        tickets.remove(ticketID);
+    }
+
+    public HashMap<String, Ticket> getTickets() {
         return tickets;
     }
-
-    public void setTickets(ArrayList<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-
 }

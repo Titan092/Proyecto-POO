@@ -21,6 +21,7 @@ public class ErrorMessageHandler {
     private static final String CASHIDNOTEXIST = "The Cash ID entered does not belong to any cash.";
     private static final String PRINT_EMPTY_TICKET = "You can't print an empty ticket.";
     private static final String USE_CLOSED_TICKET = "You can't modify a closed ticket.";
+    private static final String TICKET_ALREADY_EXISTS = "The ticket already exists.";
 
     public static String getERRORMESSAGE() {
         return ERRORMESSAGE;
@@ -71,4 +72,6 @@ public class ErrorMessageHandler {
     public static String getPRINT_EMPTY_TICKET(){return PRINT_EMPTY_TICKET;}
 
     public static String getUSE_CLOSED_TICKET(){return USE_CLOSED_TICKET;}
+
+    public static String getTicketAlreadyExists() {return TICKET_ALREADY_EXISTS;}
 }
