@@ -16,21 +16,21 @@ public class CashAddCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length > 2 && args[1].equals(this.getName())) {
-            // cash add [<id>] "<nombre>"<email>
-            Pattern pattern = Pattern.compile("^cash add (.+)? \"(.+)\" (.+)$");
+            // cash add [<id>] "<nombre>" <email>
+            // id opcional: UW + 7 dígitos
+            Pattern pattern = Pattern.compile("^cash add(?:\\s+(UW\\d{7}))?\\s+\"([^\"]+)\"\\s+(\\S+)$");
             Matcher matcher = pattern.matcher(String.join(" ", args));
             if (matcher.matches()) {
+                String idGroup = matcher.group(1); // puede ser null si no viene id
                 String name = matcher.group(2);
                 String email = matcher.group(3);
-                if(matcher.group(1) != null) {
-                    String cashId = matcher.group(1);
-                    this.setMessage(userService.cashAdd(cashId, name, email));
+                if(idGroup != null) {
+                    this.setMessage(userService.cashAdd(idGroup, name, email));
                 } else {
                     this.setMessage(userService.cashAdd(name, email));
                 }
                 result = true;
             }
-
         }
         return result;
     }
