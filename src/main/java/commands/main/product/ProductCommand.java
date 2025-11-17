@@ -29,7 +29,7 @@ public class ProductCommand extends Command {
 
     public boolean apply(String[] args) {
         boolean found=false;
-        if(args[0]==this.getName()) {
+        if(args[0].equals(this.getName())) {
             for (Command cmd:subCommands) {
                 found=cmd.apply(args);
                 if(found) {
