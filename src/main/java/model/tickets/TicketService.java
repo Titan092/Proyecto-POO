@@ -65,16 +65,23 @@ public class TicketService {
 
 
     // Adds a product to a ticket
-    public void ticketAdd(String ticketID, String cashID, int productID, int amount, UserService userService, ProductService productService) {
-        if (cashID.charAt(0) != 'U'){
-            System.out.println("Invalid cash ID");
+    public String ticketAdd(String ticketID, String cashID, int productID, int amount, UserService userService, ProductService productService) {
+        StringBuffer sb = new StringBuffer();
+        if (cashID.length() != 9 || cashID.charAt(0) != 'U'){
+            sb.append("Invalid cash ID");
         }else{
             HashMap<String, IUser> casherLists = userService.getUsers();
             Cash casher = (Cash) casherLists.get(cashID);
             casher.addProductToTicket(ticketID, productID, amount, productService);
+            sb.append("Ticket: "+ticketID+"\n");
+            HashMap<String, IUser> users = userService.getUsers();
+            Cash cash = (Cash) users.get(cashID);
+            Ticket ticket = cash.getTicket(ticketID);
+
         }
+        return sb.toString();
     }
-    public void ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts , UserService userService, ProductService productService) {
+    public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts , UserService userService, ProductService productService) {
         if (cashID.charAt(0) != 'U'){
             System.out.println("Invalid cash ID");
         }else{
@@ -85,7 +92,9 @@ public class TicketService {
         }
     }
 
-    public void ticketList(UserService userService) {
+    public String ticketList(UserService userService) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Ticket List:\n");
         HashMap<String, IUser> users = userService.getUsers();
         ArrayList<String> cashIDSorted = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()) {
@@ -101,8 +110,21 @@ public class TicketService {
             Cash cash = (Cash) users.get(cashID);
             HashMap<String, Ticket> tickets = cash.getTickets();
             for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
-                entry.getValue().printTicket();
+                sb.append(entry.getValue().getId()+" - "+entry.getValue().getStatus()+"\n");
             }
         }
+        sb.append("ticket list: ok");
+        return sb.toString();
     }
+
+    public String ticketRemove(String ticketID, String cashID, int prodID){
+        String message;
+        return message;
+    }
+
+    public String ticketPrint(String ticketID, String cashID){
+        String message;
+        return message;
+    }
+
 }
