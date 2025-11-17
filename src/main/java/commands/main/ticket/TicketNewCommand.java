@@ -29,7 +29,7 @@ public class TicketNewCommand extends Command {
                     String customerId = m.group(1);
                     this.setMessage(ticketService.ticketNew(ticketId, cashId, customerId, userService));
                 } else {
-                    ticketService.ticketNew(ticketId, cashId, userService);
+                    this.setMessage(ticketService.ticketNew(ticketId, cashId, userService));
                 }
                 result = true;
             }
