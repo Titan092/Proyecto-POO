@@ -17,7 +17,7 @@ public class ProductRemoveCommand extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if (args.length > 0 && args[1].equals(this.getName())) {
-            Pattern p=Pattern.compile("^prod remove (\\d+) $");
+            Pattern p=Pattern.compile("^prod remove (\\d+)$");
             Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 int id = Integer.parseInt(m.group(1));
