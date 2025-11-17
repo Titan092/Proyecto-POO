@@ -135,14 +135,22 @@ public class UserService {
      */
     public String cashRemove(String cashId){
         String message = null;
-        if (users.containsValue(cashId)){
-            users.remove(cashId);
-            //deleteTicketsFromCash(cashId);
+        if (cashId.charAt(0) != 'U'){
+            message = "The id is not valid";
         }else{
-            message=ErrorMessageHandler.getCASHIDNOTEXIST();
+            if (users.containsValue(cashId)){
+                Cash cash = (Cash) users.get(cashId);
+                cash.deleteTickets(cashId, users);
+                users.remove(cashId);
+                message = "Cash remove ok";
+            }else{
+                message=ErrorMessageHandler.getCASHIDNOTEXIST();
+            }
         }
         return message;
     }
+
+
 
 
     /**

@@ -46,7 +46,8 @@ public class TicketService {
         HashMap<String, IUser> users = userService.getUsers();
         ArrayList<String> cashIDSorted = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()) {
-            if (Character.isAlphabetic(0)) {//if the first character is alphabetic (U from UW) is a chash
+            String key = entry.getKey();
+            if (!key.isEmpty() && Character.isAlphabetic(key.charAt(0))) {//if the first character is alphabetic (U from UW) is a chash
                 cashIDSorted.add(entry.getValue().getId());
             }
         }
