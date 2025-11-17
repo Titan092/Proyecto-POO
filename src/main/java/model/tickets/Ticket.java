@@ -2,9 +2,14 @@ package model.tickets;
 
 import exceptionHandler.ErrorMessageHandler;
 import model.products.*;
+import model.users.Cash;
+import model.users.IUser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Ticket {
@@ -114,112 +119,87 @@ public class Ticket {
     }
 
     /**
-     * Prints a ticket.
+     * Prints a ticket and calculates the discount of all the products given.
+     * <p>
+     * If there are 2 or more products of the same category, this function applies a discount only for said category.
+     * @return Ticket String.
      */
-    public void printTicket() {
+    public String printTicket() {
+        StringBuffer sb = new StringBuffer();
+        ArrayList<String> nameAndStringFormat = new ArrayList<>();
         if (status != TicketStatus.EMPTY) {
-            float totalPrice = 0;
-            float totalDiscount = discount(ticketItems);
+            int counterStationery = 0;
+            int counterClothes = 0;
+            int counterBook = 0;
+            int counterElectronics = 0;
             for (int i = 0; i < numProducts; i++) {
-                totalPrice += ticketItems[i].getPrice();
+                if (ticketItems[i] instanceof ICategorizable product) {
+                    switch (product.getCategory()) {
+                        case BOOK:
+                            counterBook++;
+                            break;
+                        case CLOTHES:
+                            counterClothes++;
+                            break;
+                        case STATIONERY:
+                            counterStationery++;
+                            break;
+                        case ELECTRONICS:
+                            counterElectronics++;
+                            break;
+                    }
+                }
+            }
+            float totalPrice = 0f;
+            float totalDiscount = 0f;
+            for (int i = 0; i < numProducts; i++) {
+                IProduct item = ticketItems[i];
+                totalPrice += item.getPrice();
+                if (item instanceof ICategorizable product) {
+                    Category category = product.getCategory();
+                    boolean applyDiscount = false;
+                    switch (category) {
+                        case BOOK:
+                            if (counterBook >= 2) applyDiscount = true;
+                            break;
+                        case CLOTHES:
+                            if (counterClothes >= 2) applyDiscount = true;
+                            break;
+                        case STATIONERY:
+                            if (counterStationery >= 2) applyDiscount = true;
+                            break;
+                        case ELECTRONICS:
+                            if (counterElectronics >= 2) applyDiscount = true;
+                            break;
+                    }
+                    if (applyDiscount) {
+                        float itemDiscount = item.getPrice() * category.getDiscount();
+                        totalDiscount += itemDiscount;
+                        nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
+                    } else {
+                        nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString() + "\n");
+                    }
+                } else {
+                    nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString() + "\n");
+                }
+            }
+            Collections.sort(nameAndStringFormat);
+            for (String name : nameAndStringFormat) {
+                String[] nameAndStringSeparated = name.split(" ");
+                sb.append(nameAndStringSeparated[1]);
             }
             float finalPrice = totalPrice - totalDiscount;
-            System.out.printf("Total price: %.2f \n" , totalPrice);
-            System.out.printf("Total discount: %.2f \n" , totalDiscount);
-            System.out.printf("Final price: %.2f \n" , finalPrice);
-            System.out.println("ticket print: ok");
+            sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));
+            sb.append("\t" + String.format("Total discount: %.2f \n", totalDiscount));
+            sb.append("\t" + String.format("Final Price: %.2f \n", finalPrice));
             if (status == TicketStatus.ACTIVE) {
                 String closingTimestamp = LocalDateTime.now().format(closing);
                 this.id += closingTimestamp;
                 status = TicketStatus.CLOSED;
             }
         } else {
-            System.out.println(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
+            sb.append(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
         }
-    }
-
-    /**
-     * Calculates discount of all the products given.
-     * <p>
-     * If there are 2 or more products of the same category, this function applies a discount only for said category.
-     * @param ticketItems Products to check for discount.
-     * @return Total discount.
-     */
-    private float discount(IProduct[] ticketItems) {
-        float totalDiscount = 0f;
-        int counterStationery = 0;
-        int counterClothes = 0;
-        int counterBook = 0;
-        int counterElectronics = 0;
-        for (int i = 0; i < numProducts; i++) {
-            if (ticketItems[i] instanceof ICategorizable product) {
-                switch (product.getCategory()) {
-                    case BOOK:
-                        counterBook++;
-                        break;
-                    case CLOTHES:
-                        counterClothes++;
-                        break;
-                    case STATIONERY:
-                        counterStationery++;
-                        break;
-                    case ELECTRONICS:
-                        counterElectronics++;
-                        break;
-                }
-            }
-        }
-        for (int j = 0; j < numProducts; j++) {
-            float discount = 0f;
-            float price;
-            if (ticketItems[j] instanceof ICategorizable product) {
-                Category category = product.getCategory();
-                switch (category) {
-                    case BOOK:
-                        if (counterBook >= 2) {
-                            price = ticketItems[j].getPrice();
-                            discount = (category.getDiscount()*price);
-                            System.out.print(ticketItems[j].toString() + "**discount -");
-                            System.out.printf("%.2f \n",discount);
-                        } else {
-                            System.out.println(ticketItems[j].toString());
-                        }
-                        break;
-                    case CLOTHES:
-                        if (counterClothes >= 2) {
-                            price = ticketItems[j].getPrice();
-                            discount = (category.getDiscount()*price);
-                            System.out.print(ticketItems[j].toString() + "**discount -");
-                            System.out.printf("%.2f \n",discount);
-
-                        } else {
-                            System.out.println(ticketItems[j].toString());
-                        }
-                        break;
-                    case STATIONERY:
-                        if (counterStationery >= 2) {
-                            price = ticketItems[j].getPrice();
-                            discount = (category.getDiscount()*price);
-                            System.out.print(ticketItems[j].toString() + "**discount -");
-                            System.out.printf("%.2f \n",discount);
-                        } else {
-                            System.out.println(ticketItems[j].toString());
-                        }
-                        break;
-                    case ELECTRONICS:
-                        if (counterElectronics >= 2) {
-                            price = ticketItems[j].getPrice();
-                            discount = (category.getDiscount()*price);
-                            System.out.print(ticketItems[j].toString() + "**discount -");
-                            System.out.printf("%.2f \n",discount);
-                        } else {
-                            System.out.println(ticketItems[j].toString());
-                        }
-                        break;
-                }
-                totalDiscount += discount;
-            }
-        }
-        return totalDiscount;
+        return sb.toString();
     }
 }

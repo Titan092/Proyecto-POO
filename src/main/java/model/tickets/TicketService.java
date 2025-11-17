@@ -1,10 +1,7 @@
 package model.tickets;
 
 import model.products.ProductService;
-import model.users.Cash;
-import model.users.Client;
-import model.users.IUser;
-import model.users.UserService;
+import model.users.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -77,7 +74,7 @@ public class TicketService {
             HashMap<String, IUser> users = userService.getUsers();
             Cash cash = (Cash) users.get(cashID);
             Ticket ticket = cash.getTicket(ticketID);
-
+            ticket.printTicket();
         }
         return sb.toString();
     }
@@ -122,9 +119,15 @@ public class TicketService {
         return message;
     }
 
-    public String ticketPrint(String ticketID, String cashID){
-        String message;
-        return message;
+    public String ticketPrint(String ticketID, String cashID, UserService userService) {
+        StringBuffer sb = new StringBuffer();
+        HashMap<String, IUser> casherLists = userService.getUsers();
+        Cash casher = (Cash) casherLists.get(cashID);
+        Ticket ticket = casher.getTicket(ticketID);
+        sb.append("Ticket: " + ticketID + "\n");
+        sb.append(ticket.printTicket());
+        sb.append("ticket print: ok");
+        return sb.toString();
     }
 
 }
