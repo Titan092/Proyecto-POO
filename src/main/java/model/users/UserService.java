@@ -186,7 +186,7 @@ public class UserService {
         StringBuffer sb = new StringBuffer();
         //comprobar que es cajero
         Cash cash = (Cash) users.get(cashId);
-        HashMap<String, Ticket> tickets = cash.getCashTickets();
+        HashMap<String, Ticket> tickets = cash.getTickets();
         ArrayList<String> ticketIDs = new ArrayList<>();
         for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
             String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
