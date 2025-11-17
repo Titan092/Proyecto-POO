@@ -86,7 +86,8 @@ public class CLI implements ICLI{
     }
 
     protected void echo(String message){
-        CLI.printMessage(message);
+        String cleanedMessage=message.replaceFirst("echo ","");
+        CLI.printMessage(cleanedMessage);
     }
 
 }
