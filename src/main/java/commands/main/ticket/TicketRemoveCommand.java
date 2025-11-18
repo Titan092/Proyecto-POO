@@ -26,7 +26,7 @@ public class TicketRemoveCommand extends Command {
                 String ticketId = matcher.group(1);
                 String cashId = matcher.group(2);
                 int prodId = Integer.parseInt(matcher.group(3));
-                this.setMessage(ticketService.ticketRemove(ticketId, cashId, prodId));
+                this.setMessage(ticketService.ticketRemove(ticketId, cashId, prodId, userService));
             }
             result = true;
         }

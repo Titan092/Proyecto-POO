@@ -123,9 +123,27 @@ public class TicketService {
         return sb.toString();
     }
 
-    public String ticketRemove(String ticketID, String cashID, int prodID){
-        String message = null;
-        return message;
+    public String ticketRemove(String ticketID, String cashID, int prodID, UserService userService){
+        if (cashID.length() == 9 && cashID.charAt(0)== 'U'){
+            HashMap<String, IUser> users = userService.getUsers();
+            if (users.containsKey(cashID)){
+                Cash cash = (Cash) users.get(cashID);
+                if (cash.getTickets().containsKey(ticketID)){ //es el creador del ticket con la id pasada por parametro
+                    Ticket ticket = cash.getTicket(ticketID);
+                    ticket.ticketRemove(prodID);
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("Ticket: "+ticketID+"\n");
+                    sb.append(ticket.printTicket());
+                    sb.append("ticket remove: ok\n");
+                    return sb.toString();
+                }else{
+                    return "This worker did not create the ticket with this id";
+                }
+            }else{
+                return "There is not a worker this this cashID";
+            }
+        }
+        return "The cashID is not valid";
     }
 
     public String ticketPrint(String ticketID, String cashID, UserService userService) {
@@ -150,5 +168,4 @@ public class TicketService {
             }
         }
     }
-
 }
