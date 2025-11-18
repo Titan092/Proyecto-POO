@@ -5,10 +5,7 @@ import model.users.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TicketService {
@@ -71,7 +68,7 @@ public class TicketService {
             Cash cash = (Cash) users.get(cashID);
             String printOrNot = cash.addProductToTicket(ticketID, productID, amount, productService);
             sb.append("Ticket: "+ticketID+"\n");
-            if (printOrNot == "print"){
+            if (Objects.equals(printOrNot, "print")){
                 ticketPrint(ticketID, cashID, userService);
             }
         }
