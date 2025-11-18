@@ -373,15 +373,39 @@ package model{
 
     package tickets{
         class Ticket{
-
+            --Private / Static Data--
+            -{static} closing : DateTimeFormatter
+            -id : String
+            -{static} MAX_AMOUNT : int
+            -ticketItems : IProduct[]
+            -numProducts : int
+            -status : TicketStatus
+            --Constructor--
+            +Ticket(id : String)
+            --Public Methods--
+            +newTicket() : void
+            +addProductToTicket(id : int, amount : int, productService : ProductService) : String
+            +ticketRemove(id : int) : void
+            +printTicket() : String
         }
 
         class TicketService{
-
+            --Private / Static Data--
+            -{static}opening : DateTimeFormatter
+            --Public Methods--
+            +ticketNew(cashID : String, clientID : String, userService : UserService) : String
+            +ticketNew(ticketID : String, cashID : String, clientID : String, userService : UserService) : String
+            +ticketAdd(ticketID : String, cashID : String, productID : int, amount : int, userService : UserService, productService : ProductService) : String
+            +ticketAdd(ticketID : String, cashID : String, productID : int, amount : int, personalizableTexts : String[], userService : UserService, productService : ProductService) : String
+            +ticketList(userService : UserService) : String
+            +ticketRemove(ticketID : String, cashID : String, userService : UserService) : String
+            +ticketPrint(ticketID : String, cashID : String, userService : UserService) : String
         }
 
         enum TicketStatus{
-
+        EMPTY
+        ACTIVE
+        CLOSED
         }
     }
 
@@ -409,4 +433,5 @@ package model{
     }
 }
 CLI ..|> ICLI
+Ticket ..> TicketStatus : uses
 @enduml
