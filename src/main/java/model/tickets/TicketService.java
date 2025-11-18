@@ -72,7 +72,7 @@ public class TicketService {
                     if (Objects.equals(printOrNot, "print")) {
                         StringBuffer sb = new StringBuffer();
                         sb.append("Ticket: " + ticketID + "\n");
-                        ticket.printTicket();
+                        sb.append(ticket.printTicket());
                         sb.append("ticket add: ok");
                         return sb.toString();
                     } else {
