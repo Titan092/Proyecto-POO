@@ -21,7 +21,8 @@ public class ProductAddCommand extends Command {
             //prod add [<id>] "<name>" <category> <price> [<maxPers>]
             boolean callWithId=false;
             boolean callCustom=false;
-            Pattern p=Pattern.compile("^prod add (?:(\\d+))? \"([^\"]+)\" (.+) ([\\d.]+) (?: (\\d+))?$");
+            //Pattern p=Pattern.compile("^prod add (?:(\\d+))? \"([^\"]+)\" (.+) ([\\d.]+) (?: (\\d+))?$"); //Viejo
+            Pattern p=Pattern.compile("^prod add\\s+(?:(\\d+)\\s+)?\"([^\"]+)\"\\s+(\\S+)\\s+([\\d.]+)(?:\\s+(\\d+))?$");
             Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 int id=0;

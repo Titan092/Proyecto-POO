@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TicketService {
     private static final DateTimeFormatter opening = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
+    private static final DateTimeFormatter closing = DateTimeFormatter.ofPattern("-yy-MM-dd-HH:mm");
 
     public String ticketNew(String cashID, String clientID, UserService userService) {
         StringBuffer sb = new StringBuffer();
@@ -28,8 +29,8 @@ public class TicketService {
             client.newTicket(ticketID, ticket);
             sb.append("Ticket: "+ticketID+"\n");
             sb.append("\t"+"Total price: 0.0 \n");
-            sb.append("\t"+"Total discount: 0.0");
-            sb.append("\t"+"Final Price: 0.0");
+            sb.append("\t"+"Total discount: 0.0\n");
+            sb.append("\t"+"Final Price: 0.0\n");
             sb.append("ticket new: ok\n");
         }
         return sb.toString();
@@ -50,7 +51,7 @@ public class TicketService {
             client.newTicket(ticketID, ticket);
             sb.append("Ticket: " + ticketID + "\n");
             sb.append("\t" + "Total price: 0.0 \n");
-            sb.append("\t" + "Total discount: 0.0\\n");
+            sb.append("\t" + "Total discount: 0.0\n");
             sb.append("\t" + "Final Price: 0.0\n");
             sb.append("ticket new: ok\n");
         }
@@ -159,6 +160,13 @@ public class TicketService {
                     sb.append("Ticket: " + ticketID + "\n");
                     sb.append(ticket.printTicket());
                     sb.append("ticket print: ok");
+                    if (ticket.getStatus() != TicketStatus.CLOSED) {
+                        String closingTimestamp = LocalDateTime.now().format(closing);
+                        String id = ticket.getId();
+                        String newID = id + closingTimestamp;
+                        ticket.setId(newID); // :D
+                        ticket.setStatus(TicketStatus.CLOSED);
+                    }
                     return sb.toString();
                 } else {
                     return "Ticket not found";

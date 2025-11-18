@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Ticket {
-    private static final DateTimeFormatter closing = DateTimeFormatter.ofPattern("-yy-MM-dd-HH:mm");
     private String id;
     private static final int MAX_AMOUNT = 100;
     private IProduct[] ticketItems = new IProduct[MAX_AMOUNT];
@@ -29,6 +28,10 @@ public class Ticket {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public TicketStatus getStatus() {
@@ -189,14 +192,18 @@ public class Ticket {
             sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));
             sb.append("\t" + String.format("Total discount: %.2f \n", totalDiscount));
             sb.append("\t" + String.format("Final Price: %.2f \n", finalPrice));
-            if (status == TicketStatus.ACTIVE) {
-                String closingTimestamp = LocalDateTime.now().format(closing);
-                this.id += closingTimestamp;
-                status = TicketStatus.CLOSED;
-            }
+//            if (status == TicketStatus.ACTIVE) {
+//                String closingTimestamp = LocalDateTime.now().format(closing);
+//                this.id += closingTimestamp;
+//                status = TicketStatus.CLOSED;
+//            }
         } else {
             sb.append(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
         }
         return sb.toString();
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
     }
 }
