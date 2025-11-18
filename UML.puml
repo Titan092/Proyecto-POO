@@ -412,19 +412,49 @@ package model{
 
     package users{
         class Cash{
-
+            --Constructor--
+            +Cash(id : String, name : String, email : String)
+            --Public Methods--
+            +deleteTicket(cashID : String, user : HashMap<String, IUser>)
         }
 
         class Client{
-
+            --Private Data--
+            -cashID : String
+            --Constructor--
+            +Client(id : String, name : String, email : String, cashID : String)
         }
 
         class User{
-
+            --Private Data--
+            -id : String
+            -name : String
+            -email : String
+            tickets : HashMap<String, Ticket>
+            --Constructor--
+            +User(id : String, name : String, email : String)
+            --Public Methods--
+            +newTicket (ticketID : String, ticket : Ticket) : String
+            +addProductToTicket(ticketID : String, productID : int, amount : int, productService : ProductService) : String
+            +removeTicket(ticketID : String) : String
         }
 
         class UserService{
-
+            --Private Data--
+            -users : HashMap<String, IUser>
+            -numClients : int
+            -numCashs : int
+            --Constructor--
+            +UserService()
+            --Public Methods--
+            +clientAdd(name : String, dni : String, email : String, cashID : String) : String
+            +clientRemove(dni : String) : String
+            +clientList() : String
+            +cashAdd(name : String, email : String) : String
+            +cashAdd(cashID : String, name : String, email : String) : String
+            +cashRemove(cashID : String) : String
+            +cashList() : String
+            +cashTickets(cashID : String) : String
         }
 
         interface IUser{
