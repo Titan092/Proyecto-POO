@@ -52,7 +52,6 @@ public class Ticket {
      */
     public String addProductToTicket(int id, int amount, ProductService productService) {
         String message;
-        boolean productFound = false;
         if (id < 0){
             message = ErrorMessageHandler.getWRONGID();
         } else {
