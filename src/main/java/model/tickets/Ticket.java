@@ -184,9 +184,11 @@ public class Ticket {
                 }
             }
             Collections.sort(nameAndStringFormat);
-            for (String name : nameAndStringFormat) {
-                String[] nameAndStringSeparated = name.split(" ");
-                sb.append(nameAndStringSeparated[1]);
+            for (String line : nameAndStringFormat) {
+                int firstSpaceIndex = line.indexOf(" ");
+                if (firstSpaceIndex != -1) {
+                    sb.append(line.substring(firstSpaceIndex + 1));
+                }
             }
             float finalPrice = totalPrice - totalDiscount;
             sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));

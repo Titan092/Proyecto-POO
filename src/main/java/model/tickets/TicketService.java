@@ -87,6 +87,7 @@ public class TicketService {
             casher.addProductToTicket(ticketID, productID, amount, productService);
 
         }
+        return null;
     }
 
     public String ticketList(UserService userService) {
@@ -115,19 +116,31 @@ public class TicketService {
     }
 
     public String ticketRemove(String ticketID, String cashID, int prodID){
-        String message;
+        String message = null;
         return message;
     }
 
     public String ticketPrint(String ticketID, String cashID, UserService userService) {
-        StringBuffer sb = new StringBuffer();
-        HashMap<String, IUser> casherLists = userService.getUsers();
-        Cash casher = (Cash) casherLists.get(cashID);
-        Ticket ticket = casher.getTicket(ticketID);
-        sb.append("Ticket: " + ticketID + "\n");
-        sb.append(ticket.printTicket());
-        sb.append("ticket print: ok");
-        return sb.toString();
+        if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
+            return "Invalid cash ID";
+        } else {
+            StringBuffer sb = new StringBuffer();
+            HashMap<String, IUser> cashierLists = userService.getUsers();
+            if (cashierLists.containsKey(cashID)) {
+                Cash cashier = (Cash) cashierLists.get(cashID);
+                Ticket ticket = cashier.getTicket(ticketID);
+                if (ticket == null) {
+                    return "Ticket " + ticketID + " not found for cashier " + cashID;
+                } else {
+                    sb.append("Ticket: " + ticketID + "\n");
+                    sb.append(ticket.printTicket());
+                    sb.append("ticket print: ok");
+                    return sb.toString();
+                }
+            } else {
+                return "No casher found";
+            }
+        }
     }
 
 }
