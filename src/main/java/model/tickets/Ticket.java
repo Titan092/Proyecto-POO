@@ -173,19 +173,19 @@ public class Ticket {
                     if (applyDiscount) {
                         float itemDiscount = item.getPrice() * category.getDiscount();
                         totalDiscount += itemDiscount;
-                        nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
+                        nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
                     } else {
-                        nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString());
+                        nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString());
                     }
                 } else {
-                    nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString());
+                    nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString());
                 }
             }
             Collections.sort(nameAndStringFormat);
             for (String line : nameAndStringFormat) {
-                int firstSpaceIndex = line.indexOf("{");
-                if (firstSpaceIndex != -1) {
-                    sb.append(line.substring(firstSpaceIndex));
+                int tabIndex = line.indexOf('\t');
+                if (tabIndex != -1) {
+                    sb.append(line.substring(tabIndex + 1));
                 }
             }
             float finalPrice = totalPrice - totalDiscount;
