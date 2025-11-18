@@ -48,10 +48,10 @@ public class TicketService {
             casher.newTicket(ticketID, ticket);
             Client client = (Client) casherLists.get(clientID);
             client.newTicket(ticketID, ticket);
-            sb.append("Ticket: "+ticketID+"\n");
-            sb.append("\t"+"Total price: 0.0 \n");
-            sb.append("\t"+"Total discount: 0.0");
-            sb.append("\t"+"Final Price: 0.0");
+            sb.append("Ticket: " + ticketID + "\n");
+            sb.append("\t" + "Total price: 0.0 \n");
+            sb.append("\t" + "Total discount: 0.0");
+            sb.append("\t" + "Final Price: 0.0");
             sb.append("ticket new: ok\n");
         }
         return sb.toString();
@@ -60,28 +60,40 @@ public class TicketService {
 
     // Adds a product to a ticket
     public String ticketAdd(String ticketID, String cashID, int productID, int amount, UserService userService, ProductService productService) {
-        StringBuffer sb = new StringBuffer();
-        if (cashID.length() != 9 || cashID.charAt(0) != 'U'){
-            sb.append("Invalid cash ID");
-        }else{
+        if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
+            return "Invalid cash ID";
+        } else {
             HashMap<String, IUser> users = userService.getUsers();
-            Cash cash = (Cash) users.get(cashID);
-            String printOrNot = cash.addProductToTicket(ticketID, productID, amount, productService);
-            sb.append("Ticket: "+ticketID+"\n");
-            if (Objects.equals(printOrNot, "print")){
-                ticketPrint(ticketID, cashID, userService);
+            if (users.containsKey(cashID)) {
+                Cash cashier = (Cash) users.get(cashID);
+                Ticket ticket = cashier.getTicket(ticketID);
+                if (ticket != null) {
+                    String printOrNot = cashier.addProductToTicket(ticketID, productID, amount, productService);
+                    if (Objects.equals(printOrNot, "print")) {
+                        StringBuffer sb = new StringBuffer();
+                        sb.append("Ticket: " + ticketID + "\n");
+                        ticket.printTicket();
+                        sb.append("ticket add: ok");
+                        return sb.toString();
+                    } else {
+                        return printOrNot;
+                    }
+                } else {
+                    return "Ticket not found";
+                }
+            } else {
+                return "No cashier found";
             }
         }
-        return sb.toString();
     }
-    public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts , UserService userService, ProductService productService) {
+
+    public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts, UserService userService, ProductService productService) {
         if (cashID.charAt(0) != 'U'){
             System.out.println("Invalid cash ID");
-        }else{
+        } else {
             HashMap<String, IUser> casherLists = userService.getUsers();
             Cash casher = (Cash) casherLists.get(cashID);
             casher.addProductToTicket(ticketID, productID, amount, productService);
-
         }
         return null;
     }
@@ -120,21 +132,21 @@ public class TicketService {
         if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
             return "Invalid cash ID";
         } else {
-            StringBuffer sb = new StringBuffer();
-            HashMap<String, IUser> cashierLists = userService.getUsers();
-            if (cashierLists.containsKey(cashID)) {
-                Cash cashier = (Cash) cashierLists.get(cashID);
+            HashMap<String, IUser> users = userService.getUsers();
+            if (users.containsKey(cashID)) {
+                Cash cashier = (Cash) users.get(cashID);
                 Ticket ticket = cashier.getTicket(ticketID);
-                if (ticket == null) {
-                    return "Ticket " + ticketID + " not found for cashier " + cashID;
-                } else {
+                if (ticket != null) {
+                    StringBuffer sb = new StringBuffer();
                     sb.append("Ticket: " + ticketID + "\n");
                     sb.append(ticket.printTicket());
                     sb.append("ticket print: ok");
                     return sb.toString();
+                } else {
+                    return "Ticket not found";
                 }
             } else {
-                return "No casher found";
+                return "No cashier found";
             }
         }
     }
