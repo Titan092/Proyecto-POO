@@ -25,7 +25,7 @@ public class TicketPrintCommand extends Command {
             if(matcher.matches()) {
                 String ticketId = matcher.group(1);
                 String cashId = matcher.group(2);
-                this.setMessage(ticketService.ticketPrint(ticketId, cashId));
+                this.setMessage(ticketService.ticketPrint(ticketId, cashId, userService));
             }
             result = true;
         }
