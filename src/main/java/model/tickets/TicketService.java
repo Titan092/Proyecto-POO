@@ -50,8 +50,8 @@ public class TicketService {
             client.newTicket(ticketID, ticket);
             sb.append("Ticket: " + ticketID + "\n");
             sb.append("\t" + "Total price: 0.0 \n");
-            sb.append("\t" + "Total discount: 0.0");
-            sb.append("\t" + "Final Price: 0.0");
+            sb.append("\t" + "Total discount: 0.0\\n");
+            sb.append("\t" + "Final Price: 0.0\n");
             sb.append("ticket new: ok\n");
         }
         return sb.toString();

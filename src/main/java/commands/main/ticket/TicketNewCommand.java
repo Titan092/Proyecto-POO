@@ -20,16 +20,16 @@ public class TicketNewCommand extends Command {
         boolean result = false;
         if(args.length >0 && args[1].equals(this.getName())) {
             //ticket new [<id>] <cashId> <userId>
-            Pattern pattern = Pattern.compile("^ticket new(?:(.+))? (.+) (.+)$");
+            Pattern pattern = Pattern.compile("^ticket new(?: (.+))? (.+) (.+)$");
             Matcher m = pattern.matcher(String.join(" ", args));
             if (m.matches()) {
-                String ticketId = m.group(2);
-                String cashId = m.group(3);
+                String cashId = m.group(2);
+                String customerId = m.group(3);
                 if (m.group(1) != null) {
-                    String customerId = m.group(1);
+                    String ticketId = m.group(1);
                     this.setMessage(ticketService.ticketNew(ticketId, cashId, customerId, userService));
                 } else {
-                    this.setMessage(ticketService.ticketNew(ticketId, cashId, userService));
+                    this.setMessage(ticketService.ticketNew(cashId, customerId, userService));
                 }
                 result = true;
             }
