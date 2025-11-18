@@ -173,30 +173,25 @@ public class Ticket {
                     if (applyDiscount) {
                         float itemDiscount = item.getPrice() * category.getDiscount();
                         totalDiscount += itemDiscount;
-                        nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
+                        nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
                     } else {
-                        nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString() + "\n");
+                        nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString());
                     }
                 } else {
-                    nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString() + "\n");
+                    nameAndStringFormat.add(item.getName() + " " + "\t" + item.toString());
                 }
             }
             Collections.sort(nameAndStringFormat);
             for (String line : nameAndStringFormat) {
-                int firstSpaceIndex = line.indexOf("\t");
+                int firstSpaceIndex = line.indexOf("{");
                 if (firstSpaceIndex != -1) {
-                    sb.append(line.substring(firstSpaceIndex + 1));
+                    sb.append(line.substring(firstSpaceIndex));
                 }
             }
             float finalPrice = totalPrice - totalDiscount;
             sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));
             sb.append("\t" + String.format("Total discount: %.2f \n", totalDiscount));
             sb.append("\t" + String.format("Final Price: %.2f \n", finalPrice));
-//            if (status == TicketStatus.ACTIVE) {
-//                String closingTimestamp = LocalDateTime.now().format(closing);
-//                this.id += closingTimestamp;
-//                status = TicketStatus.CLOSED;
-//            }
         } else {
             sb.append(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
         }
