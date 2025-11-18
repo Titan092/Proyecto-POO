@@ -36,7 +36,10 @@ public class TicketCommand extends Command {
         if(args[0].equals(this.getName())) {
             for (Command cmd:subCommands) {
                 found=cmd.apply(args);
-                if(found) break;
+                if(found){
+                    this.setMessage(cmd.getMessage());
+                    break;
+                }
             }
         }
         return found;
