@@ -20,7 +20,7 @@ public class ProductAddFoodCommand extends Command {
         boolean result = false;
         if (args.length > 0 && args[1].equals(this.getName())) {
             //prod addFood [<id>] "< name>" <price> <expiration: yyyy-MM-dd> <max_people>
-            Pattern p=Pattern.compile("^prod addFood (?: (\\d+))? \"([^\"]+)\" (\\d.) (\\d{4}-\\d{2}-\\d{2}) (\\d+)$");
+            Pattern p=Pattern.compile("^prod addFood\\s+(?:(\\d+)\\s+)?\"([^\"]+)\"\\s+([\\d.]+)\\s+(\\d{4}-\\d{2}-\\d{2})\\s+(\\d+)$");
             Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){
                 boolean callWithId=false;
