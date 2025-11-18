@@ -213,7 +213,7 @@ public class UserService {
 
             for (String ticketID : ticketIDs){
                 String[]  ticketIDSeparated = ticketID.split(" ");
-                sb.append("\t"+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]);
+                sb.append("\t"+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]+"\n");
             }
             sb.append("cash tickets: ok\n");
         }

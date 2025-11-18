@@ -67,14 +67,13 @@ public class TicketService {
         if (cashID.length() != 9 || cashID.charAt(0) != 'U'){
             sb.append("Invalid cash ID");
         }else{
-            HashMap<String, IUser> casherLists = userService.getUsers();
-            Cash casher = (Cash) casherLists.get(cashID);
-            casher.addProductToTicket(ticketID, productID, amount, productService);
-            sb.append("Ticket: "+ticketID+"\n");
             HashMap<String, IUser> users = userService.getUsers();
             Cash cash = (Cash) users.get(cashID);
-            Ticket ticket = cash.getTicket(ticketID);
-            ticket.printTicket();
+            String printOrNot = cash.addProductToTicket(ticketID, productID, amount, productService);
+            sb.append("Ticket: "+ticketID+"\n");
+            if (printOrNot == "print"){
+                ticketPrint(ticketID, cashID, userService);
+            }
         }
         return sb.toString();
     }

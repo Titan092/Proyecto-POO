@@ -50,37 +50,33 @@ public class Ticket {
      * @param amount Amount of products to add.
      * @param productService Array where products are located.
      */
-    public void addProductToTicket(int id, int amount, ProductService productService) {
-        if (status != TicketStatus.CLOSED) {
-            boolean productFound = false;
-            if (id < 0){
-                System.out.println(ErrorMessageHandler.getWRONGID());
+    public String addProductToTicket(int id, int amount, ProductService productService) {
+        String message;
+        boolean productFound = false;
+        if (id < 0){
+            message = ErrorMessageHandler.getWRONGID();
+        } else {
+            Map<Integer, IProduct> products = productService.getProducts();
+            int availableCapacity = ticketItems.length - numProducts;
+            if (amount > availableCapacity) {
+                message = ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products";
             } else {
-                Map<Integer, IProduct> products = productService.getProducts();
-                int availableCapacity = ticketItems.length - numProducts;
-                if (amount > availableCapacity) {
-                    System.out.println(ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products");
+                if (products.containsKey(id)) {
+                    IProduct product = products.get(id);
+                    for (int i = 0; i < amount; i++) {
+                        ticketItems[numProducts] = product;
+                        numProducts++;
+                    }
+                    if (status == TicketStatus.EMPTY) {
+                        status = TicketStatus.ACTIVE;
+                    }
+                    message = "print";
                 } else {
-                    for (IProduct product : products.values()) {
-                        if (product != null && id == product.getId()) {
-                            for (int j = 0; j < amount; j++) {
-                                ticketItems[numProducts] = product;
-                                numProducts++;
-                            }
-                            productFound = true;
-                            if (status == TicketStatus.EMPTY) {
-                                status = TicketStatus.ACTIVE;
-                            }
-                        }
-                    }
-                    if (!productFound) {
-                        System.out.println(ErrorMessageHandler.getPRODUCTNOTEXIST());
-                    }
+                    message = ErrorMessageHandler.getPRODUCTNOTEXIST();
                 }
             }
-        } else {
-            System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET());
         }
+        return message;
     }
 
     /**

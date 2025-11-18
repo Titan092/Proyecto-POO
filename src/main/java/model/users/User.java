@@ -51,15 +51,17 @@ public abstract class User implements IUser {
         tickets.put(ticketID, ticket);
     }
 
-    public void addProductToTicket(String ticketID, int productID, int amount, ProductService productService) {
+    public String addProductToTicket(String ticketID, int productID, int amount, ProductService productService) {
+        String message;
         Ticket existingTicket = tickets.get(ticketID);
         if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSED) {
-            System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET() );
+            message = ErrorMessageHandler.getUSE_CLOSED_TICKET();
         } else if (existingTicket != null) {
-            existingTicket.addProductToTicket(productID, amount, productService);
+            message = existingTicket.addProductToTicket(productID, amount, productService);
         } else {
-            System.out.println(ErrorMessageHandler.getTicketDoesntExist());
+            message = ErrorMessageHandler.getTicketDoesntExist();
         }
+        return message;
     }
 
     public Ticket getTicket(String ticketID) {

@@ -33,7 +33,6 @@ public class TicketNewCommand extends Command {
                 }
                 result = true;
             }
-
         }
         return result;
     }
