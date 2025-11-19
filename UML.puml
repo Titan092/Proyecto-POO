@@ -330,34 +330,80 @@ package exceptionHandler{
 package model{
     package products{
         class BaseProduct{
+            --Private Data--
+            -category : Category
+            --Constructor--
+            +BaseProduct(id : int, name : String, category : Category, price : float)
 
         }
 
         class CustomProduct{
+            --Private Data--
+            -maxPers : int
+            --Constructor--
+            +CustomProduct(id : int, name : String, price : float, maxPeople : int)
 
         }
 
         class EventProduct{
+            --Private Data--
+            -date : LocalDate
+            -maxPeople : int
+            --Constructor--
+            +EventProduct(id : int, name : String, price : float, date : LocalDate, maxPeople : int)
 
         }
 
         class Food{
+            --Constructor--
+            +Food(id : int, name : String, price : float, date : LocalDate, maxPeople : int)
 
         }
 
         class Meeting{
+            --Constructor--
+            +Meeting(id : int, name : String, price : float, date : LocalDate, maxPeople : int)
 
         }
 
         class Product{
+            --Private Data--
+            -id : int
+            -name : String
+            -price : float
+            -maxPersons : int
+            --Constructor--
+            +Product(id : int, name : String, category : Category, price : float, maxPersons : int)
 
         }
 
         class ProductService{
+            --Private Data--
+            -products : HashMap<Integer, IProduct>
+            -MAX_QUANTITY : int
+            --Constructor--
+            +ProductService()
+            --Public Methods--
+            +prodAdd(name : String, category : Category, price : float) : String
+            +prodAdd(id : int, name : String, category : Category, price : float) : String
+            +prodAdd(name : String, category : Category, price : float, maxPers : price) : String
+            +prodAdd(id : int, name : String, category : Category, price : float, maxPers : price) : String
+            +prodAddFood(name : String, price : float, date : LocalDate, maxPeople : int) : String
+            +prodAddFood(id : int, name : String, price : float, date : LocalDate, maxPeople : int) : String
+            +prodAddMeeting(name : String, price : float, date : LocalDate, maxPeople : int) : String
+            +prodAddMeeting(id : int, name : String, price : float, date : LocalDate, maxPeople : int) : String
+            +prodUpdate(id : int, field : String, value : String) : String
+            +prodList() : String
+            +prodRemove(id : int) : String
 
         }
 
         enum Category{
+            MERCH
+            STATIONERY
+            CLOTHES
+            BOOK
+            ELECTRONICS
 
         }
 
