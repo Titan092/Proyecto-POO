@@ -173,16 +173,22 @@ public class Ticket {
                     if (applyDiscount) {
                         float itemDiscount = item.getPrice() * category.getDiscount();
                         totalDiscount += itemDiscount;
+                        //we use the toString method to force the name to replace the " " to ' '
                         String name = item.toString();
+                        //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
                         String [] cleanName = name.split("\'");
                         nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
                     } else {
+                        //we use the toString method to force the name to replace the " " to ' '
                         String name = item.toString();
+                        //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
                         String [] cleanName = name.split("\'");
                         nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
                     }
                 } else {
+                    //we use the toString method to force the name to replace the " " to ' '
                     String name = item.toString();
+                    //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
                     String [] cleanName = name.split("\'");
                     nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
                 }
