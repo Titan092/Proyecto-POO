@@ -24,6 +24,11 @@ public class CustomProduct extends BaseProduct {
 
     @Override
     public String toString() {
-        return "{class:Product, id:"+super.getId()+", name:"+ "'" +super.getName()+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPers: "+maxPers+"}\n";
+        String name = super.getName();
+        //if starts and end by " then we delete it using the subString
+        if (name.startsWith("\"") && name.endsWith("\"")) {
+            name = name.substring(1, name.length() - 1);
+        }
+        return "{class:Product, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPers: "+maxPers+"}\n";
     }
 }

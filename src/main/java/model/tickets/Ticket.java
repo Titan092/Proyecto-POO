@@ -173,20 +173,24 @@ public class Ticket {
                     if (applyDiscount) {
                         float itemDiscount = item.getPrice() * category.getDiscount();
                         totalDiscount += itemDiscount;
-                        nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
+                        String name = item.toString();
+                        String [] cleanName = name.split("\'");
+                        nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
                     } else {
-                        nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString());
+                        String name = item.toString();
+                        String [] cleanName = name.split("\'");
+                        nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
                     }
                 } else {
-                    nameAndStringFormat.add(item.getName() + "\t" + "\t" + item.toString());
+                    String name = item.toString();
+                    String [] cleanName = name.split("\'");
+                    nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
                 }
             }
             Collections.sort(nameAndStringFormat);
             for (String line : nameAndStringFormat) {
                 int tabIndex = line.indexOf('\t');
-                if (tabIndex != -1) {
-                    sb.append(line.substring(tabIndex + 1));
-                }
+                sb.append(line.substring(tabIndex + 1));
             }
             float finalPrice = totalPrice - totalDiscount;
             sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));
