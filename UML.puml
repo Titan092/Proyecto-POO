@@ -510,4 +510,66 @@ package model{
 }
 CLI ..|> ICLI
 Ticket ..> TicketStatus : uses
+
+' Additional relationships inferred from the source code (using simple class names for PlantUML compatibility)
+' Product commands -> ProductService
+ProductCommand ..> ProductService : uses
+ProductAddCommand ..> ProductService : uses
+ProductAddFoodCommand ..> ProductService : uses
+ProductAddMeetingCommand ..> ProductService : uses
+ProductListCommand ..> ProductService : uses
+ProductRemoveCommand ..> ProductService : uses
+ProductUpdateCommand ..> ProductService : uses
+
+' Ticket commands -> services
+TicketCommand ..> TicketService : uses
+TicketCommand ..> ProductService : uses
+TicketAddCommand ..> TicketService : uses
+TicketAddCommand ..> ProductService : uses
+TicketListCommand ..> TicketService : uses
+TicketNewCommand ..> TicketService : uses
+TicketNewCommand ..> UserService : uses
+TicketPrintCommand ..> TicketService : uses
+TicketPrintCommand ..> UserService : uses
+TicketRemoveCommand ..> TicketService : uses
+TicketRemoveCommand ..> UserService : uses
+
+' User commands -> UserService
+UserCommand ..> UserService : uses
+CashCommand ..> UserService : uses
+CashAddCommand ..> UserService : uses
+CashListCommand ..> UserService : uses
+CashRemoveCommand ..> UserService : uses
+CashTicketsCommand ..> UserService : uses
+ClientCommand ..> UserService : uses
+ClientAddCommand ..> UserService : uses
+ClientListCommand ..> UserService : uses
+ClientRemoveCommand ..> UserService : uses
+
+' ProductService creates concrete product types (aggregation)
+ProductService o-- BaseProduct : creates
+ProductService o-- CustomProduct : creates
+ProductService o-- Food : creates
+ProductService o-- Meeting : creates
+ProductService o-- EventProduct : creates
+
+' Ticket relationships
+Ticket ..> IProduct : uses
+Ticket ..> ProductService : uses
+TicketService ..> ProductService : uses
+TicketService ..> UserService : uses
+
+' User relationships
+User <|-- Cash
+User <|-- Client
+User o-- Ticket : owns
+UserService o-- Cash : manages
+UserService o-- Client : manages
+
+' Top-level wiring
+CommandHandler ..> ProductService : creates
+CommandHandler ..> TicketService : creates
+CommandHandler ..> UserService : creates
+Shop ..> CLI : uses
+
 @enduml
