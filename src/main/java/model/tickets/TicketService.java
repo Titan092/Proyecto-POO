@@ -61,14 +61,12 @@ public class TicketService {
 
     // Adds a product to a ticket
     public String ticketAdd(String ticketID, String cashID, int productID, int amount, UserService userService, ProductService productService) {
-        if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
-            return "Invalid cash ID";
-        } else {
+        if (cashID.length() == 9 && cashID.charAt(0) == 'U') {
             HashMap<String, IUser> users = userService.getUsers();
             if (users.containsKey(cashID)) {
                 Cash cashier = (Cash) users.get(cashID);
-                Ticket ticket = cashier.getTicket(ticketID);
-                if (ticket != null) {
+                if (cashier.getTickets().containsKey(ticketID)) {
+                    Ticket ticket = cashier.getTicket(ticketID);
                     String printOrNot = cashier.addProductToTicket(ticketID, productID, amount, productService);
                     if (Objects.equals(printOrNot, "print")) {
                         StringBuffer sb = new StringBuffer();
@@ -80,13 +78,16 @@ public class TicketService {
                         return printOrNot;
                     }
                 } else {
-                    return "Ticket not found";
+                    return "This worker did not create the ticket with this id";
                 }
             } else {
                 return "No cashier found";
             }
         }
+        return "The cashID is not valid";
     }
+
+
 
     public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts, UserService userService, ProductService productService) {
         if (cashID.charAt(0) != 'U'){
@@ -141,21 +142,19 @@ public class TicketService {
                     return "This worker did not create the ticket with this id";
                 }
             }else{
-                return "There is not a worker this this cashID";
+                return "No cashier found";
             }
         }
         return "The cashID is not valid";
     }
 
     public String ticketPrint(String ticketID, String cashID, UserService userService) {
-        if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
-            return "Invalid cash ID";
-        } else {
+        if (cashID.length() == 9 && cashID.charAt(0) == 'U') {
             HashMap<String, IUser> users = userService.getUsers();
             if (users.containsKey(cashID)) {
                 Cash cashier = (Cash) users.get(cashID);
-                Ticket ticket = cashier.getTicket(ticketID);
-                if (ticket != null) {
+                if (cashier.getTickets().containsKey(ticketID)) {
+                    Ticket ticket = cashier.getTicket(ticketID);
                     StringBuffer sb = new StringBuffer();
                     sb.append("Ticket: " + ticketID + "\n");
                     sb.append(ticket.printTicket());
@@ -164,16 +163,17 @@ public class TicketService {
                         String closingTimestamp = LocalDateTime.now().format(closing);
                         String id = ticket.getId();
                         String newID = id + closingTimestamp;
-                        ticket.setId(newID); // :D
+                        ticket.setId(newID);
                         ticket.setStatus(TicketStatus.CLOSED);
+                        return sb.toString();
                     }
-                    return sb.toString();
                 } else {
-                    return "Ticket not found";
+                    return "This worker did not create the ticket with this id";
                 }
             } else {
                 return "No cashier found";
             }
         }
+        return "The cashID is not valid";
     }
 }
