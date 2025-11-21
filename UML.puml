@@ -546,25 +546,65 @@ ClientAddCommand ..> UserService : uses
 ClientListCommand ..> UserService : uses
 ClientRemoveCommand ..> UserService : uses
 
-' ProductService creates concrete product types (aggregation)
-ProductService o-- BaseProduct : creates
-ProductService o-- CustomProduct : creates
-ProductService o-- Food : creates
-ProductService o-- Meeting : creates
-ProductService o-- EventProduct : creates
-
-' Ticket relationships
-Ticket ..> IProduct : uses
-Ticket ..> ProductService : uses
-TicketService ..> ProductService : uses
-TicketService ..> UserService : uses
-
 ' User relationships
 User <|-- Cash
 User <|-- Client
 User o-- Ticket : owns
 UserService o-- Cash : manages
 UserService o-- Client : manages
+
+' Command classes extend abstract Command (inheritance)
+Command <|-- ProductCommand
+Command <|-- ProductAddCommand
+Command <|-- ProductAddFoodCommand
+Command <|-- ProductAddMeetingCommand
+Command <|-- ProductListCommand
+Command <|-- ProductRemoveCommand
+Command <|-- ProductUpdateCommand
+
+Command <|-- TicketCommand
+Command <|-- TicketAddCommand
+Command <|-- TicketListCommand
+Command <|-- TicketNewCommand
+Command <|-- TicketPrintCommand
+Command <|-- TicketRemoveCommand
+
+Command <|-- UserCommand
+Command <|-- CashCommand
+Command <|-- CashAddCommand
+Command <|-- CashListCommand
+Command <|-- CashRemoveCommand
+Command <|-- CashTicketsCommand
+Command <|-- ClientCommand
+Command <|-- ClientAddCommand
+Command <|-- ClientListCommand
+Command <|-- ClientRemoveCommand
+
+Command <|-- HelpCommand
+Command <|-- UnknownCommand
+
+' Product / product-type hierarchy and interface implementations
+Product <|-- BaseProduct
+Product <|-- EventProduct
+BaseProduct <|-- CustomProduct
+EventProduct <|-- Food
+EventProduct <|-- Meeting
+
+' Interfaces implemented
+Product ..|> IProduct
+BaseProduct ..|> ICategorizable
+User ..|> IUser
+
+' ErrorMessageHandler usages: conectar las clases que llaman a ErrorMessageHandler.getXXX()
+ProductService ..> ErrorMessageHandler : uses
+Ticket ..> ErrorMessageHandler : uses
+User ..> ErrorMessageHandler : uses
+UserService ..> ErrorMessageHandler : uses
+TicketService ..> ErrorMessageHandler : uses
+
+' Category usage: BaseProduct tiene un atributo Category; ProductService usa Category en métodos
+BaseProduct ..> Category : uses
+ProductService ..> Category : uses
 
 ' Top-level wiring
 CommandHandler ..> ProductService : creates
