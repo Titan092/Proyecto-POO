@@ -3,10 +3,12 @@ package model.products;
 public class CustomProduct extends BaseProduct {
 
     private int maxPers;
+    private String[] personalizableTexts;
 
-    public CustomProduct(int id, String name, Category category, float price, int maxPers){
+    public CustomProduct(int id, String name, Category category, float price, int maxPers, String[] personalizableTexts){
         super(id,name,category,price);
         this.maxPers = maxPers;
+        this.personalizableTexts = personalizableTexts;
     }
 
     public int getMaxPers(){
@@ -20,6 +22,10 @@ public class CustomProduct extends BaseProduct {
     @Override
     public void setCategory(Category category) {
         super.setCategory(category);
+    }
+
+    public void setPersonalizableTexts(String[] personalizableTexts){
+        this.personalizableTexts = personalizableTexts;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package model.tickets;
 
-import exceptionHandler.ErrorMessageHandler;
+import model.products.CustomProduct;
 import model.products.IProduct;
 import model.products.ProductService;
 import model.users.*;
@@ -92,19 +92,36 @@ public class TicketService {
 
 
     public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts, UserService userService, ProductService productService) {
-        String message;
-        if (cashID.charAt(0) != 'U'){
-            return "Invalid cash ID";
-        } else {
-            HashMap<String, IUser> casherLists = userService.getUsers();
-            if (casherLists.containsKey(cashID)) {
-                Cash casher = (Cash) casherLists.get(cashID);
-                casher.addProductToTicket(ticketID, productID, amount, personalizableTexts, productService);
+        if (cashID.length() == 9 && cashID.charAt(0) == 'U') {
+            HashMap<String, IUser> users = userService.getUsers();
+            if (users.containsKey(cashID)) {
+                Cash cashier = (Cash) users.get(cashID);
+                if (cashier.getTickets().containsKey(ticketID)) {
+                    HashMap<Integer, IProduct> products = productService.getProducts();
+                    CustomProduct customProduct = (CustomProduct) products.get(productID);
+                    if (customProduct.getMaxPers() >= personalizableTexts.length) {
+                        Ticket ticket = cashier.getTicket(ticketID);
+                        String printOrNot = cashier.addProductToTicket(ticketID, productID, amount, personalizableTexts, productService);
+                        if (Objects.equals(printOrNot, "print")) {
+                            StringBuffer sb = new StringBuffer();
+                            sb.append("Ticket: " + ticketID + "\n");
+                            sb.append(ticket.printTicket());
+                            sb.append("ticket add: ok");
+                            return sb.toString();
+                        } else {
+                            return printOrNot;
+                        }
+                    } else {
+                        return "There are too many personalizable texts for this product";
+                    }
+                } else {
+                    return "This worker did not create the ticket with this id";
+                }
             } else {
                 return "No cashier found";
             }
         }
-        return null;
+        return "The cashID is not valid";
     }
 
     public String ticketList(UserService userService) {
@@ -139,29 +156,12 @@ public class TicketService {
                 Cash cash = (Cash) users.get(cashID);
                 if (cash.getTickets().containsKey(ticketID)){ //es el creador del ticket con la id pasada por parametro
                     Ticket ticket = cash.getTicket(ticketID);
-                    if (ticket.getStatus() != TicketStatus.CLOSED){
-                        IProduct [] ticketItems = ticket.getTicketItems();
-                        boolean found = false;
-                        for (int i=0; i<ticketItems.length;i++){
-                            if (ticketItems[i] != null && ticketItems[i].getId() == prodID){
-                                found = true;
-                            }
-                        }
-                        if (found){
-                            ticket.ticketRemove(prodID);
-                            StringBuffer sb = new StringBuffer();
-                            sb.append("Ticket: "+ticketID+"\n");
-                            sb.append(ticket.printTicket());
-                            sb.append("ticket remove: ok\n");
-                            return sb.toString();
-                        }else{
-                            return ErrorMessageHandler.getIDNOTEXIST();
-                        }
-
-                    }else{
-                        return ErrorMessageHandler.getUSE_CLOSED_TICKET();
-                    }
-
+                    ticket.ticketRemove(prodID);
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("Ticket: "+ticketID+"\n");
+                    sb.append(ticket.printTicket());
+                    sb.append("ticket remove: ok\n");
+                    return sb.toString();
                 }else{
                     return "This worker did not create the ticket with this id";
                 }

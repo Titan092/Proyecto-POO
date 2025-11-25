@@ -86,7 +86,32 @@ public class Ticket {
     }
 
     public String addProductToTicket(int id, int amount, String[] personalizableTexts, ProductService productService) {
-
+        String message;
+        if (id < 0){
+            message = ErrorMessageHandler.getWRONGID();
+        } else {
+            Map<Integer, IProduct> products = productService.getProducts();
+            int availableCapacity = ticketItems.length - numProducts;
+            if (amount > availableCapacity) {
+                message = ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products";
+            } else {
+                if (products.containsKey(id)) {
+                    CustomProduct product = (CustomProduct) products.get(id);
+                    product.setPersonalizableTexts(personalizableTexts);
+                    for (int i = 0; i < amount; i++) {
+                        ticketItems[numProducts] = product;
+                        numProducts++;
+                    }
+                    if (status == TicketStatus.EMPTY) {
+                        status = TicketStatus.ACTIVE;
+                    }
+                    message = "print";
+                } else {
+                    message = ErrorMessageHandler.getPRODUCTNOTEXIST();
+                }
+            }
+        }
+        return message;
     }
 
     /**

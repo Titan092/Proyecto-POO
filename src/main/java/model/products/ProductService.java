@@ -58,7 +58,7 @@ public class ProductService {
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000;
         }while(products.containsKey(id));
-        products.put(id,new CustomProduct(id,name,category,price,maxPers));
+        products.put(id,new CustomProduct(id,name,category,price,maxPers, new String[]{}));
         numProducts++;
         message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
         return message;
@@ -72,7 +72,7 @@ public class ProductService {
         }else{
             if (!products.containsKey(id)){
                 if (products.size()<MAX_QUANTITY){
-                    products.put(id,new CustomProduct(id,name,category,price,maxPers));
+                    products.put(id,new CustomProduct(id,name,category,price,maxPers, new String[]{}));
                     numProducts++;
                     message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
                 }
@@ -217,7 +217,7 @@ public class ProductService {
         return message;
     }
 
-    public Map<Integer,IProduct> getProducts(){
+    public HashMap<Integer,IProduct> getProducts(){
         return products;
     }
 }
