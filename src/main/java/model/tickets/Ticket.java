@@ -97,9 +97,15 @@ public class Ticket {
             } else {
                 if (products.containsKey(id)) {
                     CustomProduct product = (CustomProduct) products.get(id);
-                    product.setPersonalizableTexts(personalizableTexts);
+                    CustomProduct newProduct = null;
+                    try {
+                        newProduct = product.clone();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    newProduct.setPersonalizableTexts(personalizableTexts);
                     for (int i = 0; i < amount; i++) {
-                        ticketItems[numProducts] = product;
+                        ticketItems[numProducts] = newProduct;
                         numProducts++;
                     }
                     if (status == TicketStatus.EMPTY) {
