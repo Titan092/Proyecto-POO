@@ -1,6 +1,6 @@
 package model.products;
 
-public class CustomProduct extends BaseProduct {
+public class CustomProduct extends BaseProduct implements Cloneable {
 
     private int maxPers;
     private String[] personalizableTexts;
