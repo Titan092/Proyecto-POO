@@ -81,6 +81,10 @@ public class Ticket {
         return message;
     }
 
+    public String addProductToTicket(int id, int amount, String[] personalizableTexts, ProductService productService) {
+
+    }
+
     /**
      * Removes from the ticket indicated product with its id passed as a parameter.
      * @param id Unique ID of the products.

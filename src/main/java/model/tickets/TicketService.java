@@ -95,8 +95,12 @@ public class TicketService {
             return "Invalid cash ID";
         } else {
             HashMap<String, IUser> casherLists = userService.getUsers();
-            Cash casher = (Cash) casherLists.get(cashID);
-            casher.addProductToTicket(ticketID, productID, amount, productService);
+            if (casherLists.containsKey(cashID)) {
+                Cash casher = (Cash) casherLists.get(cashID);
+                casher.addProductToTicket(ticketID, productID, amount, personalizableTexts, productService);
+            } else {
+                return "No cashier found";
+            }
         }
         return null;
     }
