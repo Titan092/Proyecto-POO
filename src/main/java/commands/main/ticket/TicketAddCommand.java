@@ -30,18 +30,22 @@ public class TicketAddCommand extends Command {
                 String cashId = matcher.group(2);
                 int prodId = Integer.parseInt(matcher.group(3));
                 int amount = Integer.parseInt(matcher.group(4));
+                boolean allok=true;
                 if(args.length>6) {
                     String[] personalizable=new String[args.length-6];
                     for (int i = 6; i < args.length; i++) {
                         if (args[i].startsWith("--p")) {
                             personalizable[i-6]=args[i].substring(3);
+                        }else{
+                            allok=false;
+                            break;
                         }
                     }
                     this.setMessage(ticketService.ticketAdd(ticketId, cashId, prodId, amount, personalizable, userService, productService));
                 }else{
                     this.setMessage(ticketService.ticketAdd(ticketId, cashId, prodId, amount, userService, productService));
                 }
-                result = true;
+                result = allok;
             }
         }
         return result;
