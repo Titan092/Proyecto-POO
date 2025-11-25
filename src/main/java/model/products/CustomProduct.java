@@ -59,8 +59,4 @@ public class CustomProduct extends BaseProduct implements Cloneable {
         return (CustomProduct) super.clone();
     }
 
-    @Override
-    public CustomProduct clone() throws CloneNotSupportedException {
-        return (CustomProduct) super.clone();
-    }
 }
