@@ -26,6 +26,13 @@ public class CustomProduct extends BaseProduct {
 
     public void setPersonalizableTexts(String[] personalizableTexts){
         this.personalizableTexts = personalizableTexts;
+        int numeroDePersActual = 0;
+        for (String personalizableText : personalizableTexts) {
+            if (personalizableText != null) {
+                numeroDePersActual += 1;
+            }
+        }
+        this.setPrice(getPrice() + (getPrice()*numeroDePersActual/10));
     }
 
     @Override
