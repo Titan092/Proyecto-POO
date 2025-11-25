@@ -1,5 +1,7 @@
 package model.tickets;
 
+import exceptionHandler.ErrorMessageHandler;
+import model.products.IProduct;
 import model.products.ProductService;
 import model.users.*;
 
@@ -137,12 +139,29 @@ public class TicketService {
                 Cash cash = (Cash) users.get(cashID);
                 if (cash.getTickets().containsKey(ticketID)){ //es el creador del ticket con la id pasada por parametro
                     Ticket ticket = cash.getTicket(ticketID);
-                    ticket.ticketRemove(prodID);
-                    StringBuffer sb = new StringBuffer();
-                    sb.append("Ticket: "+ticketID+"\n");
-                    sb.append(ticket.printTicket());
-                    sb.append("ticket remove: ok\n");
-                    return sb.toString();
+                    if (ticket.getStatus() != TicketStatus.CLOSED){
+                        IProduct [] ticketItems = ticket.getTicketItems();
+                        boolean found = false;
+                        for (int i=0; i<ticketItems.length;i++){
+                            if (ticketItems[i] != null && ticketItems[i].getId() == prodID){
+                                found = true;
+                            }
+                        }
+                        if (found){
+                            ticket.ticketRemove(prodID);
+                            StringBuffer sb = new StringBuffer();
+                            sb.append("Ticket: "+ticketID+"\n");
+                            sb.append(ticket.printTicket());
+                            sb.append("ticket remove: ok\n");
+                            return sb.toString();
+                        }else{
+                            return ErrorMessageHandler.getIDNOTEXIST();
+                        }
+
+                    }else{
+                        return ErrorMessageHandler.getUSE_CLOSED_TICKET();
+                    }
+
                 }else{
                     return "This worker did not create the ticket with this id";
                 }

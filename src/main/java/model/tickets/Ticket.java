@@ -38,6 +38,10 @@ public class Ticket {
         return status;
     }
 
+    public IProduct[] getTicketItems() {
+        return ticketItems;
+    }
+
     /**
      * Resets the ticket.
      */
@@ -90,34 +94,24 @@ public class Ticket {
      * @param id Unique ID of the products.
      */
     public void ticketRemove(int id) {
-        if (status != TicketStatus.CLOSED) {
-            boolean found = false;
-            for (int i = 0; i < ticketItems.length; i++) {
-                if (ticketItems[i] != null && ticketItems[i].getId() == id) {
-                    ticketItems[i] = null; // Matches are set to null.
-                    found = true; // Valid ID.
-                    numProducts--;
-                    if (numProducts == 0) {
-                        status = TicketStatus.EMPTY;
-                    }
+        for (int i = 0; i < ticketItems.length; i++) {
+            if (ticketItems[i] != null && ticketItems[i].getId() == id) {
+                ticketItems[i] = null; // Matches are set to null.
+                numProducts--;
+                if (numProducts == 0) {
+                    status = TicketStatus.EMPTY;
                 }
             }
-            if (!found) {
-                System.out.println(ErrorMessageHandler.getIDNOTEXIST());
-            } else {
-                IProduct[] ticketItemsAux = new IProduct[MAX_AMOUNT];
-                int j = 0; // Position indicator for the auxiliary array.
-                for (int i = 0; i < ticketItemsAux.length ; i++) {
-                    if (ticketItems[i] != null){ // Only products that are not null will be saved, i.e., reset the array by removing deleted products (null).
-                        ticketItemsAux[j] = ticketItems[i];
-                        j++;
-                    }
-                }
-                ticketItems = ticketItemsAux; // Copies the auxiliary array, where everything is already sorted, to the original array.
-            }
-        } else {
-            System.out.println(ErrorMessageHandler.getUSE_CLOSED_TICKET());
         }
+        IProduct[] ticketItemsAux = new IProduct[MAX_AMOUNT];
+        int j = 0; // Position indicator for the auxiliary array.
+        for (int i = 0; i < ticketItemsAux.length ; i++) {
+            if (ticketItems[i] != null){ // Only products that are not null will be saved, i.e., reset the array by removing deleted products (null).
+                ticketItemsAux[j] = ticketItems[i];
+                j++;
+            }
+        }
+        ticketItems = ticketItemsAux; // Copies the auxiliary array, where everything is already sorted, to the original array.
     }
 
     /**
