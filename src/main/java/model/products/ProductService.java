@@ -72,7 +72,8 @@ public class ProductService {
         }else{
             if (!products.containsKey(id)){
                 if (products.size()<MAX_QUANTITY){
-                    products.put(id,new CustomProduct(id,name,category,price,maxPers, new String[]{}));
+                    String[] personalizableTexts = new String[maxPers];
+                    products.put(id,new CustomProduct(id,name,category,price,maxPers, personalizableTexts));
                     numProducts++;
                     message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
                 }
