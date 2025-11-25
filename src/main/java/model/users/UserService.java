@@ -43,7 +43,7 @@ public class UserService {
            if (!Character.isDigit(dni.charAt(8))){
                users.put(dni,new Client(name,dni,email,cashId));
                numClients++;
-               message = ((Client) users.get(dni)).toString();
+               message = ((Client) users.get(dni)).toString() + "client add: ok";
                //faltaria escribir en el cli --> client add: ok
            }else{
                message=ErrorMessageHandler.getWRONGDNIFORMAT();

@@ -90,8 +90,9 @@ public class TicketService {
 
 
     public String ticketAdd(String ticketID, String cashID, int productID, int amount, String[] personalizableTexts, UserService userService, ProductService productService) {
+        String message;
         if (cashID.charAt(0) != 'U'){
-            System.out.println("Invalid cash ID");
+            return "Invalid cash ID";
         } else {
             HashMap<String, IUser> casherLists = userService.getUsers();
             Cash casher = (Cash) casherLists.get(cashID);
