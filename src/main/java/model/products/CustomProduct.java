@@ -52,7 +52,11 @@ public class CustomProduct extends BaseProduct implements Cloneable {
             return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+
                     ", personalizationList:["+persTexts+"]}\n";
         }
+    }
 
+    @Override
+    public CustomProduct clone() throws CloneNotSupportedException {
+        return (CustomProduct) super.clone();
     }
 
 }
