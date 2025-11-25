@@ -42,6 +42,17 @@ public class CustomProduct extends BaseProduct {
         if (name.startsWith("\"") && name.endsWith("\"")) {
             name = name.substring(1, name.length() - 1);
         }
-        return "{class:Product, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPers: "+maxPers+"}\n";
+        if (personalizableTexts == null){
+            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+"}\n";
+        }else{
+            String persTexts = "";
+            for (int i=0; i<personalizableTexts.length;i++) {
+                persTexts = persTexts + personalizableTexts[i]+", ";
+            }
+            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+
+                    ", personalizationList:["+persTexts+"]}\n";
+        }
+
     }
+
 }
