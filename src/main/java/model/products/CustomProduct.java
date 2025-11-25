@@ -1,6 +1,6 @@
 package model.products;
 
-public class CustomProduct extends BaseProduct {
+public class CustomProduct extends BaseProduct implements Cloneable {
 
     private int maxPers;
     private String[] personalizableTexts;
@@ -43,5 +43,10 @@ public class CustomProduct extends BaseProduct {
             name = name.substring(1, name.length() - 1);
         }
         return "{class:Product, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPers: "+maxPers+"}\n";
+    }
+
+    @Override
+    public CustomProduct clone() throws CloneNotSupportedException {
+        return (CustomProduct) super.clone();
     }
 }
