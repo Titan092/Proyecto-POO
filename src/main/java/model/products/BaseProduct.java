@@ -23,6 +23,6 @@ public class BaseProduct extends Product implements ICategorizable{
         if (name.startsWith("\"") && name.endsWith("\"")) {
             name = name.substring(1, name.length() - 1);
         }
-        return "{class:Product, id:" + super.getId() + ", name:'" + name + "'" + ", category:" + category + ", price:" + super.getPrice() + "}";
+        return "{class:Product, id:" + super.getId() + ", name:'" + name + "'" + ", category:" + category + ", price:" + super.getPrice() + "}\n";
     }
 }

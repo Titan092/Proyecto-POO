@@ -195,7 +195,7 @@ public class ProductService {
         StringBuffer sb = new StringBuffer();
         sb.append("Catalog:\n");
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
-            sb.append((entry.getValue()).toString() + "\n");
+            sb.append((entry.getValue()).toString());
         }
         sb.append("prod list: ok");
         return sb.toString();
