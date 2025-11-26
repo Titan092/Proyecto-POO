@@ -42,15 +42,20 @@ public class CustomProduct extends BaseProduct implements Cloneable {
         if (name.startsWith("\"") && name.endsWith("\"")) {
             name = name.substring(1, name.length() - 1);
         }
-        if (personalizableTexts == null){
-            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+"}\n";
+        if (personalizableTexts == null || personalizableTexts[0] == null) {
+            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+"}";
         }else{
-            String persTexts = "";
+            StringBuilder persTexts = new StringBuilder();
             for (int i=0; i<personalizableTexts.length;i++) {
-                persTexts = persTexts + personalizableTexts[i]+", ";
+                if (i < personalizableTexts.length-1) {
+                    persTexts.append(personalizableTexts[i]).append(", ");
+                } else {
+                    persTexts.append(personalizableTexts[i]);
+                }
+
             }
             return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+
-                    ", personalizationList:["+persTexts+"]}\n";
+                    ", personalizationList:["+persTexts+"]}";
         }
     }
 
