@@ -27,7 +27,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id, new BaseProduct(id, name , category, price));
         numProducts++;
-        message = ((BaseProduct) products.get(id)).toString() + "prod add: ok";
+        message = ((BaseProduct) products.get(id)).toString() + "\nprod add: ok\n";
         return message;
     }
 
@@ -42,7 +42,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new BaseProduct(id, name , category, price));
                     numProducts++;
-                    message = ((BaseProduct) products.get(id)).toString() + "prod add: ok";
+                    message = ((BaseProduct) products.get(id)).toString() + "\nprod add: ok\n";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -60,7 +60,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id,new CustomProduct(id,name,category,price,maxPers, new String[]{}));
         numProducts++;
-        message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
+        message = ((CustomProduct) products.get(id)).toString() + "\nprod add: ok\n";
         return message;
     }
 
@@ -75,7 +75,7 @@ public class ProductService {
                     String[] personalizableTexts = new String[maxPers];
                     products.put(id,new CustomProduct(id,name,category,price,maxPers, personalizableTexts));
                     numProducts++;
-                    message = ((CustomProduct) products.get(id)).toString() + "prod add: ok";
+                    message = ((CustomProduct) products.get(id)).toString() + "\nprod add: ok\n";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -93,7 +93,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id,new Food(id,name,price,date,maxPeople));
         numProducts++;
-        message = ((Food) products.get(id)).toString() + "\nprod add: ok";
+        message = ((Food) products.get(id)).toString() + "\nprod add: ok\n";
         return message;
     }
 
@@ -106,7 +106,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Food(id,name,price,date,maxPeople));
                     numProducts++;
-                    message = ((Food) products.get(id)).toString() + "\nprod add: ok";
+                    message = ((Food) products.get(id)).toString() + "\nprod add: ok\n";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -124,7 +124,7 @@ public class ProductService {
         }while(products.containsKey(id));
         products.put(id,new Meeting(id,name,price,date,maxPeople));
         numProducts++;
-        message = ((Meeting) products.get(id)).toString() + "\nprod add: ok";
+        message = ((Meeting) products.get(id)).toString() + "\nprod add: ok\n";
         return message;
     }
 
@@ -137,7 +137,7 @@ public class ProductService {
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Meeting(id,name,price,date,maxPeople));
                     numProducts++;
-                    message = ((Meeting) products.get(id)).toString() + "\nprod add: ok";
+                    message = ((Meeting) products.get(id)).toString() + "\nprod add: ok\n";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -159,14 +159,14 @@ public class ProductService {
                 switch (field.toUpperCase()){
                     case "NAME":
                         product.setName(value);
-                        result = product.toString() + "prod update: ok";
+                        result = product.toString() + "\nprod update: ok\n";
                         break;
                     case "CATEGORY":
                         try{
                             Category categoryNew = Category.valueOf(value.toUpperCase());
                             if (product instanceof ICategorizable){
                                 ((ICategorizable) product).setCategory(categoryNew);
-                                result = product.toString() + "prod update: ok";
+                                result = product.toString() + "\nprod update: ok\n";
                             }else{
                                 result=("This type of product do not have category");
                             }
@@ -178,7 +178,7 @@ public class ProductService {
                         try{
                             float priceValue = Float.parseFloat(value);
                             product.setPrice(priceValue);
-                            result=product.toString() + "prod update: ok";
+                            result=product.toString() + "\nprod update: ok\n";
                         }catch (NumberFormatException e) {
                             result=(ErrorMessageHandler.getVALIDNUMBER());
                         }
@@ -196,9 +196,10 @@ public class ProductService {
         StringBuffer sb = new StringBuffer();
         sb.append("Catalog:\n");
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
-            sb.append((entry.getValue()).toString() + "\n");
+            sb.append((entry.getValue()).toString()+"\n");
         }
         sb.append("prod list: ok");
+        sb.append("\n");
         return sb.toString();
     }
 
@@ -210,7 +211,7 @@ public class ProductService {
             if (!products.containsKey(id)) {
                 message=ErrorMessageHandler.getNOTFINDGID();
             } else {
-                message = products.get(id).toString() + "prod remove: ok";
+                message = products.get(id).toString() + "\nprod remove: ok\n";
                 products.remove(id);
                 numProducts--;
             }
