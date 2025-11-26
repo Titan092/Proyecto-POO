@@ -3,6 +3,8 @@ package model.products;
 import exceptionHandler.ErrorMessageHandler;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -195,8 +197,15 @@ public class ProductService {
     public String prodList(){
         StringBuffer sb = new StringBuffer();
         sb.append("Catalog:\n");
+        ArrayList<String> productsOrderedByID = new ArrayList<>();
         for (Map.Entry<Integer,IProduct> entry : products.entrySet()){
-            sb.append((entry.getValue()).toString()+"\n");
+            productsOrderedByID.add(entry.getKey()+ "\t" + entry.getValue().toString()+"\n");
+
+        }
+        Collections.sort(productsOrderedByID);
+        for (int i=0; i<productsOrderedByID.size();i++){
+            String [] productsOrderedByIDSeparated = productsOrderedByID.get(i).split("\t");
+            sb.append("\t"+productsOrderedByIDSeparated[1]);
         }
         sb.append("prod list: ok");
         sb.append("\n");

@@ -43,7 +43,7 @@ public class UserService {
            if (!Character.isDigit(dni.charAt(8))){
                users.put(dni,new Client(name,dni,email,cashId));
                numClients++;
-               message = ((Client) users.get(dni)).toString() + "client add: ok";
+               message = ((Client) users.get(dni)).toString() + "client add: ok\n";
                //faltaria escribir en el cli --> client add: ok
            }else{
                message=ErrorMessageHandler.getWRONGDNIFORMAT();
@@ -66,7 +66,7 @@ public class UserService {
         if (users.containsKey(dni)){
             users.remove(dni);
             numClients--;
-            message = "client remove: ok";
+            message = "client remove: ok\n";
         }else{
             message=ErrorMessageHandler.getDNINOTEXIST();
         }
@@ -97,7 +97,7 @@ public class UserService {
             Client client = (Client) users.get(clientNamesAndDniSeparated[1]); //field [1] its the id used to get the client
             sb.append("\t"+client.toString());
         }
-        sb.append("client list: ok");
+        sb.append("client list: ok\n");
         return sb.toString();
     }
 
@@ -115,7 +115,7 @@ public class UserService {
         }while(users.containsKey(id));
         users.put(id, new Cash(id,name,email));
         numCash++;
-        message = ((Cash) users.get(id)).toString() + "cash add: ok";
+        message = ((Cash) users.get(id)).toString() + "cash add: ok\n";
         return message;
     }
 
@@ -132,7 +132,7 @@ public class UserService {
         }else{
             if (!users.containsKey(cashId)){
                 users.put(cashId, new Cash(cashId, name, email));
-                message = ((Cash) users.get(cashId)).toString() + "cash add: ok";
+                message = ((Cash) users.get(cashId)).toString() + "cash add: ok\n";
             }else{
                 message=ErrorMessageHandler.getEXISTINGIDCASH();
             }
@@ -153,7 +153,7 @@ public class UserService {
                 Cash cash = (Cash) users.get(cashId);
                 cash.deleteTickets(cashId, users);
                 users.remove(cashId);
-                message = "cash remove ok";
+                message = "cash remove ok\n";
             }else{
                 message=ErrorMessageHandler.getCASHIDNOTEXIST();
             }
@@ -186,7 +186,7 @@ public class UserService {
             Cash cash = (Cash) users.get(cashNameAndIdSeparated[1]); //field [1] its the id used to get the client
             sb.append("\t"+cash.toString());
         }
-        sb.append("cash list: ok");
+        sb.append("cash list: ok\n");
         return sb.toString();
     }
 

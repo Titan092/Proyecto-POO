@@ -74,7 +74,7 @@ public class TicketService {
                         StringBuffer sb = new StringBuffer();
                         sb.append("Ticket: " + ticketID + "\n");
                         sb.append(ticket.printTicket());
-                        sb.append("ticket add: ok");
+                        sb.append("ticket add: ok\n");
                         return sb.toString();
                     } else {
                         return printOrNot;
@@ -106,7 +106,7 @@ public class TicketService {
                             StringBuffer sb = new StringBuffer();
                             sb.append("Ticket: " + ticketID + "\n");
                             sb.append(ticket.printTicket());
-                            sb.append("ticket add: ok");
+                            sb.append("ticket add: ok\n");
                             return sb.toString();
                         } else {
                             return printOrNot;
@@ -145,7 +145,7 @@ public class TicketService {
                 sb.append(entry.getValue().getId()+" - "+entry.getValue().getStatus()+"\n");
             }
         }
-        sb.append("ticket list: ok");
+        sb.append("ticket list: ok\n");
         return sb.toString();
     }
 
@@ -182,7 +182,7 @@ public class TicketService {
                     StringBuffer sb = new StringBuffer();
                     sb.append("Ticket: " + ticketID + "\n");
                     sb.append(ticket.printTicket());
-                    sb.append("ticket print: ok");
+                    sb.append("ticket print: ok\n");
                     if (ticket.getStatus() != TicketStatus.CLOSED) {
                         String closingTimestamp = LocalDateTime.now().format(closing);
                         String id = ticket.getId();
