@@ -1,7 +1,9 @@
 package commands.main;
 
 import commands.Command;
-
+/**
+ * Command to display help information.
+ */
 public class HelpCommand extends Command {
     public HelpCommand() {
         super("help");
@@ -15,7 +17,10 @@ public class HelpCommand extends Command {
         }
         return result;
     }
-
+    /**
+     * Returns a help string listing available commands and their usage.
+     * @return Help string.
+     */
     public String getHelp() {
         String result="Commands:\n" +
                 "  client add \"<nombre>\" <DNI> <email> <cashId>\n" +

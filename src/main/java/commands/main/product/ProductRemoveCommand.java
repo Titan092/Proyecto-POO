@@ -1,12 +1,13 @@
 package commands.main.product;
-
 import commands.Command;
-import model.products.Category;
 import model.products.ProductService;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to remove a product by ID.
+ * Usage: prod remove <id>
+ * Needs ProductService to perform the removal.
+ */
 public class ProductRemoveCommand extends Command {
     private ProductService productService;
     public ProductRemoveCommand(ProductService productService) {

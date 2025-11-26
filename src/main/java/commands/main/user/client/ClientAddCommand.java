@@ -5,7 +5,11 @@ import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to add a new client.
+ * Usage: client add "<nombre>" <DNI> <email> <cashId>
+ * Needs UserService to perform the addition.
+ */
 public class ClientAddCommand extends Command {
     private UserService userService;
     public ClientAddCommand(UserService userService) {

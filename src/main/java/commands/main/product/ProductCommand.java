@@ -6,7 +6,11 @@ import model.products.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Command to handle product-related operations.
+ * It is a root command that delegates to sub-commands.
+ * Needs ProductService to perform product operations.
+ */
 public class ProductCommand extends Command {
     private List<Command> subCommands;
     private ProductService productService;

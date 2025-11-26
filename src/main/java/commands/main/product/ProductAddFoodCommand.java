@@ -1,14 +1,14 @@
 package commands.main.product;
-
 import commands.Command;
-import model.products.Category;
 import model.products.ProductService;
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to add a new food product.
+ * Usage: prod addFood [<id>] "<name>" <price> <expiration: yyyy-MM-dd> <max_people>
+ * Needs ProductService to perform the addition.
+ */
 public class ProductAddFoodCommand extends Command {
     private ProductService productService;
     public ProductAddFoodCommand(ProductService productService) {

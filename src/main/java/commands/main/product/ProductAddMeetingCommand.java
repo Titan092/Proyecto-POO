@@ -1,12 +1,14 @@
 package commands.main.product;
-
 import commands.Command;
 import model.products.ProductService;
-
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to add a new meeting product.
+ * Usage: prod addMeeting [<id>] "<name>" <price> <expiration: yyyy-MM-dd> <max_people>
+ * Needs ProductService to perform the addition.
+ */
 public class ProductAddMeetingCommand extends Command {
     private ProductService productService;
     public ProductAddMeetingCommand(ProductService productService) {

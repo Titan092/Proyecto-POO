@@ -6,7 +6,11 @@ import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to create a new ticket.
+ * Usage: ticket print <ticketId> <cashId>
+ * Needs TicketService and UserService to perform the creation.
+ */
 public class TicketPrintCommand extends Command {
     private TicketService ticketService;
     private UserService userService;

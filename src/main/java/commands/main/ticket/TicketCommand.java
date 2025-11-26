@@ -7,7 +7,11 @@ import model.users.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Command to handle ticket-related operations.
+ * It is a root command that delegates to sub-commands.
+ * Needs TicketService, ProductService, and UserService to perform ticket operations.
+ */
 public class TicketCommand extends Command {
     private TicketService ticketService;
     private ProductService productService;

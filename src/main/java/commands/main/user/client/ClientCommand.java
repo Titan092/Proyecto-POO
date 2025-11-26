@@ -5,7 +5,11 @@ import model.users.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Command to handle user-related operations.
+ * It is a root command that delegates to sub-commands.
+ * Needs UserService to perform user operations.
+ */
 public class ClientCommand extends Command {
     private UserService userService;
     private List<Command> subCommands;

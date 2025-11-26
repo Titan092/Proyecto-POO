@@ -2,7 +2,11 @@ package commands.main.user.client;
 
 import commands.Command;
 import model.users.UserService;
-
+/**
+ * Command to list all clients.
+ * Usage: client list
+ * Needs UserService to perform the listing.
+ */
 public class ClientListCommand extends Command {
     private UserService userService;
     public ClientListCommand(UserService userService) {

@@ -1,11 +1,13 @@
 package commands.main.product;
-
 import commands.Command;
-import model.products.Category;
 import model.products.ProductService;
 
 
-
+/**
+ * Command to list all products.
+ * Usage: prod list
+ * Needs ProductService to perform the listing.
+ */
 public class ProductListCommand extends Command {
     private ProductService productService;
     public ProductListCommand(ProductService productService) {
