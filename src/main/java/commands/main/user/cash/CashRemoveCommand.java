@@ -5,7 +5,11 @@ import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to remove a cash register from a user.
+ * Usage: cash remove <cashId>
+ * Needs UserService to perform the removal.
+ */
 public class CashRemoveCommand extends Command {
     private UserService userService;
     public CashRemoveCommand(UserService userService) {

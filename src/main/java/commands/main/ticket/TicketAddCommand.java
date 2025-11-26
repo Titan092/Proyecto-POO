@@ -7,7 +7,11 @@ import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to add items to a ticket.
+ * Usage: ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt> --p<txt>]
+ * Needs TicketService, ProductService, and UserService to perform the addition.
+ */
 public class TicketAddCommand extends Command {
     private TicketService ticketService;
     private ProductService productService;

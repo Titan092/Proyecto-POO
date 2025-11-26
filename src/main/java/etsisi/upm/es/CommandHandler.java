@@ -11,6 +11,11 @@ import model.users.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the commands for the ticket module application.
+ * It is the backbone of the application.
+ * It initializes the services, commands, and processes user input.
+ */
 public class CommandHandler {
 
     // Explanation of the used regular expressions:
@@ -40,6 +45,9 @@ public class CommandHandler {
         return WELCOME_MESSAGE;
     }
 
+    /**
+     * Initializes the root commands of the application.
+     */
     private void initCommands() {
         // Here we would initialize the list of commands available in the application
         this.commands=new ArrayList<>();
@@ -49,7 +57,11 @@ public class CommandHandler {
         commands.add(new UserCommand(users));
     }
 
-
+    /**
+     * Applies the command passed as a parameter.
+     * @param commandUni Command to be applied in the form of an array of strings.
+     * @return The command that was applied.
+     */
     protected Command applyCommand(String[] commandUni) {
         boolean found=false;
         for (Command cmd:commands) {

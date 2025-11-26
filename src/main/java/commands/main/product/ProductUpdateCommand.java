@@ -1,12 +1,13 @@
 package commands.main.product;
-
 import commands.Command;
-import model.products.Category;
 import model.products.ProductService;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to update a product's field by ID.
+ * Usage: prod update <id> <field> <value>
+ * Needs ProductService to perform the update.
+ */
 public class ProductUpdateCommand extends Command {
     private ProductService productService;
     public ProductUpdateCommand(ProductService productService) {

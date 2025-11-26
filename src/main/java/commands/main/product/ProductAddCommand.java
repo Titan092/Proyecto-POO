@@ -7,7 +7,11 @@ import model.products.ProductService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to add a new product.
+ * Usage: prod add [<id>] "<name>" <category> <price> [<maxPers>]
+ * Needs ProductService to perform the addition.
+ */
 public class ProductAddCommand extends Command {
     private ProductService productService;
     public ProductAddCommand(ProductService productService) {
@@ -21,7 +25,6 @@ public class ProductAddCommand extends Command {
             //prod add [<id>] "<name>" <category> <price> [<maxPers>]
             boolean callWithId=false;
             boolean callCustom=false;
-            //Pattern p=Pattern.compile("^prod add (?:(\\d+))? \"([^\"]+)\" (.+) ([\\d.]+) (?: (\\d+))?$"); //Viejo
             Pattern p=Pattern.compile("^prod add\\s+(?:(\\d+)\\s+)?\"([^\"]+)\"\\s+(\\S+)\\s+([\\d.]+)(?:\\s+(\\d+))?$");
             Matcher m=p.matcher(String.join(" ", args));
             if(m.matches()){

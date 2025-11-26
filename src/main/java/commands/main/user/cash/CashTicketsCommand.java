@@ -5,7 +5,11 @@ import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to cash tickets from a cash register.
+ * Usage: cash tickets <cashId>
+ * Needs UserService to perform the cashing.
+ */
 public class CashTicketsCommand extends Command {
     private UserService userService;
     public CashTicketsCommand(UserService userService) {

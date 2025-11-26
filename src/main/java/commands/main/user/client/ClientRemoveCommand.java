@@ -5,7 +5,11 @@ import model.users.UserService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Command to remove a client.
+ * Usage: client remove <DNI>
+ * Needs UserService to perform the removal.
+ */
 public class ClientRemoveCommand extends Command {
     private UserService userService;
     public ClientRemoveCommand(UserService userService) {

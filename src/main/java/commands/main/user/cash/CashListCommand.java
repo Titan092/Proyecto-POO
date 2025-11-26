@@ -2,7 +2,11 @@ package commands.main.user.cash;
 
 import commands.Command;
 import model.users.UserService;
-
+/**
+ * Command to list all cash registers.
+ * Usage: cash list
+ * Needs UserService to perform the listing.
+ */
 public class CashListCommand extends Command {
     private UserService userService;
     public CashListCommand(UserService userService) {
