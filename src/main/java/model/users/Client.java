@@ -1,9 +1,5 @@
 package model.users;
 
-import model.tickets.Ticket;
-
-import java.util.HashMap;
-
 public class Client extends User{
     private String cashId;
     //id is the DNI of the client

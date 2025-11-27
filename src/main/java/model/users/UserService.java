@@ -1,11 +1,7 @@
 package model.users;
 
 import exceptionHandler.ErrorMessageHandler;
-import model.products.IProduct;
 import model.tickets.Ticket;
-import model.tickets.TicketService;
-import model.users.Cash;
-import model.users.IUser;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

@@ -2,14 +2,9 @@ package model.tickets;
 
 import exceptionHandler.ErrorMessageHandler;
 import model.products.*;
-import model.users.Cash;
-import model.users.IUser;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Ticket {
