@@ -214,7 +214,10 @@ public class Ticket {
                     String name = item.toString();
                     //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
                     String [] cleanName = name.split("\'");
-                    nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                    if (!nameAndStringFormat.contains(cleanName[1] + "\t" + "\t" + item.toString()+"\n")){
+                        nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+
+                    }
                 }
             }
             Collections.sort(nameAndStringFormat);
@@ -222,6 +225,8 @@ public class Ticket {
                 int tabIndex = line.indexOf('\t');
                 sb.append(line.substring(tabIndex + 1));
             }
+
+
             float finalPrice = totalPrice - totalDiscount;
             sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));
             sb.append("\t" + String.format("Total discount: %.2f \n", totalDiscount));
