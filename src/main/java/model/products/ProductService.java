@@ -89,13 +89,16 @@ public class ProductService {
     //commando for Food with random ID
     public String prodAddFood(String name, float price, LocalDate date, int maxPeople){
         String message;
+        if (maxPeople > 100) {
+            message = ErrorMessageHandler.getMaxPeopleErrorFood() + "\n";
+        }
         int id;
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
         }while(products.containsKey(id));
         products.put(id,new Food(id,name,price,date,maxPeople));
         numProducts++;
-        message = ((Food) products.get(id)).toString() + "\nprod add: ok\n";
+        message = ((Food) products.get(id)).toString() + "\nprod addFood: ok\n";
         return message;
     }
 
@@ -103,12 +106,14 @@ public class ProductService {
         String message=null;
         if (id<0){
             message=ErrorMessageHandler.getWRONGID();
-        }else{
+        } else if (maxPeople > 100) {
+            message=ErrorMessageHandler.getMaxPeopleErrorFood() + "\n";
+        } else{
             if (!products.containsKey(id)){
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Food(id,name,price,date,maxPeople));
                     numProducts++;
-                    message = ((Food) products.get(id)).toString() + "\nprod add: ok\n";
+                    message = ((Food) products.get(id)).toString() + "\nprod addFood: ok\n";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();
@@ -120,13 +125,16 @@ public class ProductService {
     //command for Meeting with random ID
     public String prodAddMeeting(String name, float price, LocalDate date, int maxPeople){
         String message;
+        if (maxPeople > 100) {
+            message = ErrorMessageHandler.getMaxPeopleErrorMeeting() + "\n";
+        }
         int id;
         do{
             id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
-        }while(products.containsKey(id));
+        } while(products.containsKey(id));
         products.put(id,new Meeting(id,name,price,date,maxPeople));
         numProducts++;
-        message = ((Meeting) products.get(id)).toString() + "\nprod add: ok\n";
+        message = ((Meeting) products.get(id)).toString() + "\nprod addMeeting: ok\n";
         return message;
     }
 
@@ -134,12 +142,14 @@ public class ProductService {
         String message=null;
         if (id<0){
             message=ErrorMessageHandler.getWRONGID();
-        }else{
+        } else if (maxPeople > 100) {
+            message=ErrorMessageHandler.getMaxPeopleErrorMeeting() + "\n";
+        } else{
             if (!products.containsKey(id)){
                 if (products.size()<MAX_QUANTITY){
                     products.put(id,new Meeting(id,name,price,date,maxPeople));
                     numProducts++;
-                    message = ((Meeting) products.get(id)).toString() + "\nprod add: ok\n";
+                    message = ((Meeting) products.get(id)).toString() + "\nprod addMeeting: ok\n";
                 }
             }else{
                 message=ErrorMessageHandler.getEXISTINGID();

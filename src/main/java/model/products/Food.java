@@ -15,6 +15,6 @@ public class Food extends EventProduct {
         if (name.startsWith("\"") && name.endsWith("\"")) {
             name = name.substring(1, name.length() - 1);
         }
-        return "{class:Food, id:"+super.getId()+", name:"+"'"+name+"'"+", price:"+super.getPrice()+", date of Event:"+ super.getDate()+", max people allowed:"+ super.getMaxPeople()+"}";
+        return super.toString();
     }
 }

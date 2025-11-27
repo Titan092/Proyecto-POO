@@ -29,5 +29,13 @@ public abstract class EventProduct extends Product {
         this.maxPeople = maxPeople;
     }
 
+    public String toString() {
+        String name = super.getName();
+        //if starts and end by " then we delete it using the subString
+        if (name.startsWith("\"") && name.endsWith("\"")) {
+            name = name.substring(1, name.length() - 1);
+        }
+        return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + super.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + "}";
+    }
 
 }

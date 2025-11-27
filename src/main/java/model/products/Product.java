@@ -80,6 +80,7 @@ public abstract class Product implements IProduct{
      */
     @Override
     public String toString() {
+
         return "{class:Product, id:"+id+", name:'"+name+", price:"+price+"}";
     }
 

@@ -23,25 +23,33 @@ public class ErrorMessageHandler {
     private static final String USE_CLOSED_TICKET = "You can't modify a closed ticket.";
     private static final String TICKET_ALREADY_EXISTS = "The ticket already exists.";
     private static final String TICKET_DOESNT_EXIST = "The ticket already exists.";
+    private static final String MAX_PEOPLE_ERROR_FOOD = "Error processing ->prod addFood ->Error adding product";
+    private static final String MAX_PEOPLE_ERROR_MEETING = "Error processing ->prod addMeeting ->Error adding product";
 
     public static String getERRORMESSAGE() {
         return ERRORMESSAGE;
     }
+
     public static String getVALIDNUMBER() {
         return VALIDNUMBER;
     }
+
     public static String getVALIDCATEGORY() {
         return VALIDCATEGORY;
     }
+
     public static String getWRONGID() {
         return WRONGID;
     }
+
     public static String getNOSPACETICKET() {
         return NOSPACETICKET;
     }
+
     public static String getPRODUCTNOTEXIST() {
         return PRODUCTNOTEXIST;
     }
+
     public static String getIDNOTEXIST() {
         return IDNOTEXIST;
     }
@@ -58,22 +66,27 @@ public class ErrorMessageHandler {
         return NOMOREPRODUCTS;
     }
 
-    public static String getEXISTINGID(){return EXISTINGID;}
+    public static String getEXISTINGID() {return EXISTINGID;}
 
-    public static String getEXISTINGIDCASH(){return EXISTINGIDCASH;}
+    public static String getEXISTINGIDCASH() {return EXISTINGIDCASH;}
 
-    public static String getWRONGCASHID(){return WRONGCASHID;}
+    public static String getWRONGCASHID() {return WRONGCASHID;}
 
-    public static String getWRONGDNIFORMAT(){return WRONGDNIFORMAT;}
+    public static String getWRONGDNIFORMAT() {return WRONGDNIFORMAT;}
 
-    public static String getDNINOTEXIST(){return DNINOTEXIST;}
+    public static String getDNINOTEXIST() {return DNINOTEXIST;}
 
-    public static String getCASHIDNOTEXIST(){return CASHIDNOTEXIST;}
+    public static String getCASHIDNOTEXIST() {return CASHIDNOTEXIST;}
 
-    public static String getPRINT_EMPTY_TICKET(){return PRINT_EMPTY_TICKET;}
+    public static String getPRINT_EMPTY_TICKET() {return PRINT_EMPTY_TICKET;}
 
-    public static String getUSE_CLOSED_TICKET(){return USE_CLOSED_TICKET;}
+    public static String getUSE_CLOSED_TICKET() {return USE_CLOSED_TICKET;}
 
     public static String getTicketAlreadyExists() {return TICKET_ALREADY_EXISTS;}
+
     public static String getTicketDoesntExist() {return TICKET_DOESNT_EXIST;}
+
+    public static String getMaxPeopleErrorFood() {return MAX_PEOPLE_ERROR_FOOD;}
+
+    public static String getMaxPeopleErrorMeeting() {return MAX_PEOPLE_ERROR_MEETING;}
 }
