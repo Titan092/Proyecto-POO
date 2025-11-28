@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Implementation of the Command Line Interface (CLI).
  * It handles user input and output, and interacts with the CommandHandler to process commands.
  */
-public class CLI implements ICLI{
+public class CLI implements IController {
     public static  Scanner s;
     private final String PROMPT = "tUPM> ";
 
