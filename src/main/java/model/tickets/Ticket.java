@@ -150,11 +150,7 @@ public class Ticket {
             float totalPrice = 0f;
             float totalDiscount = 0f;
             for (IProduct product : ticketItems) {
-                if (product instanceof EventProduct eventProduct && eventProduct.getActualPeople() > 0) {
-                    totalPrice += eventProduct.getPrice() * eventProduct.getActualPeople();
-                } else {
-                    totalPrice += product.getPrice();
-                }
+                totalPrice += product.getPrice();
                 string.append("  ").append(product);
                 if (product instanceof BaseProduct categorizableProduct) {
                     boolean applyDiscount = false;

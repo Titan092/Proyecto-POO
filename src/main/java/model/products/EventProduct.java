@@ -41,6 +41,11 @@ public abstract class EventProduct extends Product {
         this.maxPeople = maxPeople;
     }
 
+    @Override
+    public float getPrice() {
+        return super.getPrice() * this.actualPeople;
+    }
+
     /**
      * String representation of the EventProduct.
      * format: {class:EventProduct, id:ID, name:'NAME', price:PRICE, date of Event:DATE, max people allowed:MAXPEOPLE, actual people in event:ACTUALPEOPLE}
@@ -56,10 +61,9 @@ public abstract class EventProduct extends Product {
             name = name.substring(1, name.length() - 1);
         }
         if (actualPeople == 0){
-            return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + super.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + "}";
+            return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + this.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + "}";
         }else{
-            float totalPrice = actualPeople*super.getPrice();
-            return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + totalPrice + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + ", actual people in event:" + actualPeople + "}";
+            return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + this.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + ", actual people in event:" + actualPeople + "}";
         }
 
     }
