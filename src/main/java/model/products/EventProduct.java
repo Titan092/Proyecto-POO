@@ -29,7 +29,7 @@ public abstract class EventProduct extends Product {
         return date;
     }
 
-    int getMaxPeople(){
+    public int getMaxPeople(){
         return maxPeople;
     }
 
@@ -44,6 +44,14 @@ public abstract class EventProduct extends Product {
     @Override
     public float getPrice() {
         return super.getPrice() * this.actualPeople;
+    }
+
+    public void setActualPeople(int actualPeople){
+        this.actualPeople = actualPeople;
+    }
+
+    public int getActualPeople() {
+        return actualPeople;
     }
 
     /**
@@ -66,13 +74,5 @@ public abstract class EventProduct extends Product {
             return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + this.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + ", actual people in event:" + actualPeople + "}";
         }
 
-    }
-
-    public void setActualPeople(int actualPeople){
-        this.actualPeople = actualPeople;
-    }
-
-    public int getActualPeople() {
-        return actualPeople;
     }
 }
