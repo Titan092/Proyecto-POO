@@ -43,7 +43,7 @@ public class Ticket {
             message = ErrorMessageHandler.getWRONGID();
         } else {
             Map<Integer, IProduct> products = productService.getProducts();
-            int availableCapacity = MAX_AMOUNT - products.size();
+            int availableCapacity = MAX_AMOUNT - ticketItems.size();
             if (amount > availableCapacity) {
                 message = ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products";
             } else {
@@ -78,7 +78,7 @@ public class Ticket {
             message = ErrorMessageHandler.getWRONGID();
         } else {
             Map<Integer, IProduct> products = productService.getProducts();
-            int availableCapacity = MAX_AMOUNT - products.size();
+            int availableCapacity = MAX_AMOUNT - ticketItems.size();
             if (amount > availableCapacity) {
                 message = ErrorMessageHandler.getNOSPACETICKET() + availableCapacity + " products";
             } else {
