@@ -9,7 +9,7 @@ public abstract class EventProduct extends Product {
 
     private LocalDate date;
     private int maxPeople;
-    private int actualPeople;
+    private int actualPeople = 0;
 
     /**
      * Constructor for EventProduct.
@@ -23,7 +23,6 @@ public abstract class EventProduct extends Product {
         super(id,name,price);
         this.date = date;
         this.maxPeople = maxPeople;
-        this.actualPeople = 0;
     }
 
     LocalDate getDate(){

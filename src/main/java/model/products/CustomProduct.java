@@ -3,7 +3,7 @@ package model.products;
  * Class representing a customizable product.
  * It extends the BaseProduct class and implements the Cloneable interface.
  */
-public class CustomProduct extends BaseProduct implements Cloneable {
+public class CustomProduct extends BaseProduct {
 
     private int maxPers;
     private String[] personalizableTexts;
@@ -22,12 +22,22 @@ public class CustomProduct extends BaseProduct implements Cloneable {
         this.personalizableTexts = personalizableTexts;
     }
 
+    public CustomProduct(CustomProduct other, String[] personalizableTexts) {
+        super(other.getId(), other.getName(), other.getCategory(), other.getPrice());
+        this.maxPers = other.getMaxPers();
+        this.personalizableTexts = personalizableTexts;
+    }
+
     public int getMaxPers(){
         return maxPers;
     }
 
     public void setMaxPers(int maxPers){
         this.maxPers = maxPers;
+    }
+
+    public String[] getPersonalizableTexts() {
+        return personalizableTexts;
     }
 
     @Override
@@ -78,10 +88,4 @@ public class CustomProduct extends BaseProduct implements Cloneable {
                     ", personalizationList:["+persTexts+"]}";
         }
     }
-
-    @Override
-    public CustomProduct clone() throws CloneNotSupportedException {
-        return (CustomProduct) super.clone();
-    }
-
 }
