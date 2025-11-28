@@ -7,6 +7,10 @@ import model.tickets.TicketStatus;
 
 import java.util.HashMap;
 
+/**
+ * Abstract class representing a user.
+ * It implements the IUser interface.
+ */
 public abstract class User implements IUser {
 
     private String id;
@@ -14,6 +18,12 @@ public abstract class User implements IUser {
     private String email;
     protected HashMap<String, Ticket> tickets = new HashMap<>();
 
+    /**
+     * Constructor for User.
+     * @param id User ID.
+     * @param name User name.
+     * @param email User email.
+     */
     public User(String id, String name, String email){
         this.id = id;
         this.name = name;
@@ -44,6 +54,11 @@ public abstract class User implements IUser {
         this.email = email;
     }
 
+    /**
+     * Create a new ticket for the user.
+     * @param ticketID Ticket ID.
+     * @param ticket Ticket object.
+     */
     public void newTicket(String ticketID, Ticket ticket) {
         if (tickets.containsKey(ticketID))  {
             System.out.println(ErrorMessageHandler.getTicketAlreadyExists() );
@@ -51,6 +66,15 @@ public abstract class User implements IUser {
         tickets.put(ticketID, ticket);
     }
 
+    /**
+     * Add a product to an existing ticket.
+     * It could be done in cashier besides user.
+     * @param ticketID Ticket ID.
+     * @param productID Product ID.
+     * @param amount Amount of product.
+     * @param productService Product service for product management.
+     * @return Message indicating the result of the operation.
+     */
     public String addProductToTicket(String ticketID, int productID, int amount, ProductService productService) {
         String message;
         Ticket existingTicket = tickets.get(ticketID);
@@ -64,6 +88,16 @@ public abstract class User implements IUser {
         return message;
     }
 
+    /**
+     * Add a personalizable product to an existing ticket.
+     * It could be done in cashier besides user.
+     * @param ticketID Ticket ID.
+     * @param productID Product ID.
+     * @param amount Amount of product.
+     * @param personalizableTexts Array of personalizable texts.
+     * @param productService Product service for product management.
+     * @return Message indicating the result of the operation.
+     */
     public String addProductToTicket(String ticketID, int productID, int amount, String[] personalizableTexts, ProductService productService) {
         String message;
         Ticket existingTicket = tickets.get(ticketID);

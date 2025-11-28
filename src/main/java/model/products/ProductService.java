@@ -8,19 +8,30 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-
+/**
+ * Service class for managing products.
+ */
 public class ProductService {
 
     private HashMap<Integer,IProduct> products;
     private final int MAX_QUANTITY = 200;
     private int numProducts;
 
+    /**
+     * Constructor for ProductService.
+     */
     public ProductService(){//Relacion agregación
         this.products = new HashMap<>();
         this.numProducts = 0;
     }
 
-    //comand for baseProduct with random ID
+    /**Command for baseProduct with random ID
+     *
+     * @param name
+     * @param category
+     * @param price
+     * @return
+     */
     public String prodAdd(String name, Category category, float price){
         String message;
         int id;
@@ -34,7 +45,14 @@ public class ProductService {
     }
 
 
-    //command for baseProduct with explicit ID
+    /**Command for baseProduct with explicit ID
+     *
+     * @param id
+     * @param name
+     * @param category
+     * @param price
+     * @return
+     */
     public String prodAdd(int id, String name, Category category ,float price){
         String message = null;
         if (id<0){
@@ -53,7 +71,14 @@ public class ProductService {
         return message;
     }
 
-    //comand for CustomProduct with random ID
+    /**Command for CustomProduct with random ID
+     *
+     * @param name
+     * @param category
+     * @param price
+     * @param maxPers
+     * @return
+     */
     public String prodAdd(String name, Category category, float price, int maxPers){
         String message;
         int id;
@@ -66,7 +91,15 @@ public class ProductService {
         return message;
     }
 
-    //command for CustomProduct
+    /**Command for CustomProduct
+     *
+     * @param id
+     * @param name
+     * @param category
+     * @param price
+     * @param maxPers
+     * @return
+     */
     public String prodAdd(int id, String name, Category category, float price, int maxPers){
         String message = null;
         if (id<0){
@@ -86,7 +119,14 @@ public class ProductService {
         return message;
     }
 
-    //commando for Food with random ID
+    /**Command for Food with random ID
+     *
+     * @param name
+     * @param price
+     * @param date
+     * @param maxPeople
+     * @return
+     */
     public String prodAddFood(String name, float price, LocalDate date, int maxPeople){
         String message;
         if (maxPeople > 100) {
@@ -102,6 +142,15 @@ public class ProductService {
         return message;
     }
 
+    /**Command for Food with explicit ID
+     *
+     * @param id
+     * @param name
+     * @param price
+     * @param date
+     * @param maxPeople
+     * @return
+     */
     public String prodAddFood(int id, String name, float price, LocalDate date, int maxPeople){
         String message=null;
         if (id<0){
@@ -122,7 +171,14 @@ public class ProductService {
         return message;
     }
 
-    //command for Meeting with random ID
+    /**Command for Meeting with random ID
+     *
+     * @param name
+     * @param price
+     * @param date
+     * @param maxPeople
+     * @return
+     */
     public String prodAddMeeting(String name, float price, LocalDate date, int maxPeople){
         String message;
         if (maxPeople > 100) {
@@ -138,6 +194,15 @@ public class ProductService {
         return message;
     }
 
+    /**Command for Meeting with explicit ID
+     *
+     * @param id
+     * @param name
+     * @param price
+     * @param date
+     * @param maxPeople
+     * @return
+     */
     public String prodAddMeeting(int id, String name, float price, LocalDate date, int maxPeople){
         String message=null;
         if (id<0){
@@ -158,7 +223,13 @@ public class ProductService {
         return message;
     }
 
-
+    /**Command for updating a product
+     *
+     * @param id
+     * @param field
+     * @param value
+     * @return
+     */
     public String prodUpdate(int id, String field, String value){
         String result;
         if (id<0){
@@ -203,7 +274,10 @@ public class ProductService {
         }
         return result;
     }
-
+    /**Command for listing all products
+     *
+     * @return
+     */
     public String prodList(){
         StringBuffer sb = new StringBuffer();
         sb.append("Catalog:\n");
@@ -221,7 +295,11 @@ public class ProductService {
         sb.append("\n");
         return sb.toString();
     }
-
+    /**Command for removing a product
+     *
+     * @param id
+     * @return
+     */
     public String prodRemove(int id) {
         String message;
         if (id < 0) {

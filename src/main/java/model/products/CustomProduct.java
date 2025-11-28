@@ -1,10 +1,21 @@
 package model.products;
-
+/**
+ * Class representing a customizable product.
+ * It extends the BaseProduct class and implements the Cloneable interface.
+ */
 public class CustomProduct extends BaseProduct implements Cloneable {
 
     private int maxPers;
     private String[] personalizableTexts;
-
+    /**
+     * Constructor for CustomProduct.
+     * @param id Product ID.
+     * @param name Product name.
+     * @param category Product category.
+     * @param price Product price.
+     * @param maxPers Maximum number of personalizations.
+     * @param personalizableTexts Array of personalizable texts.
+     */
     public CustomProduct(int id, String name, Category category, float price, int maxPers, String[] personalizableTexts){
         super(id,name,category,price);
         this.maxPers = maxPers;
@@ -23,7 +34,10 @@ public class CustomProduct extends BaseProduct implements Cloneable {
     public void setCategory(Category category) {
         super.setCategory(category);
     }
-
+    /**
+     * Get personalizable texts.
+     * @return Array of personalizable texts.
+     */
     public void setPersonalizableTexts(String[] personalizableTexts){
         this.personalizableTexts = personalizableTexts;
         int numeroDePersActual = 0;
@@ -34,7 +48,13 @@ public class CustomProduct extends BaseProduct implements Cloneable {
         }
         this.setPrice(getPrice() + (getPrice()*numeroDePersActual/10));
     }
-
+    /**
+     * String representation of the CustomProduct.
+     * format: {class:CustomProduct, id:ID, name:'NAME', category:CATEGORY, price:PRICE, maxPersonal: MAXPERSONAL, personalizationList:[TEXT1, TEXT2, ...]}
+     * or if no personalizations:
+     * format: {class:CustomProduct, id:ID, name:'NAME', category:CATEGORY, price:PRICE, maxPersonal: MAXPERSONAL}
+     * @return String representation.
+     */
     @Override
     public String toString() {
         String name = super.getName();

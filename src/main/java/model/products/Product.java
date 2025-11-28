@@ -1,5 +1,8 @@
 package model.products;
-
+/**
+ * Abstract class representing a product.
+ * It is the base for all product types.
+ */
 public abstract class Product implements IProduct{
 
     private int id;

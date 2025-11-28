@@ -1,5 +1,7 @@
 package model.products;
-
+/**
+ * Interface representing a product.
+ */
 public interface IProduct {
 
     int getId();

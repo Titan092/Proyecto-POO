@@ -1,5 +1,7 @@
 package model.products;
-
+/**
+ * Enum representing product categories with associated discounts.
+ */
 public enum Category {
     MERCH(0f),
     STATIONERY(0.05f),

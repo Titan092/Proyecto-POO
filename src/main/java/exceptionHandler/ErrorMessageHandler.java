@@ -1,5 +1,8 @@
 package exceptionHandler;
-
+/**
+ * ErrorMessageHandler is a utility class that provides standardized error messages
+ * for various validation and processing errors within the application.
+ */
 public class ErrorMessageHandler {
 
     //Error messages
