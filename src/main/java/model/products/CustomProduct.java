@@ -96,7 +96,7 @@ public class CustomProduct extends BaseProduct {
                 }
 
             }
-            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+this.getPrice()+", maxPersonal: "+maxPers+
+            return "{class:ProductPersonalized, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+this.getPrice()+", maxPersonal: "+maxPers+
                     ", personalizationList:["+persTexts+"]}";
         }
     }

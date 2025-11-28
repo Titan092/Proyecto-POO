@@ -158,7 +158,7 @@ public class TicketService {
                     Ticket ticket = cash.getTicket(ticketID);
                     ticket.ticketRemove(prodID);
                     StringBuffer sb = new StringBuffer();
-                    sb.append("Ticket: "+ticketID+"\n");
+                    sb.append("Ticket : "+ticketID+"\n");
                     sb.append(ticket.printTicket());
                     sb.append("ticket remove: ok\n");
                     return sb.toString();
@@ -180,14 +180,17 @@ public class TicketService {
                 if (cashier.getTickets().containsKey(ticketID)) {
                     Ticket ticket = cashier.getTicket(ticketID);
                     StringBuffer sb = new StringBuffer();
-                    sb.append("Ticket: " + ticketID + "\n");
-                    sb.append(ticket.printTicket());
-                    sb.append("ticket print: ok\n");
+                    String newID = null;
                     if (ticket.getStatus() != TicketStatus.CLOSE) {
                         String closingTimestamp = LocalDateTime.now().format(closing);
                         String id = ticket.getId();
-                        String newID = id + closingTimestamp;
+                        newID = id + closingTimestamp;
                         ticket.setId(newID);
+                    }
+                    sb.append("Ticket : " + newID + "\n");
+                    sb.append(ticket.printTicket());
+                    sb.append("ticket print: ok\n");
+                    if (ticket.getStatus() != TicketStatus.CLOSE) {
                         ticket.setStatus(TicketStatus.CLOSE);
                         return sb.toString();
                     }

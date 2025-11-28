@@ -50,9 +50,13 @@ public class Ticket {
                 if (products.containsKey(productID)) {
                     IProduct product = products.get(productID);
                     if (product instanceof EventProduct eventProduct) {
-                        eventProduct.setActualPeople(amount);
-                        ticketItems.add(eventProduct);
-                        numProducts++;
+                        if (ticketItems.contains(eventProduct)) {
+                            eventProduct.setActualPeople(eventProduct.getActualPeople() + amount);
+                        } else {
+                            eventProduct.setActualPeople(amount);
+                            ticketItems.add(eventProduct);
+                            numProducts++;
+                        }
                     } else {
                         for (int i = 0; i < amount; i++) {
                             ticketItems.add(product);
