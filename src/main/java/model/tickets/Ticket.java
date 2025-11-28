@@ -237,11 +237,13 @@ public class Ticket {
                                 nameAndStringFormat.remove(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
                                 ((Food) item).setActualPeople(actualPeople);
                                 nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                                actualPeople = 0; //reset variable
                             } else if (item instanceof Meeting) {
                                 actualPeople++;
                                 nameAndStringFormat.remove(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
                                 ((Meeting) item).setActualPeople(actualPeople);
                                 nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                                actualPeople = 0; //reset variable
                             }
                         }else{
                             if (item instanceof Food){
@@ -251,7 +253,6 @@ public class Ticket {
                             }
                         }
                         if (item instanceof Food){
-
                             ((Food) item).setActualPeople(((Food) item).getActualPeople()+1); //increments 1
                         } else if (item instanceof Meeting) {
                             ((Meeting) item).setActualPeople(((Meeting) item).getActualPeople()+1); //increments 1
