@@ -8,7 +8,7 @@ import java.util.*;
 public class Ticket {
     private String id;
     private static final int MAX_AMOUNT = 100;
-    private ArrayList<IProduct> ticketItems = new ArrayList<>();
+    private final ArrayList<IProduct> ticketItems = new ArrayList<>();
     private int numProducts = 0;
     private TicketStatus status = TicketStatus.EMPTY;
 
@@ -29,6 +29,10 @@ public class Ticket {
 
     public TicketStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
     }
 
     /**
@@ -125,6 +129,12 @@ public class Ticket {
         ticketItems.sort(Comparator.comparing(IProduct::getName));
     }
 
+    /**
+     * Prints a ticket and calculates the discount of all the products given.
+     * <p>
+     * If there are 2 or more products of the same category, this function applies a discount only for said category.
+     * @return Ticket String.
+     */
     public String printTicket() {
         StringBuilder string = new StringBuilder();
         if (status != TicketStatus.EMPTY) {
@@ -191,146 +201,5 @@ public class Ticket {
             string.append(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
         }
         return string.toString();
-    }
-
-    /**
-     * Prints a ticket and calculates the discount of all the products given.
-     * <p>
-     * If there are 2 or more products of the same category, this function applies a discount only for said category.
-     * @return Ticket String.
-     */
-//    public String printTicket() {
-//        StringBuffer sb = new StringBuffer();
-//        ArrayList<String> nameAndStringFormat = new ArrayList<>();
-//        if (status != TicketStatus.EMPTY) {
-//            int counterStationery = 0;
-//            int counterClothes = 0;
-//            int counterBook = 0;
-//            int counterElectronics = 0;
-//            for (int i = 0; i < numProducts; i++) {
-//                if (ticketItems[i] instanceof ICategorizable product) {
-//                    switch (product.getCategory()) {
-//                        case BOOK:
-//                            counterBook++;
-//                            break;
-//                        case CLOTHES:
-//                            counterClothes++;
-//                            break;
-//                        case STATIONERY:
-//                            counterStationery++;
-//                            break;
-//                        case ELECTRONICS:
-//                            counterElectronics++;
-//                            break;
-//                    }
-//                }
-//            }
-//            float totalPrice = 0f;
-//            float totalDiscount = 0f;
-//            int actualPeople = 0;
-//            for (int i = 0; i < numProducts; i++) {
-//                IProduct item = ticketItems[i];
-//                totalPrice += item.getPrice();
-//                if (item instanceof ICategorizable product) {
-//                    Category category = product.getCategory();
-//                    boolean applyDiscount = false;
-//                    switch (category) {
-//                        case BOOK:
-//                            if (counterBook >= 2) applyDiscount = true;
-//                            break;
-//                        case CLOTHES:
-//                            if (counterClothes >= 2) applyDiscount = true;
-//                            break;
-//                        case STATIONERY:
-//                            if (counterStationery >= 2) applyDiscount = true;
-//                            break;
-//                        case ELECTRONICS:
-//                            if (counterElectronics >= 2) applyDiscount = true;
-//                            break;
-//                    }
-//                    if (applyDiscount) {
-//                        float itemDiscount = item.getPrice() * category.getDiscount();
-//                        totalDiscount += itemDiscount;
-//                        //we use the toString method to force the name to replace the " " to ' '
-//                        String name = item.toString();
-//                        //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
-//                        String [] cleanName = name.split("\'");
-//                        nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString() + String.format(" **discount -%.2f \n", itemDiscount));
-//                    } else {
-//                        //we use the toString method to force the name to replace the " " to ' '
-//                        String name = item.toString();
-//                        //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
-//                        String [] cleanName = name.split("\'");
-//                        nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                    }
-//                } else {
-//                    //we use the toString method to force the name to replace the " " to ' '
-//                    String name = item.toString();
-//                    //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
-//                    String [] cleanName = name.split("\'");
-//                    if (!nameAndStringFormat.contains(cleanName[1] + "\t" + "\t" + item.toString()+"\n")){
-//                        if (item instanceof Food){
-//                            actualPeople++;
-//                        } else if (item instanceof Meeting) {
-//                            actualPeople++;
-//                        }
-//                        if (item != ticketItems[i+1]){ //the next one is not the same product
-//                            if (item instanceof Food){
-//                                ((Food) item).setActualPeople(actualPeople); //first time
-//                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                            } else if (item instanceof Meeting) {
-//                                ((Meeting) item).setActualPeople(actualPeople); //first time
-//                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                            }
-//                        }
-//                    }else{
-//                        if (item != ticketItems[i+1]){
-//                            if (item instanceof Food){
-//                                actualPeople++;
-//                                nameAndStringFormat.remove(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                                ((Food) item).setActualPeople(actualPeople);
-//                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                                actualPeople = 0; //reset variable
-//                            } else if (item instanceof Meeting) {
-//                                actualPeople++;
-//                                nameAndStringFormat.remove(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                                ((Meeting) item).setActualPeople(actualPeople);
-//                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
-//                                actualPeople = 0; //reset variable
-//                            }
-//                        }else{
-//                            if (item instanceof Food){
-//                                actualPeople++;
-//                            } else if (item instanceof Meeting) {
-//                                actualPeople++;
-//                            }
-//                        }
-//                        if (item instanceof Food){
-//                            ((Food) item).setActualPeople(((Food) item).getActualPeople()+1); //increments 1
-//                        } else if (item instanceof Meeting) {
-//                            ((Meeting) item).setActualPeople(((Meeting) item).getActualPeople()+1); //increments 1
-//                        }
-//                    }
-//                }
-//            }
-//            Collections.sort(nameAndStringFormat);
-//            for (String line : nameAndStringFormat) {
-//                int tabIndex = line.indexOf('\t');
-//                sb.append(line.substring(tabIndex + 1));
-//            }
-//
-//
-//            float finalPrice = totalPrice - totalDiscount;
-//            sb.append("\t" + String.format("Total price: %.2f \n", totalPrice));
-//            sb.append("\t" + String.format("Total discount: %.2f \n", totalDiscount));
-//            sb.append("\t" + String.format("Final Price: %.2f \n", finalPrice));
-//        } else {
-//            sb.append(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
-//        }
-//        return sb.toString();
-//    }
-
-    public void setStatus(TicketStatus status) {
-        this.status = status;
     }
 }
