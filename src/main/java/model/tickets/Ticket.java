@@ -61,7 +61,7 @@ public class Ticket {
                     }
                     ticketItems.sort(Comparator.comparing(IProduct::getName));
                     if (status == TicketStatus.EMPTY) {
-                        status = TicketStatus.ACTIVE;
+                        status = TicketStatus.OPEN;
                     }
                     message = "print";
                 } else {
@@ -91,7 +91,7 @@ public class Ticket {
                     }
                     ticketItems.sort(Comparator.comparing(IProduct::getName));
                     if (status == TicketStatus.EMPTY) {
-                        status = TicketStatus.ACTIVE;
+                        status = TicketStatus.OPEN;
                     }
                     message = "print";
                 } else {
@@ -151,7 +151,7 @@ public class Ticket {
             float totalDiscount = 0f;
             for (IProduct product : ticketItems) {
                 if (product instanceof EventProduct eventProduct && eventProduct.getActualPeople() > 0) {
-                    totalPrice = eventProduct.getPrice() * eventProduct.getActualPeople();
+                    totalPrice += eventProduct.getPrice() * eventProduct.getActualPeople();
                 } else {
                     totalPrice += product.getPrice();
                 }
@@ -175,7 +175,7 @@ public class Ticket {
                     if (applyDiscount) {
                         float productDiscount = categorizableProduct.getPrice() * categorizableProduct.getCategory().getDiscount();
                         totalDiscount += productDiscount;
-                        string.append(String.format(" **discount -%.1f %n", productDiscount));
+                        string.append(String.format(" **discount -%.1f%n", productDiscount));
                     } else {
                         string.append("\n");
                     }
@@ -184,9 +184,9 @@ public class Ticket {
                 }
             }
             float finalPrice = totalPrice - totalDiscount;
-            string.append("  ").append(String.format("Total price: %.1f %n", totalPrice));
-            string.append("  ").append(String.format("Total discount: %.1f %n", totalDiscount));
-            string.append("  ").append(String.format("Final Price: %.1f %n", finalPrice));
+            string.append("  ").append(String.format("Total price: %.1f%n", totalPrice));
+            string.append("  ").append(String.format("Total discount: %.1f%n", totalDiscount));
+            string.append("  ").append(String.format("Final Price: %.1f%n", finalPrice));
         } else {
             string.append(ErrorMessageHandler.getPRINT_EMPTY_TICKET());
         }

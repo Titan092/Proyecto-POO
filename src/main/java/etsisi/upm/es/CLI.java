@@ -127,7 +127,7 @@ public class CLI implements IController {
      */
     protected void echo(String message){
         String cleanedMessage=message.replaceFirst("echo ","");
-        CLI.printMessage(cleanedMessage+"\n");
+        CLI.printMessage(cleanedMessage+" \n");
     }
 
 }

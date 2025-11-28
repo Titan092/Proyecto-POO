@@ -242,14 +242,14 @@ public class ProductService {
                 switch (field.toUpperCase()){
                     case "NAME":
                         product.setName(value);
-                        result = product.toString() + "\nprod update: ok\n";
+                        result = product.toString() + "\nprod update: ok\n\n";
                         break;
                     case "CATEGORY":
                         try{
                             Category categoryNew = Category.valueOf(value.toUpperCase());
                             if (product instanceof ICategorizable){
                                 ((ICategorizable) product).setCategory(categoryNew);
-                                result = product.toString() + "\nprod update: ok\n";
+                                result = product.toString() + "\nprod update: ok\n\n";
                             }else{
                                 result=("This type of product do not have category");
                             }
@@ -261,7 +261,7 @@ public class ProductService {
                         try{
                             float priceValue = Float.parseFloat(value);
                             product.setPrice(priceValue);
-                            result=product.toString() + "\nprod update: ok\n";
+                            result=product.toString() + "\nprod update: ok\n\n";
                         }catch (NumberFormatException e) {
                             result=(ErrorMessageHandler.getVALIDNUMBER());
                         }
@@ -289,7 +289,7 @@ public class ProductService {
         Collections.sort(productsOrderedByID);
         for (int i=0; i<productsOrderedByID.size();i++){
             String [] productsOrderedByIDSeparated = productsOrderedByID.get(i).split("\t");
-            sb.append("\t"+productsOrderedByIDSeparated[1]);
+            sb.append("  "+productsOrderedByIDSeparated[1]);
         }
         sb.append("prod list: ok");
         sb.append("\n");

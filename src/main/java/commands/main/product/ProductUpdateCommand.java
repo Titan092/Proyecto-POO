@@ -24,6 +24,9 @@ public class ProductUpdateCommand extends Command {
                 int id = Integer.parseInt(m.group(1));
                 String field = m.group(2);
                 String value = m.group(3);
+                if (value.startsWith("\"") && value.endsWith("\"")) {
+                    value = value.substring(1, value.length() - 1);
+                }
                 this.setMessage(productService.prodUpdate(id, field, value));
                 result=true;
             }

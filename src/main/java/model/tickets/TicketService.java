@@ -29,10 +29,10 @@ public class TicketService {
             casher.newTicket(ticketID, ticket);
             Client client = (Client) casherLists.get(clientID);
             client.newTicket(ticketID, ticket);
-            sb.append("Ticket: "+ticketID+"\n");
-            sb.append("\t"+"Total price: 0.0 \n");
-            sb.append("\t"+"Total discount: 0.0\n");
-            sb.append("\t"+"Final Price: 0.0\n");
+            sb.append("Ticket : "+ticketID+"\n");
+            sb.append("  "+"Total price: 0.0\n");
+            sb.append("  "+"Total discount: 0.0\n");
+            sb.append("  "+"Final Price: 0.0\n");
             sb.append("ticket new: ok\n");
         }
         return sb.toString();
@@ -51,10 +51,10 @@ public class TicketService {
             casher.newTicket(ticketID, ticket);
             Client client = (Client) casherLists.get(clientID);
             client.newTicket(ticketID, ticket);
-            sb.append("Ticket: " + ticketID + "\n");
-            sb.append("\t" + "Total price: 0.0 \n");
-            sb.append("\t" + "Total discount: 0.0\n");
-            sb.append("\t" + "Final Price: 0.0\n");
+            sb.append("Ticket : " + ticketID + "\n");
+            sb.append("  " + "Total price: 0.0\n");
+            sb.append("  " + "Total discount: 0.0\n");
+            sb.append("  " + "Final Price: 0.0\n");
             sb.append("ticket new: ok\n");
         }
         return sb.toString();
@@ -72,7 +72,7 @@ public class TicketService {
                     String printOrNot = cashier.addProductToTicket(ticketID, productID, amount, productService);
                     if (Objects.equals(printOrNot, "print")) {
                         StringBuffer sb = new StringBuffer();
-                        sb.append("Ticket: " + ticketID + "\n");
+                        sb.append("Ticket : " + ticketID + "\n");
                         sb.append(ticket.printTicket());
                         sb.append("ticket add: ok\n");
                         return sb.toString();
@@ -104,7 +104,7 @@ public class TicketService {
                         String printOrNot = cashier.addProductToTicket(ticketID, productID, amount, personalizableTexts, productService);
                         if (Objects.equals(printOrNot, "print")) {
                             StringBuffer sb = new StringBuffer();
-                            sb.append("Ticket: " + ticketID + "\n");
+                            sb.append("Ticket : " + ticketID + "\n");
                             sb.append(ticket.printTicket());
                             sb.append("ticket add: ok\n");
                             return sb.toString();
@@ -183,12 +183,12 @@ public class TicketService {
                     sb.append("Ticket: " + ticketID + "\n");
                     sb.append(ticket.printTicket());
                     sb.append("ticket print: ok\n");
-                    if (ticket.getStatus() != TicketStatus.CLOSED) {
+                    if (ticket.getStatus() != TicketStatus.CLOSE) {
                         String closingTimestamp = LocalDateTime.now().format(closing);
                         String id = ticket.getId();
                         String newID = id + closingTimestamp;
                         ticket.setId(newID);
-                        ticket.setStatus(TicketStatus.CLOSED);
+                        ticket.setStatus(TicketStatus.CLOSE);
                         return sb.toString();
                     }
                 } else {

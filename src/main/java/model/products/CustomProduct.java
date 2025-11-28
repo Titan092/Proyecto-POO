@@ -58,6 +58,18 @@ public class CustomProduct extends BaseProduct {
         }
         this.setPrice(getPrice() + (getPrice()*numeroDePersActual/10));
     }
+
+    @Override
+    public float getPrice() {
+        int textos = 0;
+        for (String personalizableText : personalizableTexts) {
+            if (personalizableText != null) {
+                textos++;
+            }
+        }
+        return super.getPrice() + (super.getPrice()*textos/10);
+    }
+
     /**
      * String representation of the CustomProduct.
      * format: {class:CustomProduct, id:ID, name:'NAME', category:CATEGORY, price:PRICE, maxPersonal: MAXPERSONAL, personalizationList:[TEXT1, TEXT2, ...]}
@@ -84,7 +96,7 @@ public class CustomProduct extends BaseProduct {
                 }
 
             }
-            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+
+            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'"+name+"'"+", category:"+super.getCategory()+", price:"+this.getPrice()+", maxPersonal: "+maxPers+
                     ", personalizationList:["+persTexts+"]}";
         }
     }

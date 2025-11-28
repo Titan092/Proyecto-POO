@@ -78,7 +78,7 @@ public abstract class User implements IUser {
     public String addProductToTicket(String ticketID, int productID, int amount, ProductService productService) {
         String message;
         Ticket existingTicket = tickets.get(ticketID);
-        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSED) {
+        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSE) {
             message = ErrorMessageHandler.getUSE_CLOSED_TICKET();
         } else if (existingTicket != null) {
             message = existingTicket.addProductToTicket(productID, amount, productService);
@@ -101,7 +101,7 @@ public abstract class User implements IUser {
     public String addProductToTicket(String ticketID, int productID, int amount, String[] personalizableTexts, ProductService productService) {
         String message;
         Ticket existingTicket = tickets.get(ticketID);
-        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSED) {
+        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSE) {
             message = ErrorMessageHandler.getUSE_CLOSED_TICKET();
         } else if (existingTicket != null) {
             message = existingTicket.addProductToTicket(productID, amount, personalizableTexts, productService);

@@ -91,7 +91,7 @@ public class UserService {
             //separate the names and dnis
             String [] clientNamesAndDniSeparated = clientNamesAndDni.get(i).split(" ");
             Client client = (Client) users.get(clientNamesAndDniSeparated[1]); //field [1] its the id used to get the client
-            sb.append("\t"+client.toString());
+            sb.append("  "+client.toString());
         }
         sb.append("client list: ok\n");
         return sb.toString();
@@ -109,9 +109,10 @@ public class UserService {
             int numRandom = ThreadLocalRandom.current().nextInt(1000000, 9999999+1);
             id = "UW" + numRandom;
         }while(users.containsKey(id));
-        users.put(id, new Cash(id,name,email));
+        Cash cash = new Cash(id, name, email);
+        users.put(id, cash);
         numCash++;
-        message = ((Cash) users.get(id)).toString() + "cash add: ok\n";
+        message = (cash + "cash add: ok\n");
         return message;
     }
 
@@ -127,8 +128,10 @@ public class UserService {
             message=ErrorMessageHandler.getWRONGCASHID();
         }else{
             if (!users.containsKey(cashId)){
-                users.put(cashId, new Cash(cashId, name, email));
-                message = ((Cash) users.get(cashId)).toString() + "cash add: ok\n";
+                Cash cash = new Cash(cashId, name, email);
+                users.put(cashId, cash);
+                numCash++;
+                message = (cash + "cash add: ok\n");
             }else{
                 message=ErrorMessageHandler.getEXISTINGIDCASH();
             }
@@ -149,7 +152,7 @@ public class UserService {
                 Cash cash = (Cash) users.get(cashId);
                 cash.deleteTickets(cashId, users);
                 users.remove(cashId);
-                message = "cash remove ok\n";
+                message = "cash remove: ok\n";
             }else{
                 message=ErrorMessageHandler.getCASHIDNOTEXIST();
             }
@@ -180,7 +183,7 @@ public class UserService {
             //separate the names and dnis
             String [] cashNameAndIdSeparated = cashNameAndId.get(i).split(" ");
             Cash cash = (Cash) users.get(cashNameAndIdSeparated[1]); //field [1] its the id used to get the client
-            sb.append("\t"+cash.toString());
+            sb.append("  "+cash.toString());
         }
         sb.append("cash list: ok\n");
         return sb.toString();
@@ -195,7 +198,7 @@ public class UserService {
     public String cashTickets(String cashId){
         StringBuffer sb = new StringBuffer();
         if (cashId.charAt(0) == 'U' && cashId.length() == 9){
-            sb.append("Tickets:\n");
+            sb.append("Tickets: \n");
             Cash cash = (Cash) users.get(cashId);
             HashMap<String, Ticket> tickets = cash.getTickets();
             ArrayList<String> ticketIDs = new ArrayList<>();
@@ -209,7 +212,7 @@ public class UserService {
 
             for (String ticketID : ticketIDs){
                 String[]  ticketIDSeparated = ticketID.split(" ");
-                sb.append("\t"+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]+"\n");
+                sb.append("  "+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]+"\n");
             }
             sb.append("cash tickets: ok\n");
         }
