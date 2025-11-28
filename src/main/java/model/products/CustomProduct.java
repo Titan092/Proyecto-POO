@@ -85,7 +85,7 @@ public class CustomProduct extends BaseProduct {
             name = name.substring(1, name.length() - 1);
         }
         if (personalizableTexts == null || personalizableTexts[0] == null) {
-            return "{class:CustomProduct, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+"}";
+            return "{class:ProductPersonalized, id:"+super.getId()+", name:"+ "'" +name+"'"+", category:"+super.getCategory()+", price:"+super.getPrice()+", maxPersonal: "+maxPers+"}";
         }else{
             StringBuilder persTexts = new StringBuilder();
             for (int i=0; i<personalizableTexts.length;i++) {
