@@ -174,6 +174,7 @@ public class Ticket {
             }
             float totalPrice = 0f;
             float totalDiscount = 0f;
+            int actualPeople = 0;
             for (int i = 0; i < numProducts; i++) {
                 IProduct item = ticketItems[i];
                 totalPrice += item.getPrice();
@@ -215,8 +216,46 @@ public class Ticket {
                     //format: --- 'NAME' --- -> so the clean name is the field 1 splitting by '
                     String [] cleanName = name.split("\'");
                     if (!nameAndStringFormat.contains(cleanName[1] + "\t" + "\t" + item.toString()+"\n")){
-                        nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                        if (item instanceof Food){
+                            actualPeople++;
+                        } else if (item instanceof Meeting) {
+                            actualPeople++;
+                        }
+                        if (item != ticketItems[i+1]){ //the next one is not the same product
+                            if (item instanceof Food){
+                                ((Food) item).setActualPeople(actualPeople); //first time
+                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                            } else if (item instanceof Meeting) {
+                                ((Meeting) item).setActualPeople(actualPeople); //first time
+                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                            }
+                        }
+                    }else{
+                        if (item != ticketItems[i+1]){
+                            if (item instanceof Food){
+                                actualPeople++;
+                                nameAndStringFormat.remove(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                                ((Food) item).setActualPeople(actualPeople);
+                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                            } else if (item instanceof Meeting) {
+                                actualPeople++;
+                                nameAndStringFormat.remove(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                                ((Meeting) item).setActualPeople(actualPeople);
+                                nameAndStringFormat.add(cleanName[1] + "\t" + "\t" + item.toString()+"\n");
+                            }
+                        }else{
+                            if (item instanceof Food){
+                                actualPeople++;
+                            } else if (item instanceof Meeting) {
+                                actualPeople++;
+                            }
+                        }
+                        if (item instanceof Food){
 
+                            ((Food) item).setActualPeople(((Food) item).getActualPeople()+1); //increments 1
+                        } else if (item instanceof Meeting) {
+                            ((Meeting) item).setActualPeople(((Meeting) item).getActualPeople()+1); //increments 1
+                        }
                     }
                 }
             }

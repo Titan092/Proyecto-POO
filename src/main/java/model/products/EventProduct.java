@@ -6,11 +6,13 @@ public abstract class EventProduct extends Product {
 
     private LocalDate date;
     private int maxPeople;
+    private int actualPeople;
 
     public EventProduct(int id, String name, float price, LocalDate date, int maxPeople){
         super(id,name,price);
         this.date = date;
         this.maxPeople = maxPeople;
+        this.actualPeople = 0;
     }
 
     LocalDate getDate(){
@@ -29,13 +31,27 @@ public abstract class EventProduct extends Product {
         this.maxPeople = maxPeople;
     }
 
+    @Override
     public String toString() {
         String name = super.getName();
         //if starts and end by " then we delete it using the subString
         if (name.startsWith("\"") && name.endsWith("\"")) {
             name = name.substring(1, name.length() - 1);
         }
-        return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + super.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + "}";
+        if (actualPeople == 0){
+            return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + super.getPrice() + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + "}";
+        }else{
+            float totalPrice = actualPeople*super.getPrice();
+            return "{class:" + this.getClass().getSimpleName() + ", id:" + super.getId() + ", name:" + "'" + name + "'" + ", price:" + totalPrice + ", date of Event:" + this.date + ", max people allowed:" + this.maxPeople + ", actual people in event:" + actualPeople + "}";
+        }
+
     }
 
+    public void setActualPeople(int actualPeople){
+        this.actualPeople = actualPeople;
+    }
+
+    public int getActualPeople() {
+        return actualPeople;
+    }
 }
