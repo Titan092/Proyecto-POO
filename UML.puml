@@ -234,7 +234,7 @@ package commands {
                 }
             }
         }
-        class HelpCommand{
+        class HelpCommand {
             --Public Methods--
             +HelpCommand()
             +apply(args : String[]) : boolean
@@ -257,7 +257,7 @@ package commands {
 
 set separator none
 package etsisi.upm.es {
-    class CLI {
+    class CLI implements IController {
         --Private / Protected / Static Data--
         -PROMPT : String {final}
         -{static} s : Scanner
@@ -290,7 +290,7 @@ package etsisi.upm.es {
         #end() : String
     }
 
-    interface ICLI {
+    interface IController {
         +start(commandHandler: CommandHandler, args: String[]) : void
     }
 
@@ -329,7 +329,7 @@ package exceptionHandler{
 
 package model{
     package products{
-        class BaseProduct{
+        class BaseProduct extends Product implements ICategorizable{
             --Private Data--
             -category : Category
             --Constructor--
@@ -337,7 +337,7 @@ package model{
 
         }
 
-        class CustomProduct{
+        class CustomProduct extends BaseProduct{
             --Private Data--
             -maxPers : int
             --Constructor--
@@ -345,7 +345,7 @@ package model{
 
         }
 
-        class EventProduct{
+        class EventProduct extends Product{
             --Private Data--
             -date : LocalDate
             -maxPeople : int
@@ -354,19 +354,19 @@ package model{
 
         }
 
-        class Food{
+        class Food extends EventProduct{
             --Constructor--
             +Food(id : int, name : String, price : float, date : LocalDate, maxPeople : int)
 
         }
 
-        class Meeting{
+        class Meeting extends EventProduct{
             --Constructor--
             +Meeting(id : int, name : String, price : float, date : LocalDate, maxPeople : int)
 
         }
 
-        class Product{
+        class Product implements IProduct{
             --Private Data--
             -id : int
             -name : String
@@ -457,21 +457,21 @@ package model{
 
 
     package users{
-        class Cash{
+        class Cash extends User{
             --Constructor--
             +Cash(id : String, name : String, email : String)
             --Public Methods--
             +deleteTicket(cashID : String, user : HashMap<String, IUser>)
         }
 
-        class Client{
+        class Client extends User{
             --Private Data--
             -cashID : String
             --Constructor--
             +Client(id : String, name : String, email : String, cashID : String)
         }
 
-        class User{
+        class User implements IUser{
             --Private Data--
             -id : String
             -name : String
@@ -508,108 +508,61 @@ package model{
         }
     }
 }
-CLI ..|> ICLI
-Ticket ..> TicketStatus : uses
+' CommandHandler
+UserCommand --> CommandHandler : uses
+ProductCommand --> CommandHandler : uses
+TicketCommand --> CommandHandler : uses
+HelpCommand --> CommandHandler : uses
+UnknownCommand --> CommandHandler : uses
+ProductService --> CommandHandler : uses
+UserService --> CommandHandler : uses
+TicketService --> CommandHandler : uses
 
-' Additional relationships inferred from the source code (using simple class names for PlantUML compatibility)
-' Product commands -> ProductService
-ProductCommand ..> ProductService : uses
-ProductAddCommand ..> ProductService : uses
-ProductAddFoodCommand ..> ProductService : uses
-ProductAddMeetingCommand ..> ProductService : uses
-ProductListCommand ..> ProductService : uses
-ProductRemoveCommand ..> ProductService : uses
-ProductUpdateCommand ..> ProductService : uses
+' Product commands
+ProductAddCommand --> ProductCommand : uses
+ProductAddFoodCommand --> ProductCommand : uses
+ProductAddMeetingCommand --> ProductCommand : uses
+ProductListCommand --> ProductCommand : uses
+ProductRemoveCommand --> ProductCommand : uses
+ProductUpdateCommand --> ProductCommand : uses
 
-' Ticket commands -> services
-TicketCommand ..> TicketService : uses
-TicketCommand ..> ProductService : uses
-TicketAddCommand ..> TicketService : uses
-TicketAddCommand ..> ProductService : uses
-TicketListCommand ..> TicketService : uses
-TicketNewCommand ..> TicketService : uses
-TicketNewCommand ..> UserService : uses
-TicketPrintCommand ..> TicketService : uses
-TicketPrintCommand ..> UserService : uses
-TicketRemoveCommand ..> TicketService : uses
-TicketRemoveCommand ..> UserService : uses
+' Ticket commands
+TicketAddCommand --> TicketCommand : uses
+TicketListCommand --> TicketCommand : uses
+TicketNewCommand --> TicketCommand : uses
+TicketPrintCommand --> TicketCommand : uses
+TicketRemoveCommand --> TicketCommand : uses
 
-' User commands -> UserService
-UserCommand ..> UserService : uses
-CashCommand ..> UserService : uses
-CashAddCommand ..> UserService : uses
-CashListCommand ..> UserService : uses
-CashRemoveCommand ..> UserService : uses
-CashTicketsCommand ..> UserService : uses
-ClientCommand ..> UserService : uses
-ClientAddCommand ..> UserService : uses
-ClientListCommand ..> UserService : uses
-ClientRemoveCommand ..> UserService : uses
+' User commands
+CashCommand --> UserCommand  : uses
+CashAddCommand --> CashCommand : uses
+CashListCommand --> CashCommand : uses
+CashRemoveCommand --> CashCommand : uses
+CashTicketsCommand --> CashCommand : uses
+ClientCommand --> UserCommand  : uses
+ClientAddCommand --> ClientCommand : uses
+ClientListCommand --> ClientCommand : uses
+ClientRemoveCommand --> ClientCommand : uses
 
-' User relationships
-User <|-- Cash
-User <|-- Client
-User o-- Ticket : owns
-UserService o-- Cash : manages
-UserService o-- Client : manages
+' CLI
+CommandHandler --> CLI : uses
+CLI --> Shop : uses
 
-' Command classes extend abstract Command (inheritance)
-Command <|-- ProductCommand
-Command <|-- ProductAddCommand
-Command <|-- ProductAddFoodCommand
-Command <|-- ProductAddMeetingCommand
-Command <|-- ProductListCommand
-Command <|-- ProductRemoveCommand
-Command <|-- ProductUpdateCommand
+' Uses
+ProductService --> IProduct : uses
+TicketService --> Ticket : uses
+UserService --> IUser : uses
 
-Command <|-- TicketCommand
-Command <|-- TicketAddCommand
-Command <|-- TicketListCommand
-Command <|-- TicketNewCommand
-Command <|-- TicketPrintCommand
-Command <|-- TicketRemoveCommand
+' Notes
+note top of Command
+    All Command classes extend from this class
+end note
+note top of ErrorMessageHandler
+    Many classes use errors from this class
+end note
 
-Command <|-- UserCommand
-Command <|-- CashCommand
-Command <|-- CashAddCommand
-Command <|-- CashListCommand
-Command <|-- CashRemoveCommand
-Command <|-- CashTicketsCommand
-Command <|-- ClientCommand
-Command <|-- ClientAddCommand
-Command <|-- ClientListCommand
-Command <|-- ClientRemoveCommand
+' Cardinalidades
 
-Command <|-- HelpCommand
-Command <|-- UnknownCommand
-
-' Product / product-type hierarchy and interface implementations
-Product <|-- BaseProduct
-Product <|-- EventProduct
-BaseProduct <|-- CustomProduct
-EventProduct <|-- Food
-EventProduct <|-- Meeting
-
-' Interfaces implemented
-Product ..|> IProduct
-BaseProduct ..|> ICategorizable
-User ..|> IUser
-
-' ErrorMessageHandler usages: conectar las clases que llaman a ErrorMessageHandler.getXXX()
-ProductService ..> ErrorMessageHandler : uses
-Ticket ..> ErrorMessageHandler : uses
-User ..> ErrorMessageHandler : uses
-UserService ..> ErrorMessageHandler : uses
-TicketService ..> ErrorMessageHandler : uses
-
-' Category usage: BaseProduct tiene un atributo Category; ProductService usa Category en métodos
-BaseProduct ..> Category : uses
-ProductService ..> Category : uses
-
-' Top-level wiring
-CommandHandler ..> ProductService : creates
-CommandHandler ..> TicketService : creates
-CommandHandler ..> UserService : creates
-Shop ..> CLI : uses
+' Ordenacion
 
 @enduml
