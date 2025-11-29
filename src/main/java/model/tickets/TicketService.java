@@ -5,6 +5,7 @@ import model.products.IProduct;
 import model.products.ProductService;
 import model.users.*;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -131,18 +132,32 @@ public class TicketService {
         ArrayList<String> cashIDSorted = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()) {
             String key = entry.getKey();
-            if (!key.isEmpty() && Character.isAlphabetic(key.charAt(0))) {//if the first character is alphabetic (U from UW) is a chash
+            if (!key.isEmpty() && Character.isAlphabetic(key.charAt(0))) {//if the first character is alphabetic (U from UW) is a cash
                 cashIDSorted.add(entry.getValue().getId());
             }
         }
-        //Sort by cashID
-        Collections.sort(cashIDSorted);
-
+        Collections.sort(cashIDSorted); //Sort by cashID
         for (String cashID : cashIDSorted){
             Cash cash = (Cash) users.get(cashID);
             HashMap<String, Ticket> tickets = cash.getTickets();
-            for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
-                sb.append(entry.getValue().getId()+" - "+entry.getValue().getStatus()+"\n");
+            ArrayList<String> ticketIDSorted = new ArrayList<>(tickets.keySet());
+            Comparator<String> ticketIDComparator = new Comparator<String>() {
+                @Override
+                public int compare(String id1, String id2) {
+                    int index1 = id1.indexOf('-');
+                    int index2 = id2.indexOf('-');
+                    int length1 = (index1 == -1) ? id1.length() : index1; //Selection made based on format (id1.length() for manual ID, index1 for random ID)
+                    int length2 = (index2 == -1) ? id2.length() : index2;
+                    if (length1 != length2) {
+                        return Integer.compare(length1, length2); //When the IDs have different format we sort by length
+                    }
+                    return id1.compareTo(id2); //When the IDs have the same format we sort alphabetically
+                }
+            };
+            Collections.sort(ticketIDSorted, ticketIDComparator); //Sort by comparator logic
+            for (String ticketID: ticketIDSorted){
+                Ticket ticket = tickets.get(ticketID);
+                sb.append(ticket.getId() + " - " + ticket.getStatus()+"\n");
             }
         }
         sb.append("ticket list: ok\n");
