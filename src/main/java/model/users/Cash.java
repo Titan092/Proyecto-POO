@@ -11,6 +11,16 @@ public class Cash extends User {
         super(id,name,email);
     }
 
+    /**
+     * Removes any tickets from Clients that match the tickets currently held
+     * by this Cash register.
+     *
+     * <p>This method filters users based on non-alphabetic keys (typically numeric IDs)
+     * and ensures the user is a Client instance before modifying their ticket list.
+     *
+     * @param cashID The ID of the cash register (currently unused in logic but kept for interface consistency).
+     * @param users  The map of users to check against.
+     */
     public void deleteTickets(String cashID, Map<String, IUser> users){
         for (Map.Entry<String, IUser> entry : users.entrySet()){
             String key = entry.getKey();
