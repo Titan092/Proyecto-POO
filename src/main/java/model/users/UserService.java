@@ -35,18 +35,23 @@ public class UserService {
      */
     public String clientAdd(String name, String dni, String email, String cashId){//Creo que aqui habria que hacer algo para lo de que los cajeros puedan ser clientes pero con otro correo
         String message = null;
-        if ((dni.length()==9)){
-           if (!Character.isDigit(dni.charAt(8))){
-               users.put(dni,new Client(name,dni,email,cashId));
-               numClients++;
-               message = ((Client) users.get(dni)).toString() + "client add: ok\n";
-               //faltaria escribir en el cli --> client add: ok
-           }else{
-               message=ErrorMessageHandler.getWRONGDNIFORMAT();
-           }
+        if (users.containsKey(cashId)){
+            if ((dni.length()==9)){
+                if (!Character.isDigit(dni.charAt(8))){
+                    users.put(dni,new Client(name,dni,email,cashId));
+                    numClients++;
+                    message = ((Client) users.get(dni)).toString() + "client add: ok\n";
+                    //faltaria escribir en el cli --> client add: ok
+                }else{
+                    message=ErrorMessageHandler.getWRONGDNIFORMAT();
+                }
+            }else{
+                message=ErrorMessageHandler.getWRONGDNIFORMAT();
+            }
         }else{
-            message=ErrorMessageHandler.getWRONGDNIFORMAT();
+            return "The cash does not exist";
         }
+
         return message;
     }
 
