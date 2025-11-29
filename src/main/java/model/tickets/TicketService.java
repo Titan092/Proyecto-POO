@@ -174,7 +174,22 @@ public class TicketService {
         for (String cashID : cashIDSorted){
             Cash cash = (Cash) users.get(cashID);
             Map<String, Ticket> tickets = cash.getTickets();
-            for (Ticket ticket : tickets.values()) {
+            List<String> ticketIDSorted = new ArrayList<>(tickets.keySet());
+            ticketIDSorted.sort((id1, id2) -> {
+                int index1 = id1.indexOf('-');
+                int index2 = id2.indexOf('-');
+                //Selection made based on format (id1.length() for manual ID, index1 for random ID)
+                int length1 = (index1 == -1) ? id1.length() : index1;
+                int length2 = (index2 == -1) ? id2.length() : index2;
+                if (length1 != length2) {
+                    //When the IDs have different format we sort by length
+                    return Integer.compare(length1, length2);
+                }
+                //When the IDs have the same format we sort alphabetically
+                return id1.compareTo(id2);
+            });
+            for (String tid : ticketIDSorted) {
+                Ticket ticket = tickets.get(tid);
                 sb.append("  ")
                         .append(ticket.getId())
                         .append(" - ")
