@@ -19,6 +19,7 @@ public class Client extends User{
 
     @Override
     public String toString() {
-       return "Client{identifier='"+super.getId()+ "'"+", name='"+super.getName()+"', email='"+super.getEmail()+"', cash="+cashId+"}\n";
+        return "Client{identifier='%s', name='%s', email='%s', cash=%s}"
+                .formatted(super.getId(), super.getName(), super.getEmail(), cashId);
     }
 }
