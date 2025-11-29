@@ -568,4 +568,5 @@ Shop "1" ..> "1" CLI : creates
 ProductService "1" o-- "0..200" IProduct
 TicketService "1" ..> "0..*" Ticket : creates
 UserService "1" o-- "0..*" IUser
+
 @enduml
