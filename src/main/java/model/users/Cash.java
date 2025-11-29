@@ -12,12 +12,12 @@ public class Cash extends User {
         super(id,name,email);
     }
 
-    public void deleteTickets(String cashID, HashMap<String, IUser> users){
+    public void deleteTickets(String cashID, Map<String, IUser> users){
         for (Map.Entry<String, IUser> entry : users.entrySet()){
             String key = entry.getKey();
             if (!key.isEmpty() && !Character.isAlphabetic(key.charAt(0))) {
                 Client client = (Client) entry.getValue();
-                HashMap<String, Ticket> clientTickets = client.getTickets();
+                Map<String, Ticket> clientTickets = client.getTickets();
                 for (Map.Entry<String, Ticket> ticketEntry : clientTickets.entrySet()){
                     Ticket ticketClient = ticketEntry.getValue();
                     for (Map.Entry<String, Ticket> cashTicketEntry : tickets.entrySet()){

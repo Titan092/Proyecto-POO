@@ -206,7 +206,7 @@ public class UserService {
             sb.append("Tickets: \n");
             if (users.containsKey(cashId)){
                 Cash cash = (Cash) users.get(cashId);
-                HashMap<String, Ticket> tickets = cash.getTickets();
+                Map<String, Ticket> tickets = cash.getTickets();
                 ArrayList<String> ticketIDs = new ArrayList<>();
                 for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
                     String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
