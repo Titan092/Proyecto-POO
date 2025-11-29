@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConsoleTest {
+public class AuxConsoleTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -29,7 +29,7 @@ public class ConsoleTest {
     public void testOutputShop() {
         // 1. Ejecutamos el código que imprime algo
         try{
-            FileInputStream file=new FileInputStream("input2.txt");
+            FileInputStream file=new FileInputStream("inputExigenteAux.txt");
             System.setIn(file);
             String[] args = new String[0];
             CLI cli = new CLI();
@@ -44,7 +44,7 @@ public class ConsoleTest {
         // Nota: println añade un salto de línea al final, hay que tenerlo en cuenta
         String esperado = "";
         try{
-            esperado  = Files.readString(Path.of("Output.txt"));
+            esperado  = Files.readString(Path.of("outputExigenteAux.txt"));
         } catch (IOException e) {
             System.out.println("Error: "+e.getMessage());
         }
@@ -53,4 +53,3 @@ public class ConsoleTest {
         assertEquals(esperado, outContent.toString());
     }
 }
-

@@ -1,0 +1,248 @@
+Welcome to the ticket module App.
+Ticket module. Type 'help' to see commands.
+tUPM> help
+Commands:
+  client add "<nombre>" <DNI> <email> <cashId>
+  client remove <DNI>
+  client list
+  cash add [<id>] "<nombre>"<email>
+  cash remove <id>
+  cash list
+  cash tickets <id>
+  ticket new [<id>] <cashId> <userId>
+  ticket add <ticketId><cashId> <prodId> <amount> [--p<txt> --p<txt>] 
+  ticket remove <ticketId><cashId> <prodId> 
+  ticket print <ticketId> <cashId> 
+  ticket list
+  prod add <id> "<name>" <category> <price> [<maxPers>]
+  prod update <id> NAME|CATEGORY|PRICE <value>
+  prod addFood [<id>] "<name>" <price> <expiration:yyyy-MM-dd> <max_people>
+  prod addMeeting [<id>] "<name>" <price> <expiration:yyyy-MM-dd> <max_people>
+  prod list
+  prod remove <id>
+  help
+  echo “<text>” 
+  exit
+
+Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS
+Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.
+tUPM> echo "--- 1. PREPARACION INICIAL ---"
+"--- 1. PREPARACION INICIAL ---" 
+
+tUPM> echo "Creo cajero UW9999999 para pruebas"
+"Creo cajero UW9999999 para pruebas" 
+
+tUPM> cash add UW9999999 "Cajero Maestro" maestro@upm.es
+Cash{identifier='UW9999999', name='Cajero Maestro', email='maestro@upm.es'}
+cash add: ok
+
+tUPM> echo "Creo cajero UW8888888 para borrar después"
+"Creo cajero UW8888888 para borrar después" 
+
+tUPM> cash add UW8888888 "Cajero Borrable" borrame@upm.es
+Cash{identifier='UW8888888', name='Cajero Borrable', email='borrame@upm.es'}
+cash add: ok
+
+tUPM> echo "Intento crear cliente sin pasar un cajero valido (UW7777777 no existe)"
+"Intento crear cliente sin pasar un cajero valido (UW7777777 no existe)" 
+
+tUPM> client add "Cliente Fallo" 11111111A cliente1@upm.es UW7777777
+Error processing ->client add ->Cashier UW7777777 not found
+client add: error
+
+tUPM> echo "Creo 3 clientes con el Cajero Maestro"
+"Creo 3 clientes con el Cajero Maestro" 
+
+tUPM> client add "Cliente A" 11111111A clienteA@upm.es UW9999999
+Client{identifier='11111111A', name='Cliente A', email='clienteA@upm.es', cash=UW9999999}
+client add: ok
+
+tUPM> client add "Cliente B" 22222222B clienteB@upm.es UW9999999
+Client{identifier='22222222B', name='Cliente B', email='clienteB@upm.es', cash=UW9999999}
+client add: ok
+
+tUPM> client add "Cliente C" 33333333C clienteC@upm.es UW9999999
+Client{identifier='33333333C', name='Cliente C', email='clienteC@upm.es', cash=UW9999999}
+client add: ok
+
+tUPM> echo "--- 2. PRUEBAS DE PRODUCTOS ESPECIALES ---"
+"--- 2. PRUEBAS DE PRODUCTOS ESPECIALES ---" 
+
+tUPM> echo "Agrego un producto normal que sera personalizable, maxPers=2"
+"Agrego un producto normal que sera personalizable, maxPers=2" 
+
+tUPM> prod add 10 "Mochila UPM" MERCH 50 2
+{class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+prod add: ok
+
+tUPM> echo "Agrego un producto normal NO personalizable (sin maxPers)"
+"Agrego un producto normal NO personalizable (sin maxPers)" 
+
+tUPM> prod add 11 "Boligrafo" STATIONERY 2
+{class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0}
+prod add: ok
+
+tUPM> echo "Agrego Producto Reunión (ID 20) y Comida (ID 21)"
+"Agrego Producto Reunión (ID 20) y Comida (ID 21)" 
+
+tUPM> prod addMeeting 20 "Cena Gala" 60 2026-03-01 50
+{class:Meeting, id:20, name:'Cena Gala', price:60.0, date of Event:2026-03-01, max people allowed:50}
+prod addMeeting: ok
+
+tUPM> prod addFood 21 "Cafe y Tostada" 3 2026-03-05 10
+{class:Food, id:21, name:'Cafe y Tostada', price:3.0, date of Event:2026-03-05, max people allowed:10}
+prod addFood: ok
+
+tUPM> echo "--- 3. PRUEBAS DE TICKETS Y RESTRICCIONES ---"
+"--- 3. PRUEBAS DE TICKETS Y RESTRICCIONES ---" 
+
+tUPM> echo "Creo un ticket (ID 100) con Cajero Maestro y Cliente A"
+"Creo un ticket (ID 100) con Cajero Maestro y Cliente A" 
+
+tUPM> ticket new 100 UW9999999 11111111A
+Ticket : 100
+  Total price: 0.0
+  Total discount: 0.0
+  Final Price: 0.0
+ticket new: ok
+
+tUPM> echo "Añado 1 Boligrafo (11) y 2 Mochilas (10) (sin personalizar)"
+"Añado 1 Boligrafo (11) y 2 Mochilas (10) (sin personalizar)" 
+
+tUPM> ticket add 100 UW9999999 11 1
+Ticket : 100
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0}
+  Total price: 2.0
+  Total discount: 0.0
+  Final Price: 2.0
+ticket add: ok
+
+tUPM> ticket add 100 UW9999999 10 2
+Ticket : 100
+  {class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+  {class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0}
+  Total price: 102.0
+  Total discount: 0.0
+  Final Price: 102.0
+ticket add: ok
+
+tUPM> echo "Añado 3 Mochilas (10) PERSONALIZADAS (3 textos - maximo 2)"
+"Añado 3 Mochilas (10) PERSONALIZADAS (3 textos - maximo 2)" 
+
+tUPM> ticket add 100 UW9999999 10 3 --pLogo --pTextoLargo --pIniciales
+Error processing ->ticket add ->Exceeded maximum personalization texts (3 > 2)
+ticket add: error
+
+tUPM> echo "Añado Producto Reunion (20) para 10 personas"
+"Añado Producto Reunion (20) para 10 personas" 
+
+tUPM> ticket add 100 UW9999999 20 10
+Ticket : 100
+  {class:Meeting, id:20, name:'Cena Gala', price:600.0, date of Event:2026-03-01, max people allowed:50, actual people in event:10}
+  {class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+  {class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0}
+  Total price: 702.0
+  Total discount: 0.0
+  Final Price: 702.0
+ticket add: ok
+
+tUPM> echo "Intento añadir el mismo producto Reunion (20) otra vez (debe fallar)"
+"Intento añadir el mismo producto Reunion (20) otra vez (debe fallar)" 
+
+tUPM> ticket add 100 UW9999999 20 5
+Error processing ->ticket add ->Product 20 (Meeting/Food) already in ticket.
+ticket add: error
+
+tUPM> echo "Imprimo y cierro el ticket 100"
+"Imprimo y cierro el ticket 100" 
+
+tUPM> ticket print 100 UW9999999
+Ticket : 100-25-11-29-14:08 (Simulated Closing Date/Time)
+  {class:Meeting, id:20, name:'Cena Gala', price:600.0, date of Event:2026-03-01, max people allowed:50, actual people in event:10}
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0}
+  {class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+  {class:ProductPersonalized, id:10, name:'Mochila UPM', category:MERCH, price:50.0, maxPersonal:2}
+  Total price: 702.0
+  Total discount: 0.0
+  Final Price: 702.0
+ticket print: ok
+
+tUPM> echo "Intento añadir un producto al ticket 100 cerrado (debe fallar)"
+"Intento añadir un producto al ticket 100 cerrado (debe fallar)" 
+
+tUPM> ticket add 100 UW9999999 11 1
+Error processing ->ticket add ->Ticket 100 is CLOSE, cannot add products.
+ticket add: error
+
+tUPM> echo "Intento imprimir un ticket que no es mio (UW8888888 intenta imprimir 100)"
+"Intento imprimir un ticket que no es mio (UW8888888 intenta imprimir 100)" 
+
+tUPM> ticket print 100 UW8888888
+Error processing ->ticket print ->Operation not allowed. Cashier UW8888888 did not start ticket 100.
+ticket print: error
+
+tUPM> echo "--- 4. PRUEBAS DE CAJEROS/CLIENTES ---"
+"--- 4. PRUEBAS DE CAJEROS/CLIENTES ---" 
+
+tUPM> echo "Muestro los tickets del Cajero Maestro"
+"Muestro los tickets del Cajero Maestro" 
+
+tUPM> cash tickets UW9999999
+Tickets: 
+  100-25-11-29-14:08 (Simulated Closing Date/Time)->CLOSE
+cash tickets: ok
+
+tUPM> echo "Cajero Maestro elimina al Cliente C"
+"Cajero Maestro elimina al Cliente C" 
+
+tUPM> client remove 33333333C
+client remove: ok
+
+tUPM> echo "Creo un ticket (ID 101) con Cajero Borrable"
+"Creo un ticket (ID 101) con Cajero Borrable" 
+
+tUPM> ticket new 101 UW8888888 22222222B
+Ticket : 101
+  Total price: 0.0
+  Total discount: 0.0
+  Final Price: 0.0
+ticket new: ok
+
+tUPM> ticket add 101 UW8888888 11 5
+Ticket : 101
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0} **discount -0.1
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0} **discount -0.1
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0} **discount -0.1
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0} **discount -0.1
+  {class:Product, id:11, name:'Boligrafo', category:STATIONERY, price:2.0} **discount -0.1
+  Total price: 10.0
+  Total discount: 0.5
+  Final Price: 9.5
+ticket add: ok
+
+tUPM> echo "Elimino al Cajero Borrable. Sus tickets deben borrarse."
+"Elimino al Cajero Borrable. Sus tickets deben borrarse." 
+
+tUPM> cash remove UW8888888
+cash remove: ok
+
+tUPM> echo "Intento listar tickets de UW8888888 (debe fallar o estar vacio)"
+"Intento listar tickets de UW8888888 (debe fallar o estar vacio)" 
+
+tUPM> cash tickets UW8888888
+Error processing ->cash tickets ->Cashier UW8888888 not found
+cash tickets: error
+
+tUPM> echo "Muestro la lista final de todos los tickets (101 debe haber desaparecido)"
+"Muestro la lista final de todos los tickets (101 debe haber desaparecido)" 
+
+tUPM> ticket list
+Ticket List:
+  100-25-11-29-14:08 (Simulated Closing Date/Time) - CLOSE
+ticket list: ok
+
+tUPM> exit
+Closing application.
+Goodbye!

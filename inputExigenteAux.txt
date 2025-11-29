@@ -1,0 +1,78 @@
+help
+echo "--- 1. PREPARACION INICIAL ---"
+
+echo "Creo cajero UW9999999 para pruebas"
+cash add UW9999999 "Cajero Maestro" maestro@upm.es
+
+echo "Creo cajero UW8888888 para borrar después"
+cash add UW8888888 "Cajero Borrable" borrame@upm.es
+
+echo "Intento crear cliente sin pasar un cajero valido (UW7777777 no existe)"
+client add "Cliente Fallo" 11111111A cliente1@upm.es UW7777777
+
+echo "Creo 3 clientes con el Cajero Maestro"
+client add "Cliente A" 11111111A clienteA@upm.es UW9999999
+client add "Cliente B" 22222222B clienteB@upm.es UW9999999
+client add "Cliente C" 33333333C clienteC@upm.es UW9999999
+
+echo "--- 2. PRUEBAS DE PRODUCTOS ESPECIALES ---"
+
+echo "Agrego un producto normal que sera personalizable, maxPers=2"
+prod add 10 "Mochila UPM" MERCH 50 2
+
+echo "Agrego un producto normal NO personalizable (sin maxPers)"
+prod add 11 "Boligrafo" STATIONERY 2
+
+echo "Agrego Producto Reunión (ID 20) y Comida (ID 21)"
+prod addMeeting 20 "Cena Gala" 60 2026-03-01 50
+prod addFood 21 "Cafe y Tostada" 3 2026-03-05 10
+
+echo "--- 3. PRUEBAS DE TICKETS Y RESTRICCIONES ---"
+
+echo "Creo un ticket (ID 100) con Cajero Maestro y Cliente A"
+ticket new 100 UW9999999 11111111A
+
+echo "Añado 1 Boligrafo (11) y 2 Mochilas (10) (sin personalizar)"
+ticket add 100 UW9999999 11 1
+ticket add 100 UW9999999 10 2
+
+echo "Añado 3 Mochilas (10) PERSONALIZADAS (3 textos - maximo 2)"
+ticket add 100 UW9999999 10 3 --pLogo --pTextoLargo --pIniciales
+
+echo "Añado Producto Reunion (20) para 10 personas"
+ticket add 100 UW9999999 20 10
+
+echo "Intento añadir el mismo producto Reunion (20) otra vez (debe fallar)"
+ticket add 100 UW9999999 20 5
+
+echo "Imprimo y cierro el ticket 100"
+ticket print 100 UW9999999
+
+echo "Intento añadir un producto al ticket 100 cerrado (debe fallar)"
+ticket add 100 UW9999999 11 1
+
+echo "Intento imprimir un ticket que no es mio (UW8888888 intenta imprimir 100)"
+ticket print 100 UW8888888
+
+echo "--- 4. PRUEBAS DE CAJEROS/CLIENTES ---"
+
+echo "Muestro los tickets del Cajero Maestro"
+cash tickets UW9999999
+
+echo "Cajero Maestro elimina al Cliente C"
+client remove 33333333C
+
+echo "Creo un ticket (ID 101) con Cajero Borrable"
+ticket new 101 UW8888888 22222222B
+ticket add 101 UW8888888 11 5
+
+echo "Elimino al Cajero Borrable. Sus tickets deben borrarse."
+cash remove UW8888888
+
+echo "Intento listar tickets de UW8888888 (debe fallar o estar vacio)"
+cash tickets UW8888888
+
+echo "Muestro la lista final de todos los tickets (101 debe haber desaparecido)"
+ticket list
+
+exit
