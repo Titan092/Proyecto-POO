@@ -199,22 +199,27 @@ public class UserService {
         StringBuffer sb = new StringBuffer();
         if (cashId.charAt(0) == 'U' && cashId.length() == 9){
             sb.append("Tickets: \n");
-            Cash cash = (Cash) users.get(cashId);
-            HashMap<String, Ticket> tickets = cash.getTickets();
-            ArrayList<String> ticketIDs = new ArrayList<>();
-            for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
-                String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
-                ticketIDs.add(idTicketAndStatus);
+            if (users.containsKey(cashId)){
+                Cash cash = (Cash) users.get(cashId);
+                HashMap<String, Ticket> tickets = cash.getTickets();
+                ArrayList<String> ticketIDs = new ArrayList<>();
+                for (Map.Entry<String, Ticket> entry : tickets.entrySet()){
+                    String idTicketAndStatus = entry.getValue().getId() + " " + entry.getValue().getStatus();
+                    ticketIDs.add(idTicketAndStatus);
+                }
+
+                //Sort by ticket ID
+                Collections.sort(ticketIDs);
+
+                for (String ticketID : ticketIDs){
+                    String[]  ticketIDSeparated = ticketID.split(" ");
+                    sb.append("  "+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]+"\n");
+                }
+                sb.append("cash tickets: ok\n");
+            }else{
+                return "The cash does not exist";
             }
 
-            //Sort by ticket ID
-            Collections.sort(ticketIDs);
-
-            for (String ticketID : ticketIDs){
-                String[]  ticketIDSeparated = ticketID.split(" ");
-                sb.append("  "+ticketIDSeparated[0]+"->"+ticketIDSeparated[1]+"\n");
-            }
-            sb.append("cash tickets: ok\n");
         }
         return sb.toString();
     }
