@@ -260,16 +260,16 @@ package etsisi.upm.es {
     class CLI implements IController {
         --Private / Protected / Static Data--
         -PROMPT : String {final}
-        -{static} s : Scanner
+        - {static} s : Scanner
         --Constructor--
         +CLI()
         --Public / Static Methods--
         +start(commandHandler : CommandHandler, args : String[]) : void
-        +{static}printMessage(message : String) : void
-        +{static}printError(errorMessage : String) : void
-        +{static}readCommand() : String
-        +{static}printPrompt(prompt : String) : void
-        +{static}printIfIsFileInput(command : String) : void
+        + {static} printMessage(message : String) : void
+        + {static} printError(errorMessage : String) : void
+        + {static} readCommand() : String
+        + {static} printPrompt(prompt : String) : void
+        + {static} printIfIsFileInput(command : String) : void
         --Protected Methods--
         #echo(message : String) : void
         --Private Methods--
@@ -371,9 +371,8 @@ package model{
             -id : int
             -name : String
             -price : float
-            -maxPersons : int
             --Constructor--
-            +Product(id : int, name : String, category : Category, price : float, maxPersons : int)
+            +Product(id : int, name : String, price : float)
 
         }
 
@@ -386,8 +385,8 @@ package model{
             --Public Methods--
             +prodAdd(name : String, category : Category, price : float) : String
             +prodAdd(id : int, name : String, category : Category, price : float) : String
-            +prodAdd(name : String, category : Category, price : float, maxPers : price) : String
-            +prodAdd(id : int, name : String, category : Category, price : float, maxPers : price) : String
+            +prodAdd(name : String, category : Category, price : float, maxPers : int) : String
+            +prodAdd(id : int, name : String, category : Category, price : float, maxPers : int) : String
             +prodAddFood(name : String, price : float, date : LocalDate, maxPeople : int) : String
             +prodAddFood(id : int, name : String, price : float, date : LocalDate, maxPeople : int) : String
             +prodAddMeeting(name : String, price : float, date : LocalDate, maxPeople : int) : String
@@ -420,9 +419,9 @@ package model{
     package tickets{
         class Ticket{
             --Private / Static Data--
-            -{static} closing : DateTimeFormatter
+            - {static} closing : DateTimeFormatter
             -id : String
-            -{static} MAX_AMOUNT : int
+            - {static} MAX_AMOUNT : int
             -ticketItems : IProduct[]
             -numProducts : int
             -status : TicketStatus
@@ -437,7 +436,7 @@ package model{
 
         class TicketService{
             --Private / Static Data--
-            -{static}opening : DateTimeFormatter
+            - {static} opening : DateTimeFormatter
             --Public Methods--
             +ticketNew(cashID : String, clientID : String, userService : UserService) : String
             +ticketNew(ticketID : String, cashID : String, clientID : String, userService : UserService) : String
@@ -461,7 +460,7 @@ package model{
             --Constructor--
             +Cash(id : String, name : String, email : String)
             --Public Methods--
-            +deleteTicket(cashID : String, user : HashMap<String, IUser>)
+            +deleteTicket(cashID : String, user : HashMap<String, IUser>) : void
         }
 
         class Client extends User{

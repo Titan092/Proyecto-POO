@@ -6,6 +6,7 @@ import model.tickets.Ticket;
 import model.tickets.TicketStatus;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Abstract class representing a user.
@@ -24,7 +25,7 @@ public abstract class User implements IUser {
      * @param name User name.
      * @param email User email.
      */
-    public User(String id, String name, String email){
+    protected User(String id, String name, String email){
         this.id = id;
         this.name = name;
         this.email = email;
@@ -54,6 +55,18 @@ public abstract class User implements IUser {
         this.email = email;
     }
 
+    public Ticket getTicket(String ticketID) {
+        return tickets.get(ticketID);
+    }
+
+    public void removeTicket(String ticketID) {
+        tickets.remove(ticketID);
+    }
+
+    public Map<String, Ticket> getTickets() {
+        return tickets;
+    }
+
     /**
      * Create a new ticket for the user.
      * @param ticketID Ticket ID.
@@ -76,16 +89,16 @@ public abstract class User implements IUser {
      * @return Message indicating the result of the operation.
      */
     public String addProductToTicket(String ticketID, int productID, int amount, ProductService productService) {
-        String message;
-        Ticket existingTicket = tickets.get(ticketID);
-        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSE) {
-            message = ErrorMessageHandler.getUSE_CLOSED_TICKET();
-        } else if (existingTicket != null) {
-            message = existingTicket.addProductToTicket(productID, amount, productService);
-        } else {
-            message = ErrorMessageHandler.getTicketDoesntExist();
+        Ticket ticket = tickets.get(ticketID);
+        if (ticket == null) {
+            return ErrorMessageHandler.getTicketDoesntExist();
         }
-        return message;
+
+        if (ticket.getStatus() == TicketStatus.CLOSE) {
+            return ErrorMessageHandler.getUSE_CLOSED_TICKET();
+        }
+
+        return ticket.addProductToTicket(productID, amount, productService);
     }
 
     /**
@@ -99,27 +112,15 @@ public abstract class User implements IUser {
      * @return Message indicating the result of the operation.
      */
     public String addProductToTicket(String ticketID, int productID, int amount, String[] personalizableTexts, ProductService productService) {
-        String message;
-        Ticket existingTicket = tickets.get(ticketID);
-        if (existingTicket != null && existingTicket.getStatus() == TicketStatus.CLOSE) {
-            message = ErrorMessageHandler.getUSE_CLOSED_TICKET();
-        } else if (existingTicket != null) {
-            message = existingTicket.addProductToTicket(productID, amount, personalizableTexts, productService);
-        } else {
-            message = ErrorMessageHandler.getTicketDoesntExist();
+        Ticket ticket = tickets.get(ticketID);
+        if (ticket == null) {
+            return ErrorMessageHandler.getTicketDoesntExist();
         }
-        return message;
-    }
 
-    public Ticket getTicket(String ticketID) {
-        return tickets.get(ticketID);
-    }
+        if (ticket.getStatus() == TicketStatus.CLOSE) {
+            return ErrorMessageHandler.getUSE_CLOSED_TICKET();
+        }
 
-    public void removeTicket(String ticketID) {
-        tickets.remove(ticketID);
-    }
-
-    public HashMap<String, Ticket> getTickets() {
-        return tickets;
+        return ticket.addProductToTicket(productID, amount, personalizableTexts, productService);
     }
 }
