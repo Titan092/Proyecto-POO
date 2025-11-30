@@ -22,7 +22,7 @@ public class UserService {
         this.numCash = 0;
     }
 
-    public Map<String, IUser> getUsers() {
+    public HashMap<String, IUser> getUsers() {
         return users;
     }
 

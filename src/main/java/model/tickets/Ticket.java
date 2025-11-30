@@ -172,16 +172,16 @@ public class Ticket {
             if (product instanceof BaseProduct categorizableProduct && counts.get(categorizableProduct.getCategory()) >= 2) {
                 float productDiscount = categorizableProduct.getPrice() * categorizableProduct.getCategory().getDiscount();
                 totalDiscount += productDiscount;
-                string.append(" **discount -%.1f%n".formatted(productDiscount));
+                string.append(" **discount -%.2f%n".formatted(productDiscount));
             } else {
                 string.append("\n");
             }
         }
 
         float finalPrice = totalPrice - totalDiscount;
-        string.append("  ").append("Total price: %.1f%n".formatted(totalPrice));
-        string.append("  ").append("Total discount: %.1f%n".formatted(totalDiscount));
-        string.append("  ").append("Final Price: %.1f%n".formatted(finalPrice));
+        string.append("  ").append("Total price: %.2f%n".formatted(totalPrice));
+        string.append("  ").append("Total discount: %.2f%n".formatted(totalDiscount));
+        string.append("  ").append("Final Price: %.2f%n".formatted(finalPrice));
 
         return string.toString();
     }

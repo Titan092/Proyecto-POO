@@ -6,7 +6,6 @@ import model.tickets.Ticket;
 import model.tickets.TicketStatus;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Abstract class representing a user.
@@ -63,7 +62,7 @@ public abstract class User implements IUser {
         tickets.remove(ticketID);
     }
 
-    public Map<String, Ticket> getTickets() {
+    public HashMap<String, Ticket> getTickets() {
         return tickets;
     }
 
