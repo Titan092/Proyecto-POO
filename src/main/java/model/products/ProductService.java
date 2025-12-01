@@ -160,11 +160,11 @@ public class ProductService {
             return ErrorMessageHandler.getEXISTINGID();
         }
         if (products.size() >= MAX_QUANTITY) {
-            return "Can't add more products.";
+            return "Can't add more products.\n";
         }
         LocalDate threshold = LocalDate.now().plusDays(3);
         if (date.isBefore(threshold)) {
-            return "Foods' dates must be set three days after the date it's added.";
+            return "Foods' dates must be set three days after the date it's added.\n";
         }
         Food food = new Food(id, name, price, date, maxPeople);
         products.put(id, food);
@@ -211,11 +211,12 @@ public class ProductService {
             return ErrorMessageHandler.getEXISTINGID();
         }
         if (products.size() >= MAX_QUANTITY) {
-            return "Can't add more products.";
+            return "Can't add more products.\n";
         }
-        LocalDate threshold = LocalDate.now().plusDays(1);
-        if (date.isBefore(threshold)) {
-            return "Meetings' dates must be set twelve hours after the date it's added.";
+        LocalDateTime meetingStartTime = date.atStartOfDay();
+        LocalDateTime threshold = LocalDateTime.now().plusHours(12);
+        if (meetingStartTime.isBefore(threshold)) {
+            return "Meetings' dates must be set twelve hours after the date it's added.\n";
         }
         Meeting meeting = new Meeting(id, name, price, date, maxPeople);
         products.put(id, meeting);
