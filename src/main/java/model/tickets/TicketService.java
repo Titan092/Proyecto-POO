@@ -77,14 +77,13 @@ public class TicketService {
         if (cashID.length() != 9 && cashID.charAt(0) != 'U') {
             return "The cashID is not valid";
         }
-
-        Map<String, IUser> users = userService.getUsers();
+        HashMap<String, IUser> users = userService.getUsers();
         if (!users.containsKey(cashID)) {
             return "No cashier found";
         }
         Cash cashier = (Cash) users.get(cashID);
         if (!cashier.getTickets().containsKey(ticketID)) {
-            return "This worker did not create the ticket with this id";
+            return "This worker did not create the ticket with this id"; //only the creator of the ticket add products to the ticket
         }
 
         // print means a successful add, otherwise it's an error message.
@@ -116,16 +115,17 @@ public class TicketService {
             return "The cashID is not valid";
         }
 
-        Map<String, IUser> users = userService.getUsers();
+        HashMap<String, IUser> users = userService.getUsers();
         if (!users.containsKey(cashID)) {
             return "No cashier found";
         }
+
         Cash cashier = (Cash) users.get(cashID);
         if (!cashier.getTickets().containsKey(ticketID)) {
             return "This worker did not create the ticket with this id";
         }
 
-        Map<Integer, IProduct> products = productService.getProducts();
+        HashMap<Integer, IProduct> products = productService.getProducts();
         IProduct product = products.get(productID);
         if (product == null) {
             return ErrorMessageHandler.getPRODUCTNOTEXIST();
@@ -158,7 +158,7 @@ public class TicketService {
      * @return a formatted string containing the IDs and statuses of all tickets
      */
     public String ticketList(UserService userService) {
-        Map<String, IUser> users = userService.getUsers();
+        HashMap<String, IUser> users = userService.getUsers();
         List<String> cashIDSorted = new ArrayList<>();
         for (String cashID : users.keySet()) {
             // A user is a cashier if the first letter of the user's ID is a letter (U)
@@ -173,8 +173,23 @@ public class TicketService {
         sb.append("Ticket List:\n");
         for (String cashID : cashIDSorted){
             Cash cash = (Cash) users.get(cashID);
-            Map<String, Ticket> tickets = cash.getTickets();
-            for (Ticket ticket : tickets.values()) {
+            HashMap<String, Ticket> tickets = cash.getTickets();
+            List<String> ticketIDSorted = new ArrayList<>(tickets.keySet());
+            ticketIDSorted.sort((id1, id2) -> {
+                int index1 = id1.indexOf('-');
+                int index2 = id2.indexOf('-');
+                //Selection made based on format (id1.length() for manual ID, index1 for random ID)
+                int length1 = (index1 == -1) ? id1.length() : index1;
+                int length2 = (index2 == -1) ? id2.length() : index2;
+                if (length1 != length2) {
+                    //When the IDs have different format we sort by length
+                    return Integer.compare(length1, length2);
+                }
+                //When the IDs have the same format we sort alphabetically
+                return id1.compareTo(id2);
+            });
+            for (String tid : ticketIDSorted) {
+                Ticket ticket = tickets.get(tid);
                 sb.append("  ")
                         .append(ticket.getId())
                         .append(" - ")
@@ -202,7 +217,7 @@ public class TicketService {
             return "The cashID is not valid";
         }
 
-        Map<String, IUser> users = userService.getUsers();
+        HashMap<String, IUser> users = userService.getUsers();
         if (!users.containsKey(cashID)) {
             return "No cashier found";
         }
@@ -238,7 +253,7 @@ public class TicketService {
             return "The cashID is not valid";
         }
 
-        Map<String, IUser> users = userService.getUsers();
+        HashMap<String, IUser> users = userService.getUsers();
         if (!users.containsKey(cashID)) {
             return "No cashier found";
         }

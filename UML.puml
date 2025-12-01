@@ -507,50 +507,6 @@ package model{
         }
     }
 }
-' CommandHandler
-UserCommand --> CommandHandler : uses
-ProductCommand --> CommandHandler : uses
-TicketCommand --> CommandHandler : uses
-HelpCommand --> CommandHandler : uses
-UnknownCommand --> CommandHandler : uses
-ProductService --> CommandHandler : uses
-UserService --> CommandHandler : uses
-TicketService --> CommandHandler : uses
-
-' Product commands
-ProductAddCommand --> ProductCommand : uses
-ProductAddFoodCommand --> ProductCommand : uses
-ProductAddMeetingCommand --> ProductCommand : uses
-ProductListCommand --> ProductCommand : uses
-ProductRemoveCommand --> ProductCommand : uses
-ProductUpdateCommand --> ProductCommand : uses
-
-' Ticket commands
-TicketAddCommand --> TicketCommand : uses
-TicketListCommand --> TicketCommand : uses
-TicketNewCommand --> TicketCommand : uses
-TicketPrintCommand --> TicketCommand : uses
-TicketRemoveCommand --> TicketCommand : uses
-
-' User commands
-CashCommand --> UserCommand  : uses
-CashAddCommand --> CashCommand : uses
-CashListCommand --> CashCommand : uses
-CashRemoveCommand --> CashCommand : uses
-CashTicketsCommand --> CashCommand : uses
-ClientCommand --> UserCommand  : uses
-ClientAddCommand --> ClientCommand : uses
-ClientListCommand --> ClientCommand : uses
-ClientRemoveCommand --> ClientCommand : uses
-
-' CLI
-CommandHandler --> CLI : uses
-CLI --> Shop : uses
-
-' Uses
-ProductService --> IProduct : uses
-TicketService --> Ticket : uses
-UserService --> IUser : uses
 
 ' Notes
 note top of Command
@@ -560,8 +516,57 @@ note top of ErrorMessageHandler
     Many classes use errors from this class
 end note
 
-' Cardinalidades
+' Cardinalidades y Relaciones
 
-' Ordenacion
+' CommandHandler y Command
+CommandHandler "1" *-- "1" UserCommand
+CommandHandler "1" *-- "1" ProductCommand
+CommandHandler "1" *-- "1" TicketCommand
+CommandHandler "1" *-- "1" HelpCommand
+CommandHandler "1" *-- "1" UnknownCommand
+
+' CommandHandler y Service
+CommandHandler "1" --> "1" ProductService
+CommandHandler "1" --> "1" UserService
+CommandHandler "1" --> "1" TicketService
+
+' Product Commands
+ProductCommand "1" *-- "1" ProductAddCommand
+ProductCommand "1" *-- "1" ProductAddFoodCommand
+ProductCommand "1" *-- "1" ProductAddMeetingCommand
+ProductCommand "1" *-- "1" ProductListCommand
+ProductCommand "1" *-- "1" ProductRemoveCommand
+ProductCommand "1" *-- "1" ProductUpdateCommand
+
+' Ticket Commands
+TicketCommand "1" *-- "1" TicketAddCommand
+TicketCommand "1" *-- "1" TicketListCommand
+TicketCommand "1" *-- "1" TicketNewCommand
+TicketCommand "1" *-- "1" TicketPrintCommand
+TicketCommand "1" *-- "1" TicketRemoveCommand
+
+' User Commands
+UserCommand "1" *-- "1" CashCommand
+UserCommand "1" *-- "1" ClientCommand
+
+' Cash Commands
+CashCommand "1" *-- "1" CashAddCommand
+CashCommand "1" *-- "1" CashListCommand
+CashCommand "1" *-- "1" CashRemoveCommand
+CashCommand "1" *-- "1" CashTicketsCommand
+
+' Client Commands
+ClientCommand "1" *-- "1" ClientAddCommand
+ClientCommand "1" *-- "1" ClientListCommand
+ClientCommand "1" *-- "1" ClientRemoveCommand
+
+' Estructura de la Aplicación
+CLI "1" --> "1" CommandHandler : uses
+Shop "1" ..> "1" CLI : creates
+
+' Relaciones de Datos y Cardinalidades Específicas
+ProductService "1" o-- "0..200" IProduct
+TicketService "1" ..> "0..*" Ticket : creates
+UserService "1" o-- "0..*" IUser
 
 @enduml

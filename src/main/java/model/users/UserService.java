@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class UserService {
 
-    private HashMap<String, IUser> users;
+    private final HashMap<String, IUser> users;
     private int numClients;
     private int numCash;
 
@@ -27,51 +27,49 @@ public class UserService {
     }
 
     /**
-     * Creates the client and adds it to the HashMap
-     * @param name
-     * @param dni
-     * @param email
-     * @param cashId
+     * Registers a new client.
+     *
+     * @param name   The full name of the client.
+     * @param dni    The identification number.
+     * @param email  The email address of the client.
+     * @param cashId The ID of the cashier/entity authorizing this operation.
+     * @return A success message comprising the client details, or an error message if validation fails.
      */
     public String clientAdd(String name, String dni, String email, String cashId){//Creo que aqui habria que hacer algo para lo de que los cajeros puedan ser clientes pero con otro correo
-        String message = null;
-        if (users.containsKey(cashId)){
-            if ((dni.length()==9) && Character.isAlphabetic(dni.charAt(8))){
-                if (!Character.isDigit(dni.charAt(8))){
-                    users.put(dni,new Client(name,dni,email,cashId));
-                    numClients++;
-                    message = ((Client) users.get(dni)).toString() + "client add: ok\n";
-                    //faltaria escribir en el cli --> client add: ok
-                }else{
-                    message=ErrorMessageHandler.getWRONGDNIFORMAT();
-                }
-            }else{
-                message=ErrorMessageHandler.getWRONGDNIFORMAT();
-            }
-        }else{
+        if (!users.containsKey(cashId)) {
             return "The cash does not exist";
         }
 
-        return message;
+        if ((dni.length() != 9) || !Character.isAlphabetic(dni.charAt(8))) {
+            return ErrorMessageHandler.getWRONGDNIFORMAT();
+        }
+
+        if (Character.isDigit(dni.charAt(8))) {
+            return ErrorMessageHandler.getWRONGDNIFORMAT();
+        }
+
+        Client client = new Client(name, dni, email, cashId);
+        users.put(dni, client);
+        numClients++;
+        return client + "client add: ok\n";
     }
 
     /**
-     * Delete the client with the ID passed as a parameter.
-     * @param dni
+     * Removes a client from the system based on the provided DNI.
+     *
+     * @param dni The DNi of the client.
+     * @return A status message indicating success ("client remove: ok") or the specific error.
      */
-    public String clientRemove(String dni){
-        String message;
+    public String clientRemove(String dni) {
         if (!Character.isAlphabetic(dni.charAt(8)) || dni.length() != 9){
-            message = "Invalid ID";
+            return  "Invalid ID";
         }
-        if (users.containsKey(dni)){
-            users.remove(dni);
-            numClients--;
-            message = "client remove: ok\n";
-        }else{
-            message=ErrorMessageHandler.getDNINOTEXIST();
+        if (!users.containsKey(dni)) {
+            return ErrorMessageHandler.getDNINOTEXIST();
         }
-        return message;
+        users.remove(dni);
+        numClients--;
+        return  "client remove: ok\n";
     }
 
     /**
