@@ -11,7 +11,7 @@ import java.util.Scanner;
  * It handles user input and output, and interacts with the CommandHandler to process commands.
  */
 public class CLI implements IController {
-    public static  Scanner s;
+    public Scanner s;
     private final String PROMPT = "tUPM> ";
 
 
@@ -19,7 +19,7 @@ public class CLI implements IController {
      * Prints a message to the standard output.
      * @param message
      */
-    public static void printMessage(String message){
+    public void printMessage(String message){
         System.out.println(message);
     }
 
@@ -27,28 +27,28 @@ public class CLI implements IController {
      * Prints an error message to the standard error output.
      * @param errorMessage
      */
-    public static void printError(String errorMessage){
+    public void printError(String errorMessage){
         System.err.println(errorMessage);
     }
     /**
      * Reads a command from the standard input.
      * @return The command as a String.
      */
-    public static String readCommand(){
+    public String readCommand(){
         return s.nextLine();
     }
     /**
      * Prints a prompt to the standard output.
      * @param prompt
      */
-    public static void printPrompt(String prompt){
+    public void printPrompt(String prompt){
         System.out.print(prompt);
     }
     /**
      * Prints the command if the input is from a file.
      * @param command
      */
-    public static void printIfIsFileInput(String command){
+    public void printIfIsFileInput(String command){
         if(System.in instanceof java.io.FileInputStream){
             System.out.println(command);
         }
@@ -81,7 +81,7 @@ public class CLI implements IController {
                 System.out.println(commandHandler.end());
                 file.close();
             }catch (IOException e) {
-                CLI.printError("Error: "+e);
+                printError("Error: "+e);
             }
         }else{
             s=new Scanner(System.in);
@@ -97,11 +97,11 @@ public class CLI implements IController {
     private void mainLoop(CommandHandler commandHandler){
         boolean continues = true;
         while(continues) {
-            CLI.printPrompt(PROMPT);
+            printPrompt(PROMPT);
             //This part is to differentiate between interactive and non-interactive mode (in the tests)
             //All this is for cleaner output in the tests
-            String command = CLI.readCommand();
-            CLI.printIfIsFileInput(command);
+            String command = readCommand();
+            printIfIsFileInput(command);
             String[] commandUni = command.split(" ");
             Command activeCommand;
             switch (commandUni[0]){
@@ -123,7 +123,7 @@ public class CLI implements IController {
      */
     protected void echo(String message){
         String cleanedMessage=message.replaceFirst("echo ","");
-        CLI.printMessage(cleanedMessage+" \n");
+        printMessage(cleanedMessage+" \n");
     }
 
 }
