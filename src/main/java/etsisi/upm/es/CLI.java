@@ -14,12 +14,6 @@ public class CLI implements IController {
     public static  Scanner s;
     private final String PROMPT = "tUPM> ";
 
-    /**
-     * Constructor initializes the scanner for user input.
-     */
-    public CLI(){
-        s=new Scanner(System.in);
-    }
 
     /**
      * Prints a message to the standard output.
@@ -89,6 +83,7 @@ public class CLI implements IController {
                 CLI.printError("Error: "+e);
             }
         }else{
+            s=new Scanner(System.in);
             System.out.println(commandHandler.init());
             mainLoop(commandHandler);
             System.out.println(commandHandler.end());

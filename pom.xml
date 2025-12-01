@@ -76,7 +76,7 @@
           <configuration>
           <archive>
             <manifest>
-              <mainClass>com.etsisi.upm.es.Shop</mainClass>
+              <mainClass>etsisi.upm.es.Shop</mainClass>
             </manifest>
           </archive>
           </configuration>
