@@ -75,6 +75,7 @@ public class CLI implements IController {
             try{
                 FileInputStream file=new FileInputStream(filePath);
                 System.setIn(file);
+                s=new Scanner(System.in);
                 System.out.println(commandHandler.init());
                 mainLoop(commandHandler);
                 System.out.println(commandHandler.end());
