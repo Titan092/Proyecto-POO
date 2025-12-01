@@ -3,6 +3,7 @@ package model.products;
 import exceptionHandler.ErrorMessageHandler;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -119,108 +120,107 @@ public class ProductService {
         return message;
     }
 
-    /**Command for Food with random ID
+    /**
+     * Adds a new Food product with a randomly generated 7-digit ID.
      *
-     * @param name
-     * @param price
-     * @param date
-     * @param maxPeople
-     * @return
+     * @param name      The name of the food.
+     * @param price     The price of the food.
+     * @param date      The expiration or relevant date.
+     * @param maxPeople The maximum number of people suggested for this food.
+     * @return A status message indicating success or a specific error message.
      */
-    public String prodAddFood(String name, float price, LocalDate date, int maxPeople){
-        String message;
-        if (maxPeople > 100) {
-            message = ErrorMessageHandler.getMaxPeopleErrorFood() + "\n";
-        }
+    public String prodAddFood(String name, float price, LocalDate date, int maxPeople) {
         int id;
-        do{
-            id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
-        }while(products.containsKey(id));
-        products.put(id,new Food(id,name,price,date,maxPeople));
-        numProducts++;
-        message = ((Food) products.get(id)).toString() + "\nprod addFood: ok\n";
-        return message;
+        do {
+            id = (int) (Math.random() * (9999999-1000000+1)) + 1000000; //7 digits ID
+        } while (products.containsKey(id));
+
+        return prodAddFood(id, name, price, date, maxPeople);
     }
 
-    /**Command for Food with explicit ID
+    /**
+     * Adds a new Food product with a specific ID.
+     * Validates ID, max people, uniqueness, and storage capacity.
      *
-     * @param id
-     * @param name
-     * @param price
-     * @param date
-     * @param maxPeople
-     * @return
+     * @param id        The unique identifier for the food.
+     * @param name      The name of the food.
+     * @param price     The price of the food.
+     * @param date      The expiration or relevant date.
+     * @param maxPeople The maximum number of people suggested for this food.
+     * @return A status message indicating success, or an error message if validation fails.
      */
-    public String prodAddFood(int id, String name, float price, LocalDate date, int maxPeople){
-        String message=null;
-        if (id<0){
-            message=ErrorMessageHandler.getWRONGID();
-        } else if (maxPeople > 100) {
-            message=ErrorMessageHandler.getMaxPeopleErrorFood() + "\n";
-        } else{
-            if (!products.containsKey(id)){
-                if (products.size()<MAX_QUANTITY){
-                    products.put(id,new Food(id,name,price,date,maxPeople));
-                    numProducts++;
-                    message = ((Food) products.get(id)).toString() + "\nprod addFood: ok\n";
-                }
-            }else{
-                message=ErrorMessageHandler.getEXISTINGID();
-            }
+    public String prodAddFood(int id, String name, float price, LocalDate date, int maxPeople) {
+        if (id < 0) {
+            return ErrorMessageHandler.getWRONGID();
         }
-        return message;
-    }
-
-    /**Command for Meeting with random ID
-     *
-     * @param name
-     * @param price
-     * @param date
-     * @param maxPeople
-     * @return
-     */
-    public String prodAddMeeting(String name, float price, LocalDate date, int maxPeople){
-        String message;
         if (maxPeople > 100) {
-            message = ErrorMessageHandler.getMaxPeopleErrorMeeting() + "\n";
+            return ErrorMessageHandler.getMaxPeopleErrorFood() + "\n";
         }
-        int id;
-        do{
-            id = (int) (Math.random() * (9999999-1000000+1)) +1000000; //7 digits ID
-        } while(products.containsKey(id));
-        products.put(id,new Meeting(id,name,price,date,maxPeople));
+        if (products.containsKey(id)) {
+            return ErrorMessageHandler.getEXISTINGID();
+        }
+        if (products.size() >= MAX_QUANTITY) {
+            return "Can't add more products.";
+        }
+        LocalDate threshold = LocalDate.now().plusDays(3);
+        if (date.isBefore(threshold)) {
+            return "Foods' dates must be set three days after the date it's added.";
+        }
+        Food food = new Food(id, name, price, date, maxPeople);
+        products.put(id, food);
         numProducts++;
-        message = ((Meeting) products.get(id)).toString() + "\nprod addMeeting: ok\n";
-        return message;
+        return food + "\nprod addFood: ok\n";
     }
 
-    /**Command for Meeting with explicit ID
+    /**
+     * Adds a new Meeting product with a randomly generated 7-digit ID.
      *
-     * @param id
-     * @param name
-     * @param price
-     * @param date
-     * @param maxPeople
-     * @return
+     * @param name      The name of the meeting.
+     * @param price     The price of the meeting.
+     * @param date      The expiration or relevant date.
+     * @param maxPeople The maximum number of people suggested for this meeting.
+     * @return A status message indicating success or a specific error message.
      */
-    public String prodAddMeeting(int id, String name, float price, LocalDate date, int maxPeople){
-        String message=null;
-        if (id<0){
-            message=ErrorMessageHandler.getWRONGID();
-        } else if (maxPeople > 100) {
-            message=ErrorMessageHandler.getMaxPeopleErrorMeeting() + "\n";
-        } else{
-            if (!products.containsKey(id)){
-                if (products.size()<MAX_QUANTITY){
-                    products.put(id,new Meeting(id,name,price,date,maxPeople));
-                    numProducts++;
-                    message = ((Meeting) products.get(id)).toString() + "\nprod addMeeting: ok\n";
-                }
-            }else{
-                message=ErrorMessageHandler.getEXISTINGID();
-            }
+    public String prodAddMeeting(String name, float price, LocalDate date, int maxPeople) {
+        int id;
+        do {
+            id = (int) (Math.random() * (9999999-1000000+1)) + 1000000; //7 digits ID
+        } while (products.containsKey(id));
+        return prodAddMeeting(id, name, price, date, maxPeople);
+    }
+
+    /**
+     * Adds a new Meeting product with a specific ID.
+     * Validates ID, max people, uniqueness, and storage capacity.
+     *
+     * @param id        The unique identifier for the meeting.
+     * @param name      The name of the meeting.
+     * @param price     The price of the meeting.
+     * @param date      The expiration or relevant date.
+     * @param maxPeople The maximum number of people suggested for this meeting.
+     * @return A status message indicating success, or an error message if validation fails.
+     */
+    public String prodAddMeeting(int id, String name, float price, LocalDate date, int maxPeople) {
+        if (id < 0) {
+            return ErrorMessageHandler.getWRONGID();
         }
-        return message;
+        if (maxPeople > 100) {
+            return ErrorMessageHandler.getMaxPeopleErrorMeeting() + "\n";
+        }
+        if (products.containsKey(id)) {
+            return ErrorMessageHandler.getEXISTINGID();
+        }
+        if (products.size() >= MAX_QUANTITY) {
+            return "Can't add more products.";
+        }
+        LocalDate threshold = LocalDate.now().plusDays(1);
+        if (date.isBefore(threshold)) {
+            return "Meetings' dates must be set twelve hours after the date it's added.";
+        }
+        Meeting meeting = new Meeting(id, name, price, date, maxPeople);
+        products.put(id, meeting);
+        numProducts++;
+        return meeting + "\nprod addMeeting: ok\n";
     }
 
     /**Command for updating a product
