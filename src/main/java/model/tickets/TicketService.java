@@ -8,7 +8,9 @@ import model.users.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TicketService {
@@ -46,7 +48,7 @@ public class TicketService {
         if (cashID.length() != 9 || cashID.charAt(0) != 'U') {
             return "The cashID is not valid";
         }
-        Map<String, IUser> casherLists = userService.getUsers();
+        HashMap<String, IUser> casherLists = userService.getUsers();
         Cash casher = (Cash) casherLists.get(cashID);
         Client client = (Client) casherLists.get(clientID);
 
@@ -159,7 +161,7 @@ public class TicketService {
      */
     public String ticketList(UserService userService) {
         HashMap<String, IUser> users = userService.getUsers();
-        List<String> cashIDSorted = new ArrayList<>();
+        ArrayList<String> cashIDSorted = new ArrayList<>();
         for (String cashID : users.keySet()) {
             // A user is a cashier if the first letter of the user's ID is a letter (U)
             if (Character.isAlphabetic(cashID.charAt(0))) {
@@ -174,7 +176,7 @@ public class TicketService {
         for (String cashID : cashIDSorted){
             Cash cash = (Cash) users.get(cashID);
             HashMap<String, Ticket> tickets = cash.getTickets();
-            List<String> ticketIDSorted = new ArrayList<>(tickets.keySet());
+            ArrayList<String> ticketIDSorted = new ArrayList<>(tickets.keySet());
             ticketIDSorted.sort((id1, id2) -> {
                 int index1 = id1.indexOf('-');
                 int index2 = id2.indexOf('-');

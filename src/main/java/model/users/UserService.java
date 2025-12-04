@@ -3,7 +3,11 @@ package model.users;
 import exceptionHandler.ErrorMessageHandler;
 import model.tickets.Ticket;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -79,7 +83,7 @@ public class UserService {
         StringBuffer sb = new StringBuffer();
         sb.append("Client:\n");
         //Put the name and Dni in a list
-        List<String> clientNamesAndDni = new ArrayList<>();
+        ArrayList<String> clientNamesAndDni = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
           if (!Character.isDigit(entry.getKey().charAt(8))){ //if last character is not a number its a dni, so its a client
               String nameAndDni = (entry.getValue().getName())+" "+(entry.getValue().getId());
@@ -171,7 +175,7 @@ public class UserService {
         StringBuffer sb = new StringBuffer();
         sb.append("Cash:\n");
         //Put the name and the cashId in a list
-        List<String> cashNameAndId = new ArrayList<>();
+        ArrayList<String> cashNameAndId = new ArrayList<>();
         for (Map.Entry<String, IUser> entry : users.entrySet()){
             if (Character.isAlphabetic(entry.getKey().charAt(0))){//if the first character is alphabetic (U from UW) is a chash
                 String nameAndCashId = (entry.getValue().getName())+" "+ (entry.getValue().getId());
