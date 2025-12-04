@@ -1,6 +1,7 @@
 package commands.main.product;
 
 import commands.Command;
+import exceptionHandler.ErrorMessageHandler;
 import model.products.Category;
 import model.products.ProductService;
 
@@ -34,7 +35,13 @@ public class ProductAddCommand extends Command {
                     id = Integer.parseInt(m.group(1));
                 }
                 String name = m.group(2);
-                Category category = Category.valueOf(m.group(3).toUpperCase());
+                Category category;
+                try {
+                    category = Category.valueOf(m.group(3).toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    this.setMessage(ErrorMessageHandler.getVALIDCATEGORY());
+                    return true;
+                }
                 float price =Float.parseFloat(m.group(4));
                 int maxPers =0;
                 if(m.group(5)!=null){
