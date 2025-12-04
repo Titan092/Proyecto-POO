@@ -3,7 +3,13 @@ package model.tickets;
 import exceptionHandler.ErrorMessageHandler;
 import model.products.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.EnumMap;
+import java.util.Map;
+
+
 
 public class Ticket {
     private String id;
@@ -83,6 +89,7 @@ public class Ticket {
         }
         return "print";
     }
+
     /**
      * Adds an amount of the indicated custom product with its id passed as a parameter.
      * @param productID Unique ID of the products.
@@ -141,7 +148,6 @@ public class Ticket {
 
     /**
      * Generates a formatted string representation of the ticket.
-     * <p>
      * This method lists all products, calculates applicable discounts based on
      * product categories (requires 2 or more items of the same category), and
      * computes the total, discount, and final prices.

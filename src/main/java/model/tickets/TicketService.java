@@ -239,7 +239,6 @@ public class TicketService {
 
     /**
      * Closes an open ticket and generates a print output string.
-     * <p>
      * If the ticket is open, this method updates the ticket ID with a timestamp,
      * changes the status to CLOSE, and returns the formatted receipt.
      * If the ticket is already closed, it returns the existing receipt without modification.
