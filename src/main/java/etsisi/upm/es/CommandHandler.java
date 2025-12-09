@@ -26,10 +26,10 @@ public class CommandHandler {
     // float: "\d+\.\d+" (number with decimals, ex: 12.34)
     // boolean: "true|false"
 
-    private ProductService productService;
-    private TicketService tickets;
-    private UserService users;
-    private List<Command> commands;
+    protected ProductService productService;
+    protected TicketService tickets;
+    protected UserService users;
+    protected List<Command> commands;
 
 
     /**
