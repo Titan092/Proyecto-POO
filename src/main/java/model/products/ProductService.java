@@ -1,5 +1,6 @@
 package model.products;
 
+import etsisi.upm.es.PersistanceManager;
 import exceptionHandler.ErrorMessageHandler;
 
 import java.time.LocalDate;
@@ -22,8 +23,8 @@ public class ProductService {
      * Constructor for ProductService.
      */
     public ProductService(){//Relacion agregación
-        this.products = new HashMap<>();
-        this.numProducts = 0;
+        this.products = PersistanceManager.loadProducts();
+        this.numProducts = products.size();
     }
 
     /**Command for baseProduct with random ID

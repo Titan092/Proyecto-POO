@@ -1,5 +1,6 @@
 package model.users;
 
+import etsisi.upm.es.PersistanceManager;
 import exceptionHandler.ErrorMessageHandler;
 import model.tickets.Ticket;
 
@@ -21,9 +22,19 @@ public class UserService {
      * UserService constructor
      */
     public UserService(){
-        this.users = new HashMap<>();
+        this.users = PersistanceManager.loadUsers();
         this.numClients = 0;
         this.numCash = 0;
+        if(users.size()>0){
+            for (Map.Entry<String, IUser> entry : users.entrySet()){
+                if (Character.isDigit(entry.getKey().charAt(8))){ //if last character is a number its a dni, so its a client
+                    numClients++;
+                }else{
+                    numCash++;
+                }
+            }
+        }
+
     }
 
     public HashMap<String, IUser> getUsers() {
