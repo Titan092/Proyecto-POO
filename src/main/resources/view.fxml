@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="etsisi.upm.es.JavaFXGuiDemo"
+            prefHeight="800.0" prefWidth="1200.0">
+
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+
+    <center>
+        <VBox spacing="10">
+            <Label styleClass="header-label" text="Catálogo Visual de Productos" />
+
+            <ScrollPane fitToWidth="true" pannable="true" VBox.vgrow="ALWAYS" style="-fx-background-color:transparent;">
+                <content>
+                    <FlowPane fx:id="productsContainer" hgap="15" vgap="15" style="-fx-background-color: #f4f4f4;">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </FlowPane>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+
+    <right>
+        <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefWidth="450.0" BorderPane.alignment="CENTER">
+
+            <TabPane tabClosingPolicy="UNAVAILABLE">
+                <tabs>
+                    <Tab text="Ticket Actual">
+                        <TextArea fx:id="ticketView" editable="false" styleClass="ticket-area" wrapText="false" />
+                    </Tab>
+                    <Tab text="Usuarios / Cajas">
+                        <TextArea text="Información de usuarios..." editable="false" />
+                    </Tab>
+                </tabs>
+            </TabPane>
+
+            <VBox spacing="5" style="-fx-padding: 10;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Terminal de Comandos" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#loadScriptAction" text="📂 Cargar Script" />
+                </HBox>
+
+                <TextArea fx:id="terminalOutput" editable="false" styleClass="terminal-area" VBox.vgrow="ALWAYS" />
+
+                <TextField fx:id="commandInput" onAction="#onCommandEntered" promptText="Escribe comando (ej: prod list)..." styleClass="command-input" />
+            </VBox>
+
+        </SplitPane>
+    </right>
+</BorderPane>

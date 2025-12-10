@@ -1,0 +1,79 @@
+/* styles.css */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+/* --- TÍTULOS --- */
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 0 0 10 0;
+}
+
+/* --- TARJETAS DE PRODUCTO --- */
+.product-card {
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-alignment: center-left;
+    -fx-spacing: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-min-width: 200px;
+    -fx-min-height: 160px;
+}
+
+/* Variantes de color por tipo */
+.card-standard { -fx-background-color: #87CEFA; } /* Azul */
+.card-food     { -fx-background-color: #98FB98; } /* Verde */
+.card-event    { -fx-background-color: #FFD700; } /* Dorado */
+.card-custom   { -fx-background-color: #DDA0DD; } /* Morado */
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222;
+}
+
+.card-category {
+    -fx-background-color: rgba(255,255,255,0.6);
+    -fx-padding: 2 6;
+    -fx-background-radius: 4;
+    -fx-font-size: 11px;
+}
+
+.card-price {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444;
+}
+
+.card-button {
+    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-text-fill: #333;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+}
+.card-button:hover {
+    -fx-background-color: rgba(0,0,0,0.2);
+}
+
+/* --- TERMINAL --- */
+.terminal-area .content {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #00ff00;
+    -fx-font-family: 'Consolas', 'Monospaced';
+    -fx-font-size: 13px;
+}
+
+.command-input {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-font-family: 'Consolas', 'Monospaced';
+    -fx-border-color: #555;
+}
+
+.ticket-area {
+    -fx-font-family: 'Consolas', 'Monospaced';
+    -fx-font-size: 12px;
+}
