@@ -32,7 +32,6 @@ public class UserService {
 
     /**
      * Registers a new client.
-     *
      * @param name   The full name of the client.
      * @param dni    The identification number.
      * @param email  The email address of the client.
@@ -106,6 +105,7 @@ public class UserService {
 
     /**
      * Creates the cash with a random cash ID and adds it to the HashMap
+     *
      * @param name
      * @param email
      */
@@ -125,6 +125,7 @@ public class UserService {
 
     /**
      * Creates the cash and adds it to the HashMap
+     *
      * @param cashId
      * @param name
      * @param email
@@ -148,6 +149,7 @@ public class UserService {
 
     /**
      * Delete the cash with the ID passed as a parameter.
+     *
      * @param cashId
      */
     public String cashRemove(String cashId){
@@ -200,6 +202,7 @@ public class UserService {
 
     /**
      * Prints the tickets created by the cashier with the ID passed as a parameter, sorted by ticket ID and status.
+     *
      * @param cashId
      */
     public String cashTickets(String cashId){
