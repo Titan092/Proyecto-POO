@@ -67,6 +67,8 @@ public class CommandHandler {
         for (Command cmd:commands) {
             found=cmd.apply(commandUni);
             if(found){
+                PersistanceManager.saveProducts(productService.getProducts());
+                PersistanceManager.saveUsers(users.getUsers());
                 return cmd;
             }
         }
