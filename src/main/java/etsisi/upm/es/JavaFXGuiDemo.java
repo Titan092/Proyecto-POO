@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.products.Food;
+import model.products.IProduct;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,8 +67,7 @@ public class JavaFXGuiDemo extends Application {
 
         // Cargar datos de prueba iniciales
         runInternalCommand("prod add 1 \"Libro Java\" BOOK 25");
-        runInternalCommand("prod addFood 2 \"Pizza\" 10 2025-12-01 50");
-        runInternalCommand("prod addMeeting 3 \"Tech Conf\" 5 2025-12-01 100");
+
 
         refreshProductCards();
     }
@@ -140,11 +141,21 @@ public class JavaFXGuiDemo extends Application {
     private void refreshProductCards() {
         productsContainer.getChildren().clear();
 
-        // -- SIMULACIÓN DE DATOS (Conecta esto con commandHandler.getProductService()...) --
-        createCard(1, "Libro Java", "BOOK", "25.0 €", "card-standard");
-        createCard(2, "Pizza Carbonara", "FOOD", "10.0 €", "card-food");
-        createCard(3, "Conferencia Tech", "MEETING", "5.0 €", "card-event");
-        createCard(4, "Sudadera UPM", "CLOTHES", "40.0 €", "card-custom");
+        for(IProduct product: commandHandler.productService.getProducts().values()) {
+            if(product instanceof model.products.Food) {
+                Food food = (Food) product;
+                createCard(food.getId(), food.getName(), "FOOD", food.getPrice() + " €", "card-food");
+            } else if(product instanceof model.products.EventProduct) {
+                model.products.EventProduct event = (model.products.EventProduct) product;
+                createCard(event.getId(), event.getName(), "MEETING", event.getPrice() + " €", "card-event");
+            } else if(product instanceof model.products.CustomProduct) {
+                model.products.CustomProduct custom = (model.products.CustomProduct) product;
+                createCard(custom.getId(), custom.getName(), "CLOTHES", custom.getPrice() + " €", "card-custom");
+            } else {
+                createCard(product.getId(), product.getName(), "BOOK", product.getPrice() + " €", "card-standard");
+            }
+        }
+
     }
 
     private void createCard(int id, String name, String category, String price, String cssClass) {
